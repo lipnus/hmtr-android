@@ -11,7 +11,7 @@ import android.widget.Toast;
 import java.util.HashMap;
 
 import lipnus.com.hmtr.R;
-import lipnus.com.hmtr.retro.ResponseBody.GroupExistGet;
+import lipnus.com.hmtr.retro.ResponseBody.GroupExist;
 
 
 public class RetrofitActivity extends AppCompatActivity {
@@ -60,7 +60,7 @@ public class RetrofitActivity extends AppCompatActivity {
 
             @Override
             public void onSuccess(int code, Object receivedData) {
-                GroupExistGet data = (GroupExistGet)receivedData;
+                GroupExist data = (GroupExist)receivedData;
 
                 codeResult = String.valueOf(code);
                 idResult = String.valueOf(data.result);

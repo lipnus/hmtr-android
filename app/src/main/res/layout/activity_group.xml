@@ -7,14 +7,19 @@
 
 
     <TextView
+        android:id="@+id/group_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="설문코드를 입력해주세요"/>
 
 
     <EditText
+        android:id="@+id/group_et"
         android:layout_width="200dp"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:singleLine = "true"
+        android:lines = "1" />
 
     <Button
         android:onClick="onClick_group"

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="30dp"
+    android:gravity="center_horizontal">
+
+
+    <TextView
+        android:layout_marginBottom="200dp"
+        android:layout_gravity="center"
+        android:id="@+id/welcome_script_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""/>
+
+
+    <ImageView
+        android:layout_gravity="center"
+        android:id="@+id/welcome_charactor_iv"
+        android:layout_width="170dp"
+        android:layout_height="240dp" />
+
+    <Button
+        android:visibility="invisible"
+        android:id="@+id/welcome_btn"
+        android:layout_marginTop="190dp"
+        android:layout_gravity="center"
+        android:onClick="onClick_welcome"
+        android:layout_width="220dp"
+        android:layout_height="50dp"/>
+
+</FrameLayout>

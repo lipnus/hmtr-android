@@ -34,7 +34,6 @@
                 android:onClick="onclick_chat_send"
                 android:layout_width="50dp"
                 android:layout_height="50dp" />
-
         </LinearLayout>
 
         <Button
@@ -46,8 +45,6 @@
             android:onClick="onClick_chat2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-
     </LinearLayout>
-
 
 </LinearLayout>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/profile_group_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:layout_marginTop="20dp"
+        android:id="@+id/profile_name_et"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:singleLine = "true"
+        android:lines = "1"
+        android:hint="이름" />
+
+    <EditText
+        android:layout_marginTop="20dp"
+        android:id="@+id/profile_birth_et"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:singleLine = "true"
+        android:lines = "1"
+        android:hint="생년월일 ex)990213"/>
+
+    <EditText
+        android:layout_marginTop="20dp"
+        android:id="@+id/profile_phone_et"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:singleLine = "true"
+        android:lines = "1"
+        android:hint="전화번호"/>
+
+    <EditText
+        android:layout_marginTop="20dp"
+        android:id="@+id/profile_email_et"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:singleLine = "true"
+        android:lines = "1"
+        android:hint="이메일"/>
+
+    <LinearLayout
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="#909090"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="개인정보 수집방침에 동의합니다 [내용전체보기]"/>
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_marginTop="30dp"
+        android:id="@+id/profile_result_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:layout_marginTop="50dp"
+        android:text="검사 시작하기"
+        android:onClick="onClick_profile_start"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"/>
+
+
+</LinearLayout>

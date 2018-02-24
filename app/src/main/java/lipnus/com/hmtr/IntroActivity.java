@@ -12,6 +12,8 @@ public class IntroActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
 
+        //스플래쉬 스크린 역할
+
         //버전체크 & 설문중이었는지 확인
 
     }

@@ -6,8 +6,8 @@ import android.util.Log;
 
 import java.util.HashMap;
 
-import lipnus.com.hmtr.retro.ResponseBody.GroupExistGet;
-import lipnus.com.hmtr.retro.ResponseBody.ResponseGet;
+import lipnus.com.hmtr.retro.ResponseBody.GroupExist;
+import lipnus.com.hmtr.retro.ResponseBody.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -62,9 +62,9 @@ public class RetroClient {
 
 
     public void postFirst(HashMap<String, Object> parameters, final RetroCallback callback) {
-        apiService.postFirst(parameters).enqueue(new Callback<GroupExistGet>() {
+        apiService.postGroup(parameters).enqueue(new Callback<GroupExist>() {
             @Override
-            public void onResponse(Call<GroupExistGet> call, Response<GroupExistGet> response) {
+            public void onResponse(Call<GroupExist> call, Response<GroupExist> response) {
                 if (response.isSuccessful()) {
                     Log.e("VOVO", "받은내용: " + response.body());
                     callback.onSuccess(response.code(), response.body());
@@ -74,7 +74,45 @@ public class RetroClient {
             }
 
             @Override
-            public void onFailure(Call<GroupExistGet> call, Throwable t) {
+            public void onFailure(Call<GroupExist> call, Throwable t) {
+                callback.onError(t);
+            }
+        });
+    }
+
+    public void postGroup (HashMap<String, Object> parameters, final RetroCallback callback) {
+        apiService.postGroup(parameters).enqueue(new Callback<GroupExist>() {
+            @Override
+            public void onResponse(Call<GroupExist> call, Response<GroupExist> response) {
+                if (response.isSuccessful()) {
+                    Log.e("VOVO", "받은내용: " + response.body());
+                    callback.onSuccess(response.code(), response.body());
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GroupExist> call, Throwable t) {
+                callback.onError(t);
+            }
+        });
+    }
+
+    public void postUser (HashMap<String, Object> parameters, final RetroCallback callback) {
+        apiService.postUser(parameters).enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (response.isSuccessful()) {
+                    Log.e("VOVO", "받은내용: " + response.body());
+                    callback.onSuccess(response.code(), response.body());
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
                 callback.onError(t);
             }
         });
