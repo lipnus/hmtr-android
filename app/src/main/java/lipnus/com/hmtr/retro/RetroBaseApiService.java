@@ -3,6 +3,7 @@ package lipnus.com.hmtr.retro;
 
 import java.util.HashMap;
 
+import lipnus.com.hmtr.retro.ResponseBody.ChattingBasic;
 import lipnus.com.hmtr.retro.ResponseBody.GroupExist;
 import lipnus.com.hmtr.retro.ResponseBody.User;
 import retrofit2.Call;
@@ -24,7 +25,15 @@ public interface RetroBaseApiService {
     Call<GroupExist> postGroup(@FieldMap HashMap<String, Object> parameters);
 
 
+    //사용자등록
     @POST("/android/user")
     Call<User> postUser(@Body HashMap<String, Object> parameters);
+
+
+    //기본인적사항
+    @POST("/android/chat_basicinfo")
+    Call<ChattingBasic> postBasic(@Body HashMap<String, Object> parameters);
+
+
 
 }

@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
-        <activity android:name=".WelcomeActivity">
+        <activity android:name=".IntroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,7 +24,7 @@
          <activity android:name=".GroupActivity"></activity>
         <activity android:name=".chatting.ChatActivity" />
         <activity android:name=".UserActivity" />
-        <!--<activity android:name=".WelcomeActivity"></activity>-->
+        <activity android:name=".WelcomeActivity"></activity>
     </application>
 
 </manifest>

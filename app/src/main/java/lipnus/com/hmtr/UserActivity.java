@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.HashMap;
 
@@ -96,8 +95,6 @@ public class UserActivity extends AppCompatActivity {
     }
 
     public void postUser(){
-
-        Toast.makeText(getApplicationContext(), "유저확인", Toast.LENGTH_LONG).show();
 
         String group_name = groupName;
         String user_name = nameEt.getText().toString();

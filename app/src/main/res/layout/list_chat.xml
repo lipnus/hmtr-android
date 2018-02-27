@@ -40,6 +40,7 @@
         <TextView
             android:layout_gravity="bottom"
             android:layout_marginLeft="5dp"
+            android:textSize="8dp"
             android:id="@+id/chat_npc_date_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -58,6 +59,7 @@
 
 
         <TextView
+            android:textSize="8dp"
             android:layout_gravity="right|bottom"
             android:id="@+id/chat_user_date_tv"
             android:layout_width="wrap_content"

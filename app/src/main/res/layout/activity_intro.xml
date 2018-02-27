@@ -12,9 +12,27 @@
         android:text="IntroAcvitivy"/>
 
 
+
     <Button
-        android:onClick="onClick_intro"
+        android:layout_marginTop="50dp"
+        android:onClick="onClick_intro_group"
         android:layout_width="100dp"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="그룹체크"/>
+
+    <Button
+        android:layout_marginTop="50dp"
+        android:onClick="onClick_intro_welcome"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="설문 도입부"/>
+
+    <Button
+        android:layout_marginTop="50dp"
+        android:onClick="onClick_intro_chat"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="채팅"/>
+
 
 </LinearLayout>

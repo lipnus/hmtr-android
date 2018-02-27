@@ -16,35 +16,57 @@
     <!--입력창-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="300dp"
         android:background="#909090"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
 
             <TextView
-                android:background="#a3a3"
+                android:id="@+id/answer_inputchat_tv"
+                android:background="#a0a0a0"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text=""/>
 
             <Button
-                android:onClick="onclick_chat_send"
+                android:onClick="onClick_chat_send"
                 android:layout_width="50dp"
                 android:layout_height="50dp" />
         </LinearLayout>
 
-        <Button
-            android:onClick="onClick_chat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="horizontal">-->
 
-        <Button
-            android:onClick="onClick_chat2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            <!--<Button-->
+                <!--android:onClick="onClick_chat"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content" />-->
+
+            <!--<Button-->
+                <!--android:onClick="onClick_chat2"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content" />-->
+
+            <!--<Button-->
+                <!--android:onClick="onClick_chat3"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content" />-->
+        <!--</LinearLayout>-->
+
+        <ListView
+            android:id="@+id/answer_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </ListView>
+
     </LinearLayout>
 
 </LinearLayout>

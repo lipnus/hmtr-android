@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import lipnus.com.hmtr.chatting.ChatActivity;
+
 public class IntroActivity extends AppCompatActivity {
 
     @Override
@@ -18,9 +20,24 @@ public class IntroActivity extends AppCompatActivity {
 
     }
 
-    public void onClick_intro(View v){
+    public void onClick_intro_group(View v){
 
         Intent intent = new Intent(getApplicationContext(),GroupActivity.class);
         startActivity(intent);
     }
+
+
+    public void onClick_intro_welcome(View v){
+
+        Intent intent = new Intent(getApplicationContext(),WelcomeActivity.class);
+        startActivity(intent);
+    }
+
+
+    public void onClick_intro_chat(View v){
+
+        Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+        startActivity(intent);
+    }
+
 }

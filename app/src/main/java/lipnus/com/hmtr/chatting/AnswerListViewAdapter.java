@@ -10,26 +10,24 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 
 import java.util.ArrayList;
 
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import lipnus.com.hmtr.R;
 
 /**
  * Created by Sunpil on 2016-07-13.
  */
-public class ChatListViewAdapter extends BaseAdapter {
+public class AnswerListViewAdapter extends BaseAdapter {
 
     // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
-    private ArrayList<ChatListViewItem> listViewItemList = new ArrayList<ChatListViewItem>() ;
+    private ArrayList<AnswerListViewItem> listViewItemList = new ArrayList<AnswerListViewItem>() ;
 
 
     // ListViewAdapter의 생성자
-    public ChatListViewAdapter() {
+    public AnswerListViewAdapter() {
 
     }
 
@@ -49,66 +47,25 @@ public class ChatListViewAdapter extends BaseAdapter {
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.list_chat, parent, false);
+            convertView = inflater.inflate(R.layout.list_answer, parent, false);
         }
-        LinearLayout npcLr = convertView.findViewById(R.id.chat_npc_lr);
-        LinearLayout userLr = convertView.findViewById(R.id.chat_user_lr);
 
-        ImageView npcFaceIv = convertView.findViewById(R.id.chat_npc_profile_iv);
-        TextView npcNameIv = convertView.findViewById(R.id.chat_npc_name_tv);
-        TextView npcScriptTv = convertView.findViewById(R.id.chat_npc_script_tv);
-        TextView npcDateTv = convertView.findViewById(R.id.chat_npc_date_tv);
-        TextView userScriptTv = convertView.findViewById(R.id.chat_user_script_tv);
-        TextView userDateTv = convertView.findViewById(R.id.chat_user_date_tv);
+        TextView answerTv = convertView.findViewById(R.id.answer_answer_tv);
+        ImageView informationIv = convertView.findViewById(R.id.answer_information_iv);
+        LinearLayout answerLr = convertView.findViewById(R.id.answer_lr);
 
         //------------------------------------------------------------------------------------------
         // 화면에 표시
         //------------------------------------------------------------------------------------------
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
-        ChatListViewItem listViewItem = listViewItemList.get(position);
+        AnswerListViewItem listViewItem = listViewItemList.get(position);
+        answerTv.setText( listViewItem.choice);
 
-        Log.e("ADAD",position + ", " + listViewItem.npcScript + ", " + listViewItem.userScript);
-
-        //npc 차례
-        if(listViewItem.npcScript != null){
-            Log.e("CHCH", "NPC");
-
-            npcLr.setVisibility(View.VISIBLE);
-            userLr.setVisibility(View.GONE);
-
-            Glide.with(context)
-                    .load(listViewItem.npcFaceImg)
-                    .centerCrop()
-                    .bitmapTransform(new CropCircleTransformation(context))
-                    .into(npcFaceIv);
-            npcFaceIv.setScaleType(ImageView.ScaleType.FIT_XY);
-
-
-            //애니메이션(가장 마지막 요소에만 적용)
-            if(pos+1 == listViewItemList.size()){
-
-                YoYo.with(Techniques.FadeIn)
-                        .duration(900)
-                        .playOn(npcLr);
-            }
-
-
-            npcNameIv.setText(listViewItem.npcName);
-            npcScriptTv.setText(listViewItem.npcScript);
-            npcDateTv.setText(listViewItem.date);
-        }
-
-        //user 차례
-        else if(listViewItem.userScript != null){
-            Log.e("CHCH", "USER");
-            npcLr.setVisibility(View.GONE);
-            userLr.setVisibility(View.VISIBLE);
-
-            userScriptTv.setText(listViewItem.userScript);
-            userDateTv.setText(listViewItem.date);
-        }
-
+        //애니매이션
+        YoYo.with(Techniques.FadeInLeft)
+                .duration(500)
+                .playOn(answerLr);
 
 
         //------------------------------------------------------------------------------------------
@@ -140,12 +97,11 @@ public class ChatListViewAdapter extends BaseAdapter {
 
 
     // 아이템 추가
-    public void addItem(String npcName, String npcFaceImg, String npcScript, String userScript, String date) {
+    public void addItem(int choice_pk, String choice, String custom, String information) {
 
         Log.e("ADAD", "addItem()");
 
-
-        ChatListViewItem item = new ChatListViewItem(npcName, npcFaceImg, npcScript, userScript, date);
+        AnswerListViewItem item = new AnswerListViewItem(choice_pk, choice, custom, information);
         listViewItemList.add(item);
     }
 
@@ -153,4 +109,11 @@ public class ChatListViewAdapter extends BaseAdapter {
     public void removeAllItem(){
         listViewItemList.clear();
     }
+
+//
+//    // 해당 position의 객체 반환
+//    public AnswerListViewItem getItem(int position){
+//        AnswerListViewItem answerListViewItem = listViewItemList.get(position);
+//        return answerListViewItem;
+//    }
 }
