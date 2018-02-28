@@ -1,12 +1,14 @@
 package lipnus.com.hmtr.chatting;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.HashMap;
 
@@ -40,6 +42,7 @@ public class ChatActivity extends AppCompatActivity {
     RetroClient retroClient;
     int selectedChoicePk; //현재 선택된 답변의 pk
     int nowScriptPk; //현재의 질문
+    String customAnswer; //"0"이면 없는것
 
     String LOG = "BBCC";
 
@@ -102,7 +105,12 @@ public class ChatActivity extends AppCompatActivity {
                 AnswerListViewItem mAnswer = (AnswerListViewItem)answer_adapter.getItem(position);
                 chatBoxTv.setText( mAnswer.choice);
 
+                customAnswer = mAnswer.custom;
                 selectedChoicePk = mAnswer.choice_pk;
+
+                if(!mAnswer.information.equals("0")){
+                    Toast.makeText(getApplication(), mAnswer.information, Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -130,24 +138,44 @@ public class ChatActivity extends AppCompatActivity {
 
     public void onClick_chat_send(View v){
 
-
         if(chatBoxTv.getText().toString().equals("")){
 
         }else{
-            int sequence = ++GlobalApplication.sequence;
+
+            final int sequence = ++GlobalApplication.sequence;
 
             Log.d("BBCC", "전송답안pk: " + selectedChoicePk);
+            addUserScript(chatBoxTv.getText().toString());
 
-            postChat(nowScriptPk, sequence, Integer.toString(selectedChoicePk) );
+            //입력칸 정리
+            chatBoxTv.setText("");
+            answer_adapter.removeAllItem();
+            answer_adapter.notifyDataSetChanged();
 
-            chat_adapter.addItem(null, null, null, chatBoxTv.getText().toString(), "오후 11:40");
-            chat_adapter.notifyDataSetChanged(); //리스트 새로고침
-            chat_listview.setSelection(chat_adapter.getCount() - 1); //가장 아래쪽으로 스크롤다운
+            //0.8초 후 즉각적인 답변
+            if(!customAnswer.equals("0")){
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run(){
+                        addNpcScript(customAnswer);
+                    }
+                }, 800);
+
+            }
+
+            //1.5초 후 다음 대사 호출
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run(){
+                    postChat(nowScriptPk, sequence, Integer.toString(selectedChoicePk) );
+                }
+            }, 1500);
+
+
         }
     }
 
     public void postChat(int script_pk, int sequence, String answer){
-
         HashMap<String, Object> parameters = new HashMap<>();
         parameters.put("script_pk", script_pk);
         parameters.put("sequence", sequence);
@@ -179,28 +207,42 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     public void setChat(ChattingBasic data){
+
+        addNpcScript(data.script);
+
+        if(data.type.equals("question")){
+            for(int i=0; i<data.answer.size(); i++){
+                answer_adapter.addItem(data.answer.get(i).choice_pk, data.answer.get(i).choice, data.answer.get(i).custom, data.answer.get(i).information);
+            }
+            answer_adapter.notifyDataSetChanged();
+        }
+        else if(data.type.equals("script")){ //질문없이 대사만 있는 경우 1초 뒤 다음 대사 호출
+            final int sequence = ++GlobalApplication.sequence;
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run(){
+                    postChat(nowScriptPk, sequence, "none");
+                }
+            }, 2000);
+
+        }
+
+    }
+
+     public void addNpcScript(String script){
         String npcName = GlobalApplication.npcName;
         String imgPath = GlobalApplication.facePath;
-        String script = data.script;
 
         chat_adapter.addItem(npcName, imgPath, script, null, "오후 11:40");
         chat_adapter.notifyDataSetChanged(); //리스트 새로고침
         chat_listview.setSelection(chat_adapter.getCount() - 1); //가장 아래쪽으로 스크롤다운
+    }
 
-        if(data.type.equals("question")){
-
-            answer_adapter.removeAllItem();
-            for(int i=0; i<data.answer.size(); i++){
-                answer_adapter.addItem(data.answer.get(i).choice_pk, data.answer.get(i).choice, data.answer.get(i).custom, "없음");
-            }
-            answer_adapter.notifyDataSetChanged();
-        }
-        else if(data.type.equals("script")){
-
-            int sequence = ++GlobalApplication.sequence;
-            postChat(nowScriptPk, sequence, "none");
-        }
-
+    public void addUserScript(String script){
+        chat_adapter.addItem(null, null, null, script, "오후 11:40");
+        chat_adapter.notifyDataSetChanged(); //리스트 새로고침
+        chat_listview.setSelection(chat_adapter.getCount() - 1); //가장 아래쪽으로 스크롤다운
     }
 
 
