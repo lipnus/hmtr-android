@@ -30,6 +30,7 @@ public class ChatActivity extends AppCompatActivity {
 
     ChatListViewAdapter chat_adapter;
     AnswerListViewAdapter answer_adapter;
+    MultiAnswerListViewAdapter multi_answer_adapter; //복수응답일때만 이걸로 바뀜
 
     @BindView(R.id.chat_listview)
     ListView chat_listview;
@@ -92,6 +93,7 @@ public class ChatActivity extends AppCompatActivity {
         //리스트뷰 Adapter 생성
         chat_adapter = new ChatListViewAdapter();
         answer_adapter = new AnswerListViewAdapter();
+        multi_answer_adapter = new MultiAnswerListViewAdapter();
 
         //채팅리스트
         chat_listview.setAdapter(chat_adapter);
@@ -119,13 +121,43 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
+    public void touchMultiList(){
+
+        answer_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                multi_answer_adapter.changeColor(position);
+                multi_answer_adapter.notifyDataSetChanged();
+
+                Log.d("SBSB", "Fucking!");
+            }
+        });
+    }
+
+
 
 
     public void onClick_chat_send(View v){
 
-        if(chatBoxTv.getText().toString().equals("")){
 
-        }else{
+        if(answerType.equals("multi_1") || answerType.equals("multi_2") || answerType.equals("multi_3")){
+
+            int answerCount = multi_answer_adapter.getCount();
+
+            for(int i=0; i<answerCount; i++){
+                MultiAnswerListViewItem mMultiAnswer = (MultiAnswerListViewItem)multi_answer_adapter.getItem(i);
+                Log.e("SSBB", "체크상황: " +  mMultiAnswer.checkValue);
+            }
+
+
+        }
+
+        else if(chatBoxTv.getText().toString().equals("")){
+
+        }
+
+        else{
 
             final double sequence = ++GlobalApplication.sequence;
             setSequence();
@@ -283,15 +315,20 @@ public class ChatActivity extends AppCompatActivity {
     public void setChat(ChattingBasic data){
 
         Log.d("SSQQ", "sequence: " + setting.getFloat("sequence", 0) + " / " + GlobalApplication.sequence );
-        addNpcScript(data.script);
 
-        if(data.type.equals("question")){ //단일선택질문
+
+        if(data.type.equals("question")){ //단일선택 답변처리
+
+            addNpcScript(data.script);
+
             for(int i=0; i<data.answer.size(); i++){
                 answer_adapter.addItem(data.answer.get(i).choice_pk, data.answer.get(i).choice, data.answer.get(i).custom, data.answer.get(i).information);
             }
             answer_adapter.notifyDataSetChanged();
         }
         else if(data.type.equals("script")){ //대사만 있는 경우 1초 뒤 다음 대사 호출
+
+            addNpcScript(data.script);
 
             final double sequence = ++GlobalApplication.sequence;
             setSequence();
@@ -304,7 +341,12 @@ public class ChatActivity extends AppCompatActivity {
                 }
             }, chatDelayTime);
 
-        }else{ //복수선택질문
+        }
+
+
+
+
+        else{ //복수선택 답변처리
 
             answerType = data.type;
             Log.e("TTDD", data.sequence + " type: " + data.type );
@@ -316,15 +358,17 @@ public class ChatActivity extends AppCompatActivity {
                 connectServer(data.script_pk, data.sequence, "none");
             }else{
 
+                addNpcScript(data.script);
+
+                //어댑터 바꿔치기
+                answer_listview.setAdapter(multi_answer_adapter);
+                touchMultiList();
+
                 for(int i=0; i<data.answer.size(); i++){
-                    answer_adapter.addItem(data.answer.get(i).choice_pk, data.answer.get(i).choice, data.answer.get(i).custom, data.answer.get(i).information);
+                    multi_answer_adapter.addItem(data.answer.get(i).choice_pk, data.answer.get(i).choice, data.answer.get(i).custom, data.answer.get(i).information);
                 }
-                answer_adapter.notifyDataSetChanged();
+                multi_answer_adapter.notifyDataSetChanged();
             }
-
-
-
-
         }
 
     }

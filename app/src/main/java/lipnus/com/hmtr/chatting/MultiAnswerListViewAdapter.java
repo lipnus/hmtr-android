@@ -1,6 +1,7 @@
 package lipnus.com.hmtr.chatting;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 
 import java.util.ArrayList;
 
@@ -23,14 +22,14 @@ import lipnus.com.hmtr.R;
 /**
  * Created by Sunpil on 2016-07-13.
  */
-public class AnswerListViewAdapter extends BaseAdapter {
+public class MultiAnswerListViewAdapter extends BaseAdapter {
 
     // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
-    private ArrayList<AnswerListViewItem> listViewItemList = new ArrayList<AnswerListViewItem>() ;
+    private ArrayList<MultiAnswerListViewItem> listViewItemList = new ArrayList<MultiAnswerListViewItem>() ;
 
 
     // ListViewAdapter의 생성자
-    public AnswerListViewAdapter() {
+    public MultiAnswerListViewAdapter() {
 
     }
 
@@ -62,8 +61,17 @@ public class AnswerListViewAdapter extends BaseAdapter {
         //------------------------------------------------------------------------------------------
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
-        final AnswerListViewItem listViewItem = listViewItemList.get(position);
-        answerTv.setText( listViewItem.choice);
+        final MultiAnswerListViewItem listViewItem = listViewItemList.get(position);
+        answerTv.setText( "FUck" + listViewItem.choice );
+
+        Color color = new Color();
+        if(listViewItem.checkValue==-1){
+            answerLr.setBackgroundColor(Color.rgb(255, 65, 65));
+        }else if(listViewItem.checkValue==0){
+            answerLr.setBackgroundColor(Color.argb(0,0,0,0));
+        }else if(listViewItem.checkValue==1){
+            answerLr.setBackgroundColor(Color.rgb(85, 216, 88));
+        }
 
 
         //추가정보가 있는경우
@@ -86,11 +94,6 @@ public class AnswerListViewAdapter extends BaseAdapter {
         }else{
             informationIv.setVisibility(View.GONE);
         }
-
-        //애니매이션
-        YoYo.with(Techniques.FadeInLeft)
-                .duration(800)
-                .playOn(answerLr);
 
 
 
@@ -124,7 +127,7 @@ public class AnswerListViewAdapter extends BaseAdapter {
 
         Log.e("ADAD", "addItem()");
 
-        AnswerListViewItem item = new AnswerListViewItem(choice_pk, choice, custom, information);
+        MultiAnswerListViewItem item = new MultiAnswerListViewItem(choice_pk, choice, custom, information, 0);
         listViewItemList.add(item);
     }
 
@@ -132,10 +135,14 @@ public class AnswerListViewAdapter extends BaseAdapter {
     public void removeAllItem(){
         listViewItemList.clear();
     }
-//
-//    // 해당 position의 객체 반환
-//    public AnswerListViewItem getItem(int position){
-//        AnswerListViewItem answerListViewItem = listViewItemList.get(position);
-//        return answerListViewItem;
-//    }
+
+    public void changeColor(int position){
+
+        int checkValue = listViewItemList.get(position).checkValue;
+
+        if(checkValue==0){listViewItemList.get(position).checkValue = 1;}
+        else if(checkValue==1){listViewItemList.get(position).checkValue = -1;}
+        else if(checkValue==-1){listViewItemList.get(position).checkValue=0;}
+
+    }
 }
