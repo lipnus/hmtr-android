@@ -13,7 +13,7 @@ public class GlobalApplication extends Application {
     public static String serverPath = "http://ec2-13-125-164-178.ap-northeast-2.compute.amazonaws.com:9000";
 
     public static int userinfo_pk=1;
-    public static double sequence=0;
+    public static double sequence=10;
     public static String category ="aptitude";
 
     public static String answerType="single";

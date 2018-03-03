@@ -48,6 +48,8 @@ public class ChatActivity extends AppCompatActivity {
     int selectedChoicePk; //현재 선택된 답변의 pk
     int nowScriptPk; //현재의 질문
 
+    int chatDelayTime = 1000;
+
     String answerType; //답변의 타입(single, multi_1, multi_2, multi_3) -> 챕터3에서만 사용
     String customAnswer; //"0"이면 없는것
 
@@ -77,7 +79,6 @@ public class ChatActivity extends AppCompatActivity {
         initList();
 
         answerType = GlobalApplication.answerType;
-
         connectServer(0, GlobalApplication.sequence, "none");
     }
 
@@ -128,7 +129,7 @@ public class ChatActivity extends AppCompatActivity {
 
             final double sequence = ++GlobalApplication.sequence;
             setSequence();
-            int delay = 1000;
+            int delay = chatDelayTime;
 
             addUserScript(chatBoxTv.getText().toString());
             clearAnswer(); //입력창 초기화
@@ -263,6 +264,8 @@ public class ChatActivity extends AppCompatActivity {
 
                 nowScriptPk = data.script_pk;
 
+
+                //끝 체크
                 if(! checkCategoryEnd(data.script)){
                     setChat(data);
                 }
@@ -280,10 +283,9 @@ public class ChatActivity extends AppCompatActivity {
     public void setChat(ChattingBasic data){
 
         Log.d("SSQQ", "sequence: " + setting.getFloat("sequence", 0) + " / " + GlobalApplication.sequence );
-
         addNpcScript(data.script);
 
-        if(data.type.equals("question")){
+        if(data.type.equals("question")){ //단일선택질문
             for(int i=0; i<data.answer.size(); i++){
                 answer_adapter.addItem(data.answer.get(i).choice_pk, data.answer.get(i).choice, data.answer.get(i).custom, data.answer.get(i).information);
             }
@@ -300,7 +302,28 @@ public class ChatActivity extends AppCompatActivity {
 
                     connectServer(nowScriptPk, sequence, "none");
                 }
-            }, 1000);
+            }, chatDelayTime);
+
+        }else{ //복수선택질문
+
+            answerType = data.type;
+            Log.e("TTDD", data.sequence + " type: " + data.type );
+            Log.e("TTDD", data.sequence + " answer: " + data.answer );
+
+            //복수선택 첫번째 처리
+            //동일한 내용인데 type만 바꿔서 재전송 => 복수선택 답을 전송받음
+            if(data.answer.isEmpty() == true){
+                connectServer(data.script_pk, data.sequence, "none");
+            }else{
+
+                for(int i=0; i<data.answer.size(); i++){
+                    answer_adapter.addItem(data.answer.get(i).choice_pk, data.answer.get(i).choice, data.answer.get(i).custom, data.answer.get(i).information);
+                }
+                answer_adapter.notifyDataSetChanged();
+            }
+
+
+
 
         }
 

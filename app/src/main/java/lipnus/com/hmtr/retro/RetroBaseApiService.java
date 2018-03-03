@@ -42,8 +42,4 @@ public interface RetroBaseApiService {
     @POST("/android/chat_aptitude")
     Call<ChattingBasic> postAptitude(@Body HashMap<String, Object> parameters);
 
-
-
-
-
 }
