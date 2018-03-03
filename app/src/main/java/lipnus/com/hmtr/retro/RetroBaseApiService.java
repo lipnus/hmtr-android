@@ -34,6 +34,16 @@ public interface RetroBaseApiService {
     @POST("/android/chat_basicinfo")
     Call<ChattingBasic> postBasic(@Body HashMap<String, Object> parameters);
 
+    //학습행동유형(기본인적사항과 같은 모델을 공유)
+    @POST("/android/chat_behavior")
+    Call<ChattingBasic> postBehavior(@Body HashMap<String, Object> parameters);
+
+    //학습적성유형
+    @POST("/android/chat_aptitude")
+    Call<ChattingBasic> postAptitude(@Body HashMap<String, Object> parameters);
+
+
+
 
 
 }

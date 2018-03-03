@@ -119,8 +119,49 @@ public class RetroClient {
         });
     }
 
+    //기본인적사항
     public void postBasic (HashMap<String, Object> parameters, final RetroCallback callback) {
         apiService.postBasic(parameters).enqueue(new Callback<ChattingBasic>() {
+            @Override
+            public void onResponse(Call<ChattingBasic> call, Response<ChattingBasic> response) {
+                if (response.isSuccessful()) {
+                    Log.e("VOVO", "받은내용: " + response.body());
+                    callback.onSuccess(response.code(), response.body());
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ChattingBasic> call, Throwable t) {
+                callback.onError(t);
+            }
+        });
+    }
+
+    //학습행동유형
+    public void postBehavior (HashMap<String, Object> parameters, final RetroCallback callback) {
+        apiService.postBehavior(parameters).enqueue(new Callback<ChattingBasic>() {
+            @Override
+            public void onResponse(Call<ChattingBasic> call, Response<ChattingBasic> response) {
+                if (response.isSuccessful()) {
+                    Log.e("VOVO", "받은내용: " + response.body());
+                    callback.onSuccess(response.code(), response.body());
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ChattingBasic> call, Throwable t) {
+                callback.onError(t);
+            }
+        });
+    }
+
+    //학습적성유형
+    public void postAptitude (HashMap<String, Object> parameters, final RetroCallback callback) {
+        apiService.postAptitude(parameters).enqueue(new Callback<ChattingBasic>() {
             @Override
             public void onResponse(Call<ChattingBasic> call, Response<ChattingBasic> response) {
                 if (response.isSuccessful()) {

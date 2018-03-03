@@ -89,7 +89,7 @@ public class ChatListViewAdapter extends BaseAdapter {
             if(pos+1 == listViewItemList.size()){
 
                 YoYo.with(Techniques.FadeIn)
-                        .duration(900)
+                        .duration(700)
                         .playOn(npcLr);
             }
 

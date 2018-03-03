@@ -9,19 +9,17 @@ import java.util.List;
 public class ChattingBasic {
 
     public String type;
-    public int sequence;
+    public double sequence;
     public int script_pk;
     public String script;
-    public String category;
     public int experienced;
     public List<AnswerBasic> answer;
 
-    public ChattingBasic(String type, int sequence, int script_pk, String script, String category, int experienced, List<AnswerBasic> answer) {
+    public ChattingBasic(String type, double sequence, int script_pk, String script, int experienced, List<AnswerBasic> answer) {
         this.type = type;
         this.sequence = sequence;
         this.script_pk = script_pk;
         this.script = script;
-        this.category = category;
         this.experienced = experienced;
         this.answer = answer;
     }

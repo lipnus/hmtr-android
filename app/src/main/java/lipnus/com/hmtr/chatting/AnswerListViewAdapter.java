@@ -1,6 +1,7 @@
 package lipnus.com.hmtr.chatting;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,11 +11,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 
 import java.util.ArrayList;
 
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
+import lipnus.com.hmtr.BusProvider;
+import lipnus.com.hmtr.InformationEvent;
 import lipnus.com.hmtr.R;
 
 /**
@@ -59,8 +64,30 @@ public class AnswerListViewAdapter extends BaseAdapter {
         //------------------------------------------------------------------------------------------
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
-        AnswerListViewItem listViewItem = listViewItemList.get(position);
+        final AnswerListViewItem listViewItem = listViewItemList.get(position);
         answerTv.setText( listViewItem.choice);
+
+
+        //추가정보가 있는경우
+        if(!listViewItem.information.equals("0")){
+
+            informationIv.setVisibility(View.VISIBLE);
+
+            Glide.with(context)
+                    .load(R.drawable.question)
+                    .into(informationIv);
+            informationIv.setScaleType(ImageView.ScaleType.FIT_XY);
+
+            //클릭 시 ChatActivity로 post
+            informationIv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    BusProvider.getInstance().post(new InformationEvent(listViewItem.information));
+                }
+            });
+        }else{
+            informationIv.setVisibility(View.GONE);
+        }
 
         //애니매이션
         YoYo.with(Techniques.FadeInLeft)
@@ -68,9 +95,7 @@ public class AnswerListViewAdapter extends BaseAdapter {
                 .playOn(answerLr);
 
 
-        //------------------------------------------------------------------------------------------
-        // 데이터 정리
-        //------------------------------------------------------------------------------------------
+
 
 
 
