@@ -34,5 +34,12 @@
         android:layout_height="wrap_content"
         android:text="채팅"/>
 
+    <Button
+        android:layout_marginTop="50dp"
+        android:onClick="onClick_intro_chat3"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="채팅3"/>
+
 
 </LinearLayout>

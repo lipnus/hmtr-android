@@ -14,7 +14,7 @@ public class GlobalApplication extends Application {
 
     public static int userinfo_pk=1;
     public static double sequence=10;
-    public static String category ="aptitude";
+    public static String category ="basic";
 
     public static String answerType="single";
 

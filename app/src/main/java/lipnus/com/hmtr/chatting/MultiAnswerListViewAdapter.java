@@ -12,6 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 
 import java.util.ArrayList;
 
@@ -62,9 +64,8 @@ public class MultiAnswerListViewAdapter extends BaseAdapter {
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
         final MultiAnswerListViewItem listViewItem = listViewItemList.get(position);
-        answerTv.setText( "FUck" + listViewItem.choice );
+        answerTv.setText( listViewItem.choice );
 
-        Color color = new Color();
         if(listViewItem.checkValue==-1){
             answerLr.setBackgroundColor(Color.rgb(255, 65, 65));
         }else if(listViewItem.checkValue==0){
@@ -136,13 +137,22 @@ public class MultiAnswerListViewAdapter extends BaseAdapter {
         listViewItemList.clear();
     }
 
-    public void changeColor(int position){
+    public void changeThreeColor(int position){
 
         int checkValue = listViewItemList.get(position).checkValue;
 
         if(checkValue==0){listViewItemList.get(position).checkValue = 1;}
         else if(checkValue==1){listViewItemList.get(position).checkValue = -1;}
         else if(checkValue==-1){listViewItemList.get(position).checkValue=0;}
+
+    }
+
+    public void changeTwoColor(int position){
+
+        int checkValue = listViewItemList.get(position).checkValue;
+
+        if(checkValue==0){listViewItemList.get(position).checkValue = 1;}
+        else if(checkValue==1){listViewItemList.get(position).checkValue = 0;}
 
     }
 }

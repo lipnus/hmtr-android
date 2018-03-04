@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import lipnus.com.hmtr.chatting.ChatActivity;
+import lipnus.com.hmtr.chatting.ChatActivity3;
 
 public class IntroActivity extends AppCompatActivity {
 
@@ -37,6 +38,12 @@ public class IntroActivity extends AppCompatActivity {
     public void onClick_intro_chat(View v){
 
         Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+        startActivity(intent);
+    }
+
+    public void onClick_intro_chat3(View v){
+
+        Intent intent = new Intent(getApplicationContext(), ChatActivity3.class);
         startActivity(intent);
     }
 

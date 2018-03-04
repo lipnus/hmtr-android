@@ -25,11 +25,12 @@ import lipnus.com.hmtr.retro.ResponseBody.ChattingBasic;
 import lipnus.com.hmtr.retro.RetroCallback;
 import lipnus.com.hmtr.retro.RetroClient;
 
-public class ChatActivity extends AppCompatActivity {
+public class ChatActivity3 extends AppCompatActivity {
 
 
     ChatListViewAdapter chat_adapter;
     AnswerListViewAdapter answer_adapter;
+    MultiAnswerListViewAdapter multi_answer_adapter; //복수응답일때만 이걸로 바뀜
 
     @BindView(R.id.chat_listview)
     ListView chat_listview;
@@ -47,6 +48,10 @@ public class ChatActivity extends AppCompatActivity {
 
     int selectedChoicePk; //현재 선택된 답변의 pk
     int nowScriptPk; //현재의 질문
+
+    int chatDelayTime = 1000;
+
+    String answerType; //답변의 타입(single, multi_1, multi_2, multi_3) -> 챕터3에서만 사용
     String customAnswer; //"0"이면 없는것
 
     String LOG = "BBCC";
@@ -64,6 +69,10 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
         ButterKnife.bind(this);
 
+
+        GlobalApplication.category="aptitude";
+
+
         retroClient = RetroClient.getInstance(this).createBaseApi();
         BusProvider.getInstance().register(this);
 
@@ -73,7 +82,9 @@ public class ChatActivity extends AppCompatActivity {
 
         //리스트뷰 설정
         initList();
-        connectServer(0, GlobalApplication.sequence, "none");
+
+        answerType = GlobalApplication.answerType;
+        connectServer(0, GlobalApplication.sequence, "single", "none");
     }
 
 
@@ -86,6 +97,7 @@ public class ChatActivity extends AppCompatActivity {
         //리스트뷰 Adapter 생성
         chat_adapter = new ChatListViewAdapter();
         answer_adapter = new AnswerListViewAdapter();
+        multi_answer_adapter = new MultiAnswerListViewAdapter();
 
         //채팅리스트
         chat_listview.setAdapter(chat_adapter);
@@ -113,22 +125,74 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
+    public void touchMultiList(){
+
+        answer_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                if(answerType.equals("multi_1")){
+                    multi_answer_adapter.changeThreeColor(position);
+                }
+                else if(answerType.equals("multi_2") || answerType.equals("multi_3")){
+                    multi_answer_adapter.changeTwoColor(position);
+                }
+
+
+
+                multi_answer_adapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+
 
 
     public void onClick_chat_send(View v){
 
-        if(chatBoxTv.getText().toString().equals("")){
+        //복수답안 전송
+        if(answerType.equals("multi_1") || answerType.equals("multi_2") || answerType.equals("multi_3")){
 
-        }else{
+            int answerCount = multi_answer_adapter.getCount();
 
-            final double sequence = ++GlobalApplication.sequence;
-            setSequence();
-            int delay = 1000;
+            for(int i=0; i<answerCount; i++){
+                MultiAnswerListViewItem mMultiAnswer = (MultiAnswerListViewItem)multi_answer_adapter.getItem(i);
+                Log.e("SSBB", mMultiAnswer.choice + ": " +  mMultiAnswer.checkValue);
+            }
+
+            addUserScript("답안전송!");
+
+            //답변리스트 되돌리기
+            clearAnswer();
+            answer_listview.setAdapter(answer_adapter);
+            touchList();
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    connectServer(nowScriptPk, GlobalApplication.sequence, answerType, Integer.toString(selectedChoicePk));
+                }
+            }, chatDelayTime);
+
+
+
+
+        }
+
+        //전송조건 미충족
+        else if(chatBoxTv.getText().toString().equals("")){
+
+        }
+
+        //단일답안 전송
+        else{
+
+            int delay = chatDelayTime;
 
             addUserScript(chatBoxTv.getText().toString());
             clearAnswer(); //입력창 초기화
 
-            //custom답변
+            //custom답변이 있으면 출력한 뒤에 잠깐 딜레이 주고 서버호출
             if(!customAnswer.equals("0")) {
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -144,7 +208,7 @@ public class ChatActivity extends AppCompatActivity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run(){
-                    connectServer(nowScriptPk, sequence, Integer.toString(selectedChoicePk));
+                    connectServer(nowScriptPk, GlobalApplication.sequence, answerType, Integer.toString(selectedChoicePk));
                 }
             }, delay);
         }
@@ -152,25 +216,24 @@ public class ChatActivity extends AppCompatActivity {
 
 
 
-    public void connectServer(int scriptPk, double sequence, String answer){
+    public void connectServer(int scriptPk, double sequence, String answer_type, String answer){
 
-        if(GlobalApplication.category.equals("basic")){
-            postBasic(scriptPk, sequence, answer);
-        }else if(GlobalApplication.category.equals("behavior")){
-            postBehavior(scriptPk, sequence, answer);
-        }
+        postAptitude(scriptPk, sequence, answer_type, answer);
     }
 
 
+    public void postAptitude(int script_pk, final double sequence, String answer_type, String answer){
 
-    public void postBasic(int script_pk, double sequence, String answer){
         HashMap<String, Object> parameters = new HashMap<>();
         parameters.put("script_pk", script_pk);
         parameters.put("sequence", sequence);
         parameters.put("userinfo_pk", GlobalApplication.userinfo_pk);
+
+        parameters.put("answer_type", answer_type); //챕터3에만 있는것
+
         parameters.put("answer", answer);
 
-        retroClient.postBasic(parameters, new RetroCallback() {
+        retroClient.postAptitude(parameters, new RetroCallback() {
 
             @Override
             public void onError(Throwable t) {
@@ -180,46 +243,20 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onSuccess(int code, Object receivedData) {
                 ChattingBasic data = (ChattingBasic)receivedData;
-                Log.e(LOG, "Success: " + String.valueOf(code) + ", " + String.valueOf(data.script));
+                Log.e(LOG, "Success: " + String.valueOf(code) + " / " + String.valueOf(data.script) + " / " + String.valueOf(data.sequence) + " / " + String.valueOf(data.type));
 
                 nowScriptPk = data.script_pk;
 
-                if(! checkCategoryEnd(data.script)){
-                    setChat(data);
+                GlobalApplication.sequence = data.sequence;
+
+                if(data.type.equals("script") || data.type.equals("question")){
+                    answerType = "single";
+                }else{
+                    answerType = data.type;
                 }
 
-            }
 
-            @Override
-            public void onFailure(int code) {
-
-                Log.e(LOG, "Failure: " + String.valueOf(code));
-            }
-        });
-    }
-
-    public void postBehavior(int script_pk, double sequence, String answer){
-
-        HashMap<String, Object> parameters = new HashMap<>();
-        parameters.put("script_pk", script_pk);
-        parameters.put("sequence", sequence);
-        parameters.put("userinfo_pk", GlobalApplication.userinfo_pk);
-        parameters.put("answer", answer);
-
-        retroClient.postBehavior(parameters, new RetroCallback() {
-
-            @Override
-            public void onError(Throwable t) {
-                Log.e(LOG, "Error: " + t.toString());
-            }
-
-            @Override
-            public void onSuccess(int code, Object receivedData) {
-                ChattingBasic data = (ChattingBasic)receivedData;
-                Log.e(LOG, "Success: " + String.valueOf(code) + ", " + String.valueOf(data.script));
-
-                nowScriptPk = data.script_pk;
-
+                //끝 체크
                 if(! checkCategoryEnd(data.script)){
                     setChat(data);
                 }
@@ -227,13 +264,10 @@ public class ChatActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(int code) {
-
                 Log.e(LOG, "Failure: " + String.valueOf(code));
             }
         });
     }
-
-
 
 
 
@@ -241,9 +275,11 @@ public class ChatActivity extends AppCompatActivity {
 
         Log.d("SSQQ", "sequence: " + setting.getFloat("sequence", 0) + " / " + GlobalApplication.sequence );
 
-        addNpcScript(data.script);
 
-        if(data.type.equals("question")){
+        if(data.type.equals("question")){ //단일선택 답변처리
+
+            addNpcScript(data.script);
+
             for(int i=0; i<data.answer.size(); i++){
                 answer_adapter.addItem(data.answer.get(i).choice_pk, data.answer.get(i).choice, data.answer.get(i).custom, data.answer.get(i).information);
             }
@@ -251,17 +287,42 @@ public class ChatActivity extends AppCompatActivity {
         }
         else if(data.type.equals("script")){ //대사만 있는 경우 1초 뒤 다음 대사 호출
 
-            final double sequence = ++GlobalApplication.sequence;
-            setSequence();
+            addNpcScript(data.script);
+
 
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run(){
 
-                    connectServer(nowScriptPk, sequence, "none");
+                    connectServer(nowScriptPk, GlobalApplication.sequence, answerType, "none");
                 }
-            }, 1000);
+            }, chatDelayTime);
 
+        }
+
+        else{ //복수선택 답변처리
+
+
+            Log.e("TTDD", data.sequence + " type: " + data.type );
+            Log.e("TTDD", data.sequence + " answer: " + data.answer );
+
+            //복수선택 첫번째 처리
+            //동일한 내용인데 type만 바꿔서 재전송
+            if(data.answer.isEmpty() == true){
+                connectServer(data.script_pk, data.sequence, answerType,"none");
+            }else{
+
+                addNpcScript(data.script);
+
+                //어댑터 바꿔치기
+                answer_listview.setAdapter(multi_answer_adapter);
+                touchMultiList();
+
+                for(int i=0; i<data.answer.size(); i++){
+                    multi_answer_adapter.addItem(data.answer.get(i).choice_pk, data.answer.get(i).choice, data.answer.get(i).custom, data.answer.get(i).information);
+                }
+                multi_answer_adapter.notifyDataSetChanged();
+            }
         }
 
     }
@@ -290,7 +351,7 @@ public class ChatActivity extends AppCompatActivity {
         //프레퍼런스에 저장(double은 저장안되서 float에..)
         editor.putFloat("sequence", (float)GlobalApplication.sequence );
         editor.commit();
-    }
+     }
 
     public void setCategory(String category){
 
@@ -311,16 +372,11 @@ public class ChatActivity extends AppCompatActivity {
             clearChat();
             clearAnswer();
 
-            if(GlobalApplication.category.equals("basic")){
-                setCategory("behavior");
-            }
-            else if(GlobalApplication.category.equals("behavior")){
-                setCategory("aptitude");
-            }
+            setCategory("balance");
 
             GlobalApplication.sequence = 0;
             setSequence();
-            connectServer(0,0,"none");
+//            connectServer(0,0,"none");
 
             Toast.makeText(getApplicationContext(), "카테고리 변경", Toast.LENGTH_LONG).show();
             return true;
@@ -340,8 +396,12 @@ public class ChatActivity extends AppCompatActivity {
 
         //입력창 초기화
         chatBoxTv.setText("");
+
         answer_adapter.removeAllItem();
         answer_adapter.notifyDataSetChanged();
+
+        multi_answer_adapter.removeAllItem();
+        multi_answer_adapter.notifyDataSetChanged();
     }
 
     @Subscribe
