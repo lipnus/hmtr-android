@@ -6,11 +6,14 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.squareup.otto.Subscribe;
 
@@ -44,6 +47,12 @@ public class ChatActivity3 extends AppCompatActivity {
     @BindView(R.id.answer_inputchat_tv)
     TextView chatBoxTv;
 
+    @BindView(R.id.answer_send_iv)
+    ImageView sendIv;
+
+    @BindView(R.id.chat_title_tv)
+    TextView titleTv;
+
     RetroClient retroClient;
 
     SharedPreferences setting;
@@ -58,7 +67,7 @@ public class ChatActivity3 extends AppCompatActivity {
 
     int selectedChoicePk; //현재 선택된 답변의 pk(answer리스트에서 선택 시 할당)
 
-    int chatDelayTime = 1000;
+    int chatDelayTime = 600;
 
     String customAnswer; //"0"이면 없는것
     String LOG = "BBCC";
@@ -75,6 +84,12 @@ public class ChatActivity3 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         ButterKnife.bind(this);
+
+        titleTv.setText("#3 학습적성유형");
+
+        //툴바 없에기
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        sendBtnImg(false);
 
         GlobalApplication.category="aptitude";
 
@@ -127,6 +142,8 @@ public class ChatActivity3 extends AppCompatActivity {
                 customAnswer = mAnswer.custom;
                 selectedChoicePk = mAnswer.choice_pk;
 
+                sendBtnImg(true);
+
                 Log.d("SBSB", "뭐지: " + mAnswer.information);
             }
         });
@@ -137,6 +154,8 @@ public class ChatActivity3 extends AppCompatActivity {
         answer_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                sendBtnImg(true);
 
                 if(nowAnswerType.equals("multi_1")){
                     multi_answer_adapter.changeThreeColor(position);
@@ -159,6 +178,8 @@ public class ChatActivity3 extends AppCompatActivity {
 
         //복수답안 전송
         if(nowAnswerType.equals("multi_1") || nowAnswerType.equals("multi_2") || nowAnswerType.equals("multi_3")){
+
+            sendBtnImg(false);
 
             int answerCount = multi_answer_adapter.getCount();
             String answer;
@@ -200,6 +221,7 @@ public class ChatActivity3 extends AppCompatActivity {
 
             int delay = chatDelayTime;
 
+            sendBtnImg(false);
             addUserScript(chatBoxTv.getText().toString());
             clearAnswer(); //입력창 초기화
 
@@ -411,6 +433,27 @@ public class ChatActivity3 extends AppCompatActivity {
 
         multi_answer_adapter.removeAllItem();
         multi_answer_adapter.notifyDataSetChanged();
+    }
+
+    public void sendBtnImg(boolean light){
+
+        if(light==true){
+            Glide.with(getApplicationContext())
+                    .load( R.drawable.send_on )
+                    .into( sendIv );
+            sendIv.setScaleType(ImageView.ScaleType.FIT_XY);
+
+        }else if(light==false){
+            Glide.with(getApplicationContext())
+                    .load( R.drawable.send_off )
+                    .into( sendIv );
+            sendIv.setScaleType(ImageView.ScaleType.FIT_XY);
+
+
+        }
+
+
+
     }
 
     @Subscribe

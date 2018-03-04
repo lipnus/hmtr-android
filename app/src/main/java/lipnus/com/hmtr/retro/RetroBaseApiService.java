@@ -42,4 +42,8 @@ public interface RetroBaseApiService {
     @POST("/android/chat_aptitude")
     Call<ChattingBasic> postAptitude(@Body HashMap<String, Object> parameters);
 
+    //밸런스 자가측정
+    @POST("/android/chat_balance")
+    Call<ChattingBasic> postBalance(@Body HashMap<String, Object> parameters);
+
 }

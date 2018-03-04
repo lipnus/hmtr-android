@@ -67,11 +67,11 @@ public class MultiAnswerListViewAdapter extends BaseAdapter {
         answerTv.setText( listViewItem.choice );
 
         if(listViewItem.checkValue==-1){
-            answerLr.setBackgroundColor(Color.rgb(255, 65, 65));
+            answerLr.setBackgroundColor(Color.rgb(224, 91, 132));
         }else if(listViewItem.checkValue==0){
             answerLr.setBackgroundColor(Color.argb(0,0,0,0));
         }else if(listViewItem.checkValue==1){
-            answerLr.setBackgroundColor(Color.rgb(85, 216, 88));
+            answerLr.setBackgroundColor(Color.rgb(120, 205, 158));
         }
 
 

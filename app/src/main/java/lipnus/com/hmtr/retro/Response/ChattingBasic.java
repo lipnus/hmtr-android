@@ -13,6 +13,7 @@ public class ChattingBasic {
     public int script_pk;
     public String script;
     public int experienced;
+
     public List<AnswerBasic> answer;
 
     public ChattingBasic(String type, double sequence, int script_pk, String script, int experienced, List<AnswerBasic> answer) {

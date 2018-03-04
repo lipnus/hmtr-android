@@ -179,5 +179,25 @@ public class RetroClient {
         });
     }
 
+    //밸런스자가측정
+    public void postBalance (HashMap<String, Object> parameters, final RetroCallback callback) {
+        apiService.postBalance(parameters).enqueue(new Callback<ChattingBasic>() {
+            @Override
+            public void onResponse(Call<ChattingBasic> call, Response<ChattingBasic> response) {
+                if (response.isSuccessful()) {
+                    Log.e("VOVO", "받은내용: " + response.body());
+                    callback.onSuccess(response.code(), response.body());
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ChattingBasic> call, Throwable t) {
+                callback.onError(t);
+            }
+        });
+    }
+
 
 }

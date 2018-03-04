@@ -128,6 +128,16 @@ public class AnswerListViewAdapter extends BaseAdapter {
         listViewItemList.add(item);
     }
 
+
+    // 아이템 추가(챕터4전용 : 발란스자가평가)
+    public void addItem(int choice_pk, String choice, String custom, String information, String result, double nextSeq, int rootSeq) {
+
+        Log.e("ADAD", "addItem()");
+
+        AnswerListViewItem item = new AnswerListViewItem(choice_pk, choice, custom, information, result, nextSeq, rootSeq);
+        listViewItemList.add(item);
+    }
+
     // 모든 아이템 삭제
     public void removeAllItem(){
         listViewItemList.clear();

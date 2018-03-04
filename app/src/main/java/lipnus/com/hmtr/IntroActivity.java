@@ -47,4 +47,12 @@ public class IntroActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onClick_intro_chat4(View v){
+
+        GlobalApplication.category="balance";
+        GlobalApplication.sequence=1;
+        Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+        startActivity(intent);
+    }
+
 }

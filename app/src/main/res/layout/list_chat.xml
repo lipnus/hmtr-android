@@ -6,11 +6,16 @@
     android:orientation="vertical"
     android:padding="5dp">
 
+    <!--npc대사-->
     <LinearLayout
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="5dp"
         android:id="@+id/chat_npc_lr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="10">
 
         <ImageView
             android:id="@+id/chat_npc_profile_iv"
@@ -18,38 +23,51 @@
             android:layout_width="40dp"
             android:layout_height="40dp" />
 
+        <!--이름이랑 내용-->
         <LinearLayout
             android:layout_marginLeft="10dp"
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="0px"
+            android:layout_weight="8"
             android:layout_height="wrap_content">
 
             <TextView
+                android:textColor="#ffffff"
                 android:id="@+id/chat_npc_name_tv"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:layout_marginBottom="3dp"/>
 
             <TextView
+                android:padding="7dp"
                 android:id="@+id/chat_npc_script_tv"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_white_background"/>
 
         </LinearLayout>
 
-
+        <!--날짜-->
         <TextView
-            android:layout_gravity="bottom"
+            android:visibility="invisible"
+            android:layout_gravity="bottom|left"
             android:layout_marginLeft="5dp"
             android:textSize="8dp"
+            android:background="#ffffff"
             android:id="@+id/chat_npc_date_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+        </LinearLayout>
 
-    </LinearLayout>
 
 
+
+    <!--유저대사-->
     <LinearLayout
-        android:background="#909090"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="6dp"
+        android:layout_marginRight="8dp"
         android:visibility="gone"
         android:id="@+id/chat_user_lr"
         android:layout_width="match_parent"
@@ -61,21 +79,28 @@
         <TextView
             android:textSize="8dp"
             android:layout_gravity="right|bottom"
+            android:textColor="#ffffff"
             android:id="@+id/chat_user_date_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
-            android:layout_marginLeft="10dp"
+            android:background="@drawable/round_white_background"
+            android:paddingTop="7dp"
+            android:paddingBottom="7dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_marginLeft="7dp"
             android:layout_gravity="right"
             android:id="@+id/chat_user_script_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
     </LinearLayout>
 
 
-
 </LinearLayout>
+
 
 
 

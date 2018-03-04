@@ -1,13 +1,16 @@
 package lipnus.com.hmtr;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.daimajia.androidanimations.library.Techniques;
@@ -15,6 +18,7 @@ import com.daimajia.androidanimations.library.YoYo;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import lipnus.com.hmtr.chatting.ChatActivity;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -41,6 +45,9 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
         ButterKnife.bind(this);
 
+        //툴바 없에기
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setScreen();
     }
 
@@ -59,6 +66,12 @@ public class WelcomeActivity extends AppCompatActivity {
             case 3:
                 script= "저와함께 지금부터 시작해볼까요?";
                 imgPath = R.drawable.tory_3;
+                break;
+            case 4:
+                Toast.makeText(getApplicationContext(), "가즈아!", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+                startActivity(intent);
+                finish();
                 break;
         }
 
@@ -97,8 +110,8 @@ public class WelcomeActivity extends AppCompatActivity {
                         .into( charactorIv );
                 charactorIv.setScaleType(ImageView.ScaleType.FIT_XY);
 
-                YoYo.with(Techniques.SlideInDown)
-                        .duration(1500)
+                YoYo.with(Techniques.SlideInUp)
+                        .duration(1300)
                         .playOn(scriptTv);
 
                 YoYo.with(Techniques.FadeIn)
