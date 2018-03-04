@@ -13,7 +13,7 @@ import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import lipnus.com.hmtr.retro.ResponseBody.GroupExist;
+import lipnus.com.hmtr.retro.Response.GroupExist;
 import lipnus.com.hmtr.retro.RetroCallback;
 import lipnus.com.hmtr.retro.RetroClient;
 

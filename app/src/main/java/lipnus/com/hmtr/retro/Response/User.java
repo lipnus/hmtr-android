@@ -1,4 +1,4 @@
-package lipnus.com.hmtr.retro.ResponseBody;
+package lipnus.com.hmtr.retro.Response;
 
 /**
  * Created by Sunpil on 2018-02-24.

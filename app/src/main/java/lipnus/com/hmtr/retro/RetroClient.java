@@ -6,9 +6,9 @@ import android.util.Log;
 
 import java.util.HashMap;
 
-import lipnus.com.hmtr.retro.ResponseBody.ChattingBasic;
-import lipnus.com.hmtr.retro.ResponseBody.GroupExist;
-import lipnus.com.hmtr.retro.ResponseBody.User;
+import lipnus.com.hmtr.retro.Response.ChattingBasic;
+import lipnus.com.hmtr.retro.Response.GroupExist;
+import lipnus.com.hmtr.retro.Response.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

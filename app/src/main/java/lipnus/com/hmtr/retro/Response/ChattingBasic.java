@@ -1,4 +1,4 @@
-package lipnus.com.hmtr.retro.ResponseBody;
+package lipnus.com.hmtr.retro.Response;
 
 import java.util.List;
 

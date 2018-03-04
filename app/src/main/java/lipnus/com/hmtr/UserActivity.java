@@ -14,7 +14,7 @@ import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import lipnus.com.hmtr.retro.ResponseBody.User;
+import lipnus.com.hmtr.retro.Response.User;
 import lipnus.com.hmtr.retro.RetroCallback;
 import lipnus.com.hmtr.retro.RetroClient;
 

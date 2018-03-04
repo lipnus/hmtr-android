@@ -11,7 +11,7 @@ import android.widget.Toast;
 import java.util.HashMap;
 
 import lipnus.com.hmtr.R;
-import lipnus.com.hmtr.retro.ResponseBody.GroupExist;
+import lipnus.com.hmtr.retro.Response.GroupExist;
 
 
 public class RetrofitActivity extends AppCompatActivity {

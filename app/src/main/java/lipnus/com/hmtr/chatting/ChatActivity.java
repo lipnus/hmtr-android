@@ -21,7 +21,7 @@ import lipnus.com.hmtr.BusProvider;
 import lipnus.com.hmtr.GlobalApplication;
 import lipnus.com.hmtr.InformationEvent;
 import lipnus.com.hmtr.R;
-import lipnus.com.hmtr.retro.ResponseBody.ChattingBasic;
+import lipnus.com.hmtr.retro.Response.ChattingBasic;
 import lipnus.com.hmtr.retro.RetroCallback;
 import lipnus.com.hmtr.retro.RetroClient;
 
@@ -45,9 +45,15 @@ public class ChatActivity extends AppCompatActivity {
     SharedPreferences setting;
     SharedPreferences.Editor editor;
 
-    int selectedChoicePk; //현재 선택된 답변의 pk
+
+    //=========================================================
+    // onSuccess에서 값을 받은 직후에 여기에 할당
+    //=========================================================
     int nowScriptPk; //현재의 질문
+    double nowSequence; //현재의 시퀸스
     String customAnswer; //"0"이면 없는것
+
+    int selectedChoicePk; //현재 선택된 답변의 pk
 
     String LOG = "BBCC";
 
@@ -71,9 +77,11 @@ public class ChatActivity extends AppCompatActivity {
         setting = getSharedPreferences("USERDATA", 0);
         editor= setting.edit();
 
+        nowSequence = GlobalApplication.sequence;
+
         //리스트뷰 설정
         initList();
-        connectServer(0, GlobalApplication.sequence, "none");
+        connectServer(0, nowSequence, "none");
     }
 
 
@@ -121,8 +129,6 @@ public class ChatActivity extends AppCompatActivity {
 
         }else{
 
-            final double sequence = ++GlobalApplication.sequence;
-            setSequence();
             int delay = 1000;
 
             addUserScript(chatBoxTv.getText().toString());
@@ -144,7 +150,7 @@ public class ChatActivity extends AppCompatActivity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run(){
-                    connectServer(nowScriptPk, sequence, Integer.toString(selectedChoicePk));
+                    connectServer(nowScriptPk, nowSequence, Integer.toString(selectedChoicePk));
                 }
             }, delay);
         }
@@ -183,6 +189,7 @@ public class ChatActivity extends AppCompatActivity {
                 Log.e(LOG, "Success: " + String.valueOf(code) + ", " + String.valueOf(data.script));
 
                 nowScriptPk = data.script_pk;
+                nowSequence = data.sequence;
 
                 if(! checkCategoryEnd(data.script)){
                     setChat(data);
@@ -219,6 +226,7 @@ public class ChatActivity extends AppCompatActivity {
                 Log.e(LOG, "Success: " + String.valueOf(code) + ", " + String.valueOf(data.script));
 
                 nowScriptPk = data.script_pk;
+                nowSequence = data.sequence;
 
                 if(! checkCategoryEnd(data.script)){
                     setChat(data);
@@ -235,11 +243,9 @@ public class ChatActivity extends AppCompatActivity {
 
 
 
-
-
     public void setChat(ChattingBasic data){
 
-        Log.d("SSQQ", "sequence: " + setting.getFloat("sequence", 0) + " / " + GlobalApplication.sequence );
+        Log.d("SSQQ", "sequence: " + setting.getFloat("sequence", 0) + " / " + nowSequence );
 
         addNpcScript(data.script);
 
@@ -251,19 +257,13 @@ public class ChatActivity extends AppCompatActivity {
         }
         else if(data.type.equals("script")){ //대사만 있는 경우 1초 뒤 다음 대사 호출
 
-            final double sequence = ++GlobalApplication.sequence;
-            setSequence();
-
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run(){
-
-                    connectServer(nowScriptPk, sequence, "none");
+                    connectServer(nowScriptPk, nowSequence, "none");
                 }
             }, 1000);
-
         }
-
     }
 
 
@@ -283,12 +283,10 @@ public class ChatActivity extends AppCompatActivity {
         chat_listview.setSelection(chat_adapter.getCount() - 1); //가장 아래쪽으로 스크롤다운
     }
 
-
-
     public void setSequence(){
 
         //프레퍼런스에 저장(double은 저장안되서 float에..)
-        editor.putFloat("sequence", (float)GlobalApplication.sequence );
+        editor.putFloat("sequence", (float)nowSequence );
         editor.commit();
     }
 
@@ -318,7 +316,9 @@ public class ChatActivity extends AppCompatActivity {
                 setCategory("aptitude");
             }
 
-            GlobalApplication.sequence = 0;
+//            GlobalApplication.sequence = 0;
+            nowSequence = 0;
+
             setSequence();
             connectServer(0,0,"none");
 
@@ -352,7 +352,6 @@ public class ChatActivity extends AppCompatActivity {
         }else{
             addNpcScript(mInfo.message);
         }
-
     }
 
 

@@ -11,9 +11,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.squareup.otto.Subscribe;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,12 +24,12 @@ import lipnus.com.hmtr.BusProvider;
 import lipnus.com.hmtr.GlobalApplication;
 import lipnus.com.hmtr.InformationEvent;
 import lipnus.com.hmtr.R;
-import lipnus.com.hmtr.retro.ResponseBody.ChattingBasic;
+import lipnus.com.hmtr.retro.Request.MultiChoice;
+import lipnus.com.hmtr.retro.Response.ChattingBasic;
 import lipnus.com.hmtr.retro.RetroCallback;
 import lipnus.com.hmtr.retro.RetroClient;
 
 public class ChatActivity3 extends AppCompatActivity {
-
 
     ChatListViewAdapter chat_adapter;
     AnswerListViewAdapter answer_adapter;
@@ -46,14 +49,18 @@ public class ChatActivity3 extends AppCompatActivity {
     SharedPreferences setting;
     SharedPreferences.Editor editor;
 
-    int selectedChoicePk; //현재 선택된 답변의 pk
+    //=========================================================
+    // onSuccess에서 값을 받은 직후에 여기에 할당
+    //=========================================================
     int nowScriptPk; //현재의 질문
+    double nowSequence; //현재의 시퀸스
+    String nowAnswerType; //답변의 타입(single, multi_1, multi_2, multi_3) -> 챕터3에서만 사용
+
+    int selectedChoicePk; //현재 선택된 답변의 pk(answer리스트에서 선택 시 할당)
 
     int chatDelayTime = 1000;
 
-    String answerType; //답변의 타입(single, multi_1, multi_2, multi_3) -> 챕터3에서만 사용
     String customAnswer; //"0"이면 없는것
-
     String LOG = "BBCC";
 
 
@@ -69,9 +76,7 @@ public class ChatActivity3 extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
         ButterKnife.bind(this);
 
-
         GlobalApplication.category="aptitude";
-
 
         retroClient = RetroClient.getInstance(this).createBaseApi();
         BusProvider.getInstance().register(this);
@@ -83,8 +88,10 @@ public class ChatActivity3 extends AppCompatActivity {
         //리스트뷰 설정
         initList();
 
-        answerType = GlobalApplication.answerType;
-        connectServer(0, GlobalApplication.sequence, "single", "none");
+        nowAnswerType = GlobalApplication.answerType;
+        nowSequence = GlobalApplication.sequence;
+
+        connectServer(0, nowSequence, "single", "none");
     }
 
 
@@ -131,10 +138,10 @@ public class ChatActivity3 extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                if(answerType.equals("multi_1")){
+                if(nowAnswerType.equals("multi_1")){
                     multi_answer_adapter.changeThreeColor(position);
                 }
-                else if(answerType.equals("multi_2") || answerType.equals("multi_3")){
+                else if(nowAnswerType.equals("multi_2") || nowAnswerType.equals("multi_3")){
                     multi_answer_adapter.changeTwoColor(position);
                 }
 
@@ -151,15 +158,22 @@ public class ChatActivity3 extends AppCompatActivity {
     public void onClick_chat_send(View v){
 
         //복수답안 전송
-        if(answerType.equals("multi_1") || answerType.equals("multi_2") || answerType.equals("multi_3")){
+        if(nowAnswerType.equals("multi_1") || nowAnswerType.equals("multi_2") || nowAnswerType.equals("multi_3")){
 
             int answerCount = multi_answer_adapter.getCount();
+            String answer;
+            List<MultiChoice> choiceList = new ArrayList<>();
 
             for(int i=0; i<answerCount; i++){
                 MultiAnswerListViewItem mMultiAnswer = (MultiAnswerListViewItem)multi_answer_adapter.getItem(i);
-                Log.e("SSBB", mMultiAnswer.choice + ": " +  mMultiAnswer.checkValue);
+
+                MultiChoice choiceObj = new MultiChoice(mMultiAnswer.choice_pk, mMultiAnswer.checkValue);
+                choiceList.add(choiceObj);
             }
 
+            Gson gson = new Gson();
+            String answerJson = gson.toJson(choiceList);
+            Log.e("SSBB", "다중선택답안: " + answerJson);
             addUserScript("답안전송!");
 
             //답변리스트 되돌리기
@@ -167,16 +181,13 @@ public class ChatActivity3 extends AppCompatActivity {
             answer_listview.setAdapter(answer_adapter);
             touchList();
 
+            //약간의 딜레이 후 서버로 전송
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    connectServer(nowScriptPk, GlobalApplication.sequence, answerType, Integer.toString(selectedChoicePk));
+                    connectServer(nowScriptPk, nowSequence, nowAnswerType, Integer.toString(selectedChoicePk));
                 }
             }, chatDelayTime);
-
-
-
-
         }
 
         //전송조건 미충족
@@ -208,7 +219,7 @@ public class ChatActivity3 extends AppCompatActivity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run(){
-                    connectServer(nowScriptPk, GlobalApplication.sequence, answerType, Integer.toString(selectedChoicePk));
+                    connectServer(nowScriptPk, nowSequence, nowAnswerType, Integer.toString(selectedChoicePk));
                 }
             }, delay);
         }
@@ -246,13 +257,12 @@ public class ChatActivity3 extends AppCompatActivity {
                 Log.e(LOG, "Success: " + String.valueOf(code) + " / " + String.valueOf(data.script) + " / " + String.valueOf(data.sequence) + " / " + String.valueOf(data.type));
 
                 nowScriptPk = data.script_pk;
-
-                GlobalApplication.sequence = data.sequence;
+                nowSequence = data.sequence;
 
                 if(data.type.equals("script") || data.type.equals("question")){
-                    answerType = "single";
+                    nowAnswerType = "single";
                 }else{
-                    answerType = data.type;
+                    nowAnswerType = data.type;
                 }
 
 
@@ -273,7 +283,7 @@ public class ChatActivity3 extends AppCompatActivity {
 
     public void setChat(ChattingBasic data){
 
-        Log.d("SSQQ", "sequence: " + setting.getFloat("sequence", 0) + " / " + GlobalApplication.sequence );
+        Log.d("SSQQ", "sequence: " + setting.getFloat("sequence", 0) + " / " + nowSequence );
 
 
         if(data.type.equals("question")){ //단일선택 답변처리
@@ -294,7 +304,7 @@ public class ChatActivity3 extends AppCompatActivity {
                 @Override
                 public void run(){
 
-                    connectServer(nowScriptPk, GlobalApplication.sequence, answerType, "none");
+                    connectServer(nowScriptPk, nowSequence, nowAnswerType, "none");
                 }
             }, chatDelayTime);
 
@@ -302,14 +312,13 @@ public class ChatActivity3 extends AppCompatActivity {
 
         else{ //복수선택 답변처리
 
-
             Log.e("TTDD", data.sequence + " type: " + data.type );
             Log.e("TTDD", data.sequence + " answer: " + data.answer );
 
             //복수선택 첫번째 처리
             //동일한 내용인데 type만 바꿔서 재전송
             if(data.answer.isEmpty() == true){
-                connectServer(data.script_pk, data.sequence, answerType,"none");
+                connectServer(data.script_pk, data.sequence, nowAnswerType,"none");
             }else{
 
                 addNpcScript(data.script);
@@ -349,7 +358,7 @@ public class ChatActivity3 extends AppCompatActivity {
     public void setSequence(){
 
         //프레퍼런스에 저장(double은 저장안되서 float에..)
-        editor.putFloat("sequence", (float)GlobalApplication.sequence );
+        editor.putFloat("sequence", (float)nowSequence );
         editor.commit();
      }
 
