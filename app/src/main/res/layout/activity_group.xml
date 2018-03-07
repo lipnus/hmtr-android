@@ -8,22 +8,38 @@
 
     <TextView
         android:id="@+id/group_tv"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="130dp"
+        android:textSize="12dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="설문코드를 입력해주세요"/>
+        android:text="검사 코드를 입력해주세요"/>
 
 
-    <EditText
-        android:id="@+id/group_et"
+
+
+    <LinearLayout
+        android:id="@+id/group_edit_lr"
+        android:layout_marginTop="70dp"
+        android:layout_gravity="center_horizontal"
         android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:singleLine = "true"
-        android:lines = "1" />
+        android:layout_height="60dp"
+        android:orientation="vertical"
+        android:background="#f8e2ff">
 
-    <Button
-        android:onClick="onClick_group"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/group_et"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:singleLine="true"
+            android:inputType="number"
+            android:maxLength="6"
+            android:imeOptions="actionDone"
+            android:layout_width="130dp"
+            android:layout_height="60dp"
+            android:textSize="33dp"
+            android:textColor="#9075ea"
+            android:background="@null"/>
+    </LinearLayout>
 
 </LinearLayout>

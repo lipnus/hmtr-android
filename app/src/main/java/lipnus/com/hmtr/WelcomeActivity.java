@@ -48,6 +48,9 @@ public class WelcomeActivity extends AppCompatActivity {
         //툴바 없에기
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        //액티비티 화면 전환효과
+        this.overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+
         setScreen();
     }
 
@@ -68,7 +71,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 imgPath = R.drawable.tory_3;
                 break;
             case 4:
-                Toast.makeText(getApplicationContext(), "가즈아!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "MKBT검사를 시작합니다", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
                 startActivity(intent);
                 finish();

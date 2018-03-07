@@ -1,5 +1,6 @@
 package lipnus.com.hmtr.chatting;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,7 +17,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.squareup.otto.Subscribe;
 
-import java.nio.file.Path;
 import java.util.HashMap;
 
 import butterknife.BindView;
@@ -29,7 +29,6 @@ import lipnus.com.hmtr.retro.Response.AnswerBasic;
 import lipnus.com.hmtr.retro.Response.ChattingBasic;
 import lipnus.com.hmtr.retro.RetroCallback;
 import lipnus.com.hmtr.retro.RetroClient;
-import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -57,7 +56,7 @@ public class ChatActivity extends AppCompatActivity {
     SharedPreferences setting;
     SharedPreferences.Editor editor;
 
-    int chatDelayTime = 800;
+    int chatDelayTime = 1;
 
     //=========================================================
     // onSuccess에서 값을 받은 직후에 여기에 할당
@@ -68,7 +67,7 @@ public class ChatActivity extends AppCompatActivity {
 
     int nowRootSeq; //챕터4에서만 씀
     double nowNextSeq; //챕터4에서만 씀
-    int nowResult; //챕터4에서만 씀(1~5)
+    String nowResult; //챕터4에서만 씀(1~5)
 
     int selectedChoicePk; //현재 선택된 답변의 pk
 
@@ -96,6 +95,9 @@ public class ChatActivity extends AppCompatActivity {
 
         retroClient = RetroClient.getInstance(this).createBaseApi();
         BusProvider.getInstance().register(this);
+
+        //액티비티 화면 전환효과
+        this.overridePendingTransition(R.anim.fadein, R.anim.fadeout);
 
         //Prefrence설정(0:읽기,쓰기가능)
         setting = getSharedPreferences("USERDATA", 0);
@@ -191,7 +193,13 @@ public class ChatActivity extends AppCompatActivity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run(){
-                    connectServer(nowScriptPk, nowSequence, Integer.toString(selectedChoicePk));
+
+                    if (GlobalApplication.category.equals("balance")) {
+                        connectServer(nowScriptPk, nowSequence, nowResult);
+                    }else{
+                        connectServer(nowScriptPk, nowSequence, Integer.toString(selectedChoicePk));
+                    }
+
                 }
             }, delay);
         }
@@ -208,7 +216,7 @@ public class ChatActivity extends AppCompatActivity {
         }else if(GlobalApplication.category.equals("behavior")){
             postBehavior(scriptPk, sequence, answer);
         }else if(GlobalApplication.category.equals("balance")) {
-            postBalance(nowRootSeq, nowNextSeq, answer);
+            postBalance( nowRootSeq, nowNextSeq, answer);
         }
 
 
@@ -402,6 +410,8 @@ public class ChatActivity extends AppCompatActivity {
         //프레퍼런스에 저장(double은 저장안되서 float에..)
         editor.putFloat("sequence", (float)nowSequence );
         editor.commit();
+
+        GlobalApplication.sequence = nowSequence;
     }
 
     public void setCategory(String category){
@@ -435,20 +445,34 @@ public class ChatActivity extends AppCompatActivity {
             clearChat();
             clearAnswer();
 
+            nowSequence = 0;
+            setSequence();
+
             if(GlobalApplication.category.equals("basic")){
+                Toast.makeText(getApplicationContext(), "기본인적사항 완료!", Toast.LENGTH_LONG).show();
                 setCategory("behavior");
+                setTitle();
             }
             else if(GlobalApplication.category.equals("behavior")){
+                Toast.makeText(getApplicationContext(), "학습행동유형 완료!", Toast.LENGTH_LONG).show();
                 setCategory("aptitude");
+                setTitle();
+
+                //챕터3은 다른데서 하기 때문에 이렇게 해준다
+                Intent intent = new Intent(getApplicationContext(), ChatActivity3.class);
+                startActivity(intent);
+                finish();
+
+
+            }
+            else if(GlobalApplication.category.equals("balance")){
+                Toast.makeText(getApplicationContext(), "밸런스 자가진단 완료!", Toast.LENGTH_LONG).show();
+                finish();
+//                return true;
             }
 
-            nowSequence = 0;
-            setTitle();
 
-            setSequence();
-            connectServer(0,0,"none");
-
-            Toast.makeText(getApplicationContext(), "카테고리 변경", Toast.LENGTH_LONG).show();
+            connectServer(0,0,"none"); //얘는 1~2넘어갈때만 호출될듯
             return true;
         }
 
@@ -472,22 +496,22 @@ public class ChatActivity extends AppCompatActivity {
 
 
 
-    public int transAnswer(String answerStr){
+    public String transAnswer(String answerStr){
 
         //챕터4의 선택지를 숫자로 바꿔줌
 
-        int val = 3;
+        String val = "none";
 
         if(answerStr.equals("매우우수")){
-            val =  5;
+            val =  "5";
         }else if(answerStr.equals("우수")){
-            val = 4;
+            val = "4";
         }else if(answerStr.equals("보통")){
-            val = 3;
+            val = "3";
         }else if(answerStr.equals("미흡")){
-            val = 2;
+            val = "2";
         }else if(answerStr.equals("매우미흡")){
-            val = 1;
+            val = "1";
         }
 
         return val;

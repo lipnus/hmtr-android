@@ -1,5 +1,6 @@
 package lipnus.com.hmtr;
 
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -41,6 +43,9 @@ public class UserActivity extends AppCompatActivity {
     @BindView(R.id.profile_result_tv)
     TextView resultTv;
 
+    @BindView(R.id.profile_agree_check)
+    com.rey.material.widget.CheckBox agreeChk;
+
     RetroClient retroClient;
     String LOG = "UUSS";
 
@@ -53,7 +58,10 @@ public class UserActivity extends AppCompatActivity {
         //호출할 때 같이 보낸 값 받아옴
         Intent iT = getIntent();
         groupName = iT.getExtras().getString("group_name", "group불러오기 실패");
-        groupTv.setText(groupName);
+        groupTv.setText("#검사그룹: " + groupName);
+
+        //툴바 없에기
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         //일단 최초가입으로 간주. 서버에서 확인 후 재전송한다
         postCount = 1;
@@ -83,9 +91,15 @@ public class UserActivity extends AppCompatActivity {
             resultStr = "전화번호를 입력해주세요";
         }else if(emailEt.getText().toString().equals("")){
             resultStr = "이메일을 입력해주세요";
+        }else{
+
+            if(!agreeChk.isChecked()){
+                resultStr = "개인정보 수집방침에 동의해주세요";
+            }
         }
 
         resultTv.setText(resultStr);
+
 
         if(resultStr==null){
             return true;
@@ -164,6 +178,7 @@ public class UserActivity extends AppCompatActivity {
             setPreferrence();
             Intent iT = new Intent(getApplicationContext(), WelcomeActivity.class);
             startActivity(iT);
+            finish();
         }
 
     }

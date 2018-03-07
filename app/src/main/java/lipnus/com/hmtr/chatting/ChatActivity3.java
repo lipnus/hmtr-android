@@ -1,5 +1,6 @@
 package lipnus.com.hmtr.chatting;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -67,10 +68,12 @@ public class ChatActivity3 extends AppCompatActivity {
 
     int selectedChoicePk; //현재 선택된 답변의 pk(answer리스트에서 선택 시 할당)
 
-    int chatDelayTime = 600;
+    int chatDelayTime = 1;
 
     String customAnswer; //"0"이면 없는것
     String LOG = "BBCC";
+
+    Boolean chat_send_tocck_lock = false; //복수선택시 중복전송방지하기 위해서 잠깐 잠금
 
 
     @Override
@@ -90,6 +93,9 @@ public class ChatActivity3 extends AppCompatActivity {
         //툴바 없에기
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         sendBtnImg(false);
+
+        //액티비티 화면 전환효과
+        this.overridePendingTransition(R.anim.fadein, R.anim.fadeout);
 
         GlobalApplication.category="aptitude";
 
@@ -176,13 +182,19 @@ public class ChatActivity3 extends AppCompatActivity {
 
     public void onClick_chat_send(View v){
 
+        if(chat_send_tocck_lock){
+            return;
+        }
+
+
+
+
         //복수답안 전송
         if(nowAnswerType.equals("multi_1") || nowAnswerType.equals("multi_2") || nowAnswerType.equals("multi_3")){
-
+            chat_send_tocck_lock = true; //서버에서 onSucess하면 풀어줌
             sendBtnImg(false);
 
             int answerCount = multi_answer_adapter.getCount();
-            String answer;
             List<MultiChoice> choiceList = new ArrayList<>();
 
             for(int i=0; i<answerCount; i++){
@@ -193,7 +205,7 @@ public class ChatActivity3 extends AppCompatActivity {
             }
 
             Gson gson = new Gson();
-            String answerJson = gson.toJson(choiceList);
+            final String answerJson = gson.toJson(choiceList);
             Log.e("SSBB", "다중선택답안: " + answerJson);
             addUserScript("답안전송!");
 
@@ -206,7 +218,7 @@ public class ChatActivity3 extends AppCompatActivity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    connectServer(nowScriptPk, nowSequence, nowAnswerType, Integer.toString(selectedChoicePk));
+                    connectServer(nowScriptPk, nowSequence, nowAnswerType, answerJson );
                 }
             }, chatDelayTime);
         }
@@ -218,7 +230,7 @@ public class ChatActivity3 extends AppCompatActivity {
 
         //단일답안 전송
         else{
-
+            chat_send_tocck_lock = true; //서버에서 onSucess하면 풀어줌
             int delay = chatDelayTime;
 
             sendBtnImg(false);
@@ -280,6 +292,8 @@ public class ChatActivity3 extends AppCompatActivity {
 
                 nowScriptPk = data.script_pk;
                 nowSequence = data.sequence;
+
+                chat_send_tocck_lock = false; //send버튼 잠금 풀어줌
 
                 if(data.type.equals("script") || data.type.equals("question")){
                     nowAnswerType = "single";
@@ -382,6 +396,8 @@ public class ChatActivity3 extends AppCompatActivity {
         //프레퍼런스에 저장(double은 저장안되서 float에..)
         editor.putFloat("sequence", (float)nowSequence );
         editor.commit();
+
+        GlobalApplication.sequence = nowSequence;
      }
 
     public void setCategory(String category){
@@ -405,11 +421,15 @@ public class ChatActivity3 extends AppCompatActivity {
 
             setCategory("balance");
 
-            GlobalApplication.sequence = 0;
+            nowSequence = 1;
             setSequence();
-//            connectServer(0,0,"none");
+            Toast.makeText(getApplicationContext(), "학습적성유형 완료!", Toast.LENGTH_LONG).show();
 
-            Toast.makeText(getApplicationContext(), "카테고리 변경", Toast.LENGTH_LONG).show();
+            //챕터3은 다른데서 하기 때문에 이렇게 해준다
+            Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+            startActivity(intent);
+            finish();
+
             return true;
         }
 

@@ -21,6 +21,12 @@ public class IntroActivity extends AppCompatActivity {
 
     }
 
+    public void onClick_intro_splash(View v){
+
+        Intent intent = new Intent(getApplicationContext(),SplashActivity.class);
+        startActivity(intent);
+    }
+
     public void onClick_intro_group(View v){
 
         Intent intent = new Intent(getApplicationContext(),GroupActivity.class);
