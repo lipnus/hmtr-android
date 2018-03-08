@@ -1,7 +1,9 @@
-package lipnus.com.hmtr;
+package lipnus.com.hmtr.tool;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import lipnus.com.hmtr.R;
 
 public class MainActivity extends AppCompatActivity {
 

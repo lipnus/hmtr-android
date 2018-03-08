@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -18,15 +19,17 @@ import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.squareup.otto.Subscribe;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import lipnus.com.hmtr.BusProvider;
+import lipnus.com.hmtr.tool.BusProvider;
 import lipnus.com.hmtr.GlobalApplication;
-import lipnus.com.hmtr.InformationEvent;
+import lipnus.com.hmtr.tool.InformationEvent;
 import lipnus.com.hmtr.R;
 import lipnus.com.hmtr.retro.Request.MultiChoice;
 import lipnus.com.hmtr.retro.Response.ChattingBasic;
@@ -68,12 +71,14 @@ public class ChatActivity3 extends AppCompatActivity {
 
     int selectedChoicePk; //현재 선택된 답변의 pk(answer리스트에서 선택 시 할당)
 
-    int chatDelayTime = 1;
+    int chatDelayTime = GlobalApplication.delayTime;
 
     String customAnswer; //"0"이면 없는것
     String LOG = "BBCC";
 
-    Boolean chat_send_tocck_lock = false; //복수선택시 중복전송방지하기 위해서 잠깐 잠금
+    Boolean lastItemVisibleFlag = false; //바닥친거 확인
+
+    Boolean chat_send_tocck_lock = false; //복수선택시 중복전송방지하기 위해서 잠금
 
 
     @Override
@@ -96,8 +101,6 @@ public class ChatActivity3 extends AppCompatActivity {
 
         //액티비티 화면 전환효과
         this.overridePendingTransition(R.anim.fadein, R.anim.fadeout);
-
-        GlobalApplication.category="aptitude";
 
         retroClient = RetroClient.getInstance(this).createBaseApi();
         BusProvider.getInstance().register(this);
@@ -134,6 +137,34 @@ public class ChatActivity3 extends AppCompatActivity {
         answer_listview.setAdapter(answer_adapter);
 
         touchList();
+        scrollList();
+    }
+
+    public void scrollList(){
+
+        answer_listview.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                //현재 화면에 보이는 첫번째 리스트 아이템의 번호(firstVisibleItem) + 현재 화면에 보이는 리스트 아이템의 갯수(visibleItemCount)가 리스트 전체의 갯수(totalItemCount) -1 보다 크거나 같을때
+                lastItemVisibleFlag = (totalItemCount > 0) && (firstVisibleItem + visibleItemCount >= totalItemCount);
+            }
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                //OnScrollListener.SCROLL_STATE_IDLE은 스크롤이 이동하다가 멈추었을때 발생되는 스크롤 상태입니다.
+                //즉 스크롤이 바닦에 닿아 멈춘 상태에 처리를 하겠다는 뜻
+                if(scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE && lastItemVisibleFlag) {
+                    //TODO 화면이 바닦에 닿을때 처리
+                    Log.e(LOG, "상태: " + lastItemVisibleFlag);
+
+
+                    //바닥치면(확인을 다 하면 불 켜준다
+                    if(nowAnswerType.equals("multi_1")){
+                        sendBtnImg(true);
+                    }
+
+                }
+            }
+        });
     }
 
     public void touchList(){
@@ -161,8 +192,6 @@ public class ChatActivity3 extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                sendBtnImg(true);
-
                 if(nowAnswerType.equals("multi_1")){
                     multi_answer_adapter.changeThreeColor(position);
                 }
@@ -185,9 +214,6 @@ public class ChatActivity3 extends AppCompatActivity {
         if(chat_send_tocck_lock){
             return;
         }
-
-
-
 
         //복수답안 전송
         if(nowAnswerType.equals("multi_1") || nowAnswerType.equals("multi_2") || nowAnswerType.equals("multi_3")){
@@ -244,9 +270,9 @@ public class ChatActivity3 extends AppCompatActivity {
                     public void run() {
                         addNpcScript(customAnswer);
                     }
-                }, 800);
+                }, 500);
 
-                delay= 2000;
+                delay= chatDelayTime;
             }
 
             //서버로 다음 sciprt요청
@@ -321,7 +347,6 @@ public class ChatActivity3 extends AppCompatActivity {
 
         Log.d("SSQQ", "sequence: " + setting.getFloat("sequence", 0) + " / " + nowSequence );
 
-
         if(data.type.equals("question")){ //단일선택 답변처리
 
             addNpcScript(data.script);
@@ -334,7 +359,6 @@ public class ChatActivity3 extends AppCompatActivity {
         else if(data.type.equals("script")){ //대사만 있는 경우 1초 뒤 다음 대사 호출
 
             addNpcScript(data.script);
-
 
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -367,6 +391,10 @@ public class ChatActivity3 extends AppCompatActivity {
                     multi_answer_adapter.addItem(data.answer.get(i).choice_pk, data.answer.get(i).choice, data.answer.get(i).custom, data.answer.get(i).information);
                 }
                 multi_answer_adapter.notifyDataSetChanged();
+
+                if(nowAnswerType.equals("multi_2") || nowAnswerType.equals("multi_3")){
+                    sendBtnImg(true);
+                }
             }
         }
 
@@ -378,20 +406,20 @@ public class ChatActivity3 extends AppCompatActivity {
         String npcName = GlobalApplication.npcName;
         String imgPath = GlobalApplication.facePath;
 
-        chat_adapter.addItem(npcName, imgPath, script, null, "오후 11:40");
+        chat_adapter.addItem(npcName, imgPath, script, null, getTime() );
         chat_adapter.notifyDataSetChanged(); //리스트 새로고침
         chat_listview.setSelection(chat_adapter.getCount() - 1); //가장 아래쪽으로 스크롤다운
     }
 
     public void addUserScript(String script){
-        chat_adapter.addItem(null, null, null, script, "오후 11:40");
+        chat_adapter.addItem(null, null, null, script, getTime() );
         chat_adapter.notifyDataSetChanged(); //리스트 새로고침
         chat_listview.setSelection(chat_adapter.getCount() - 1); //가장 아래쪽으로 스크롤다운
     }
 
 
 
-    public void setSequence(){
+    public void saveSequence(){
 
         //프레퍼런스에 저장(double은 저장안되서 float에..)
         editor.putFloat("sequence", (float)nowSequence );
@@ -400,7 +428,7 @@ public class ChatActivity3 extends AppCompatActivity {
         GlobalApplication.sequence = nowSequence;
      }
 
-    public void setCategory(String category){
+    public void saveCategory(String category){
 
         //프레퍼런스에 저장
         editor.putString("category", category);
@@ -418,21 +446,18 @@ public class ChatActivity3 extends AppCompatActivity {
 
             clearChat();
             clearAnswer();
-
-            setCategory("balance");
+            saveCategory("balance");
 
             nowSequence = 1;
-            setSequence();
+            saveSequence();
             Toast.makeText(getApplicationContext(), "학습적성유형 완료!", Toast.LENGTH_LONG).show();
 
             //챕터3은 다른데서 하기 때문에 이렇게 해준다
             Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
             startActivity(intent);
             finish();
-
             return true;
         }
-
         return false;
     }
 
@@ -455,6 +480,34 @@ public class ChatActivity3 extends AppCompatActivity {
         multi_answer_adapter.notifyDataSetChanged();
     }
 
+    public String getTime(){
+
+        String Time;
+
+        // 시스템으로부터 현재시간(ms) 가져오기
+        long now = System.currentTimeMillis();
+
+        // Data 객체에 시간을 저장한다.
+        Date date = new Date(now);
+
+        // 각자 사용할 포맷을 정하고 문자열로 만든다.
+        SimpleDateFormat sdfMin = new SimpleDateFormat("mm");
+        SimpleDateFormat sdfHour = new SimpleDateFormat("HH");
+
+        int hour = Integer.parseInt( sdfHour.format(date) );
+        String minute = sdfMin.format(date);
+
+        if(hour <= 12) {
+            Time = "오전 " + hour + ":" + minute;
+        }else{
+            hour = hour - 12;
+            Time = "오후 " + hour + ":" + minute;
+        }
+
+        return  Time;
+
+    }
+
     public void sendBtnImg(boolean light){
 
         if(light==true){
@@ -468,12 +521,7 @@ public class ChatActivity3 extends AppCompatActivity {
                     .load( R.drawable.send_off )
                     .into( sendIv );
             sendIv.setScaleType(ImageView.ScaleType.FIT_XY);
-
-
         }
-
-
-
     }
 
     @Subscribe
@@ -484,12 +532,7 @@ public class ChatActivity3 extends AppCompatActivity {
         }else{
             addNpcScript(mInfo.message);
         }
-
     }
-
-
-
-
 }
 
 

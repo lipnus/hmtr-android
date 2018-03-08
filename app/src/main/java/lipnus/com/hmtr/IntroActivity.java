@@ -49,6 +49,7 @@ public class IntroActivity extends AppCompatActivity {
 
     public void onClick_intro_chat3(View v){
 
+        GlobalApplication.category="aptitude";
         Intent intent = new Intent(getApplicationContext(), ChatActivity3.class);
         startActivity(intent);
     }

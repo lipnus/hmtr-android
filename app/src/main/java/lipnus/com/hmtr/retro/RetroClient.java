@@ -7,7 +7,9 @@ import android.util.Log;
 import java.util.HashMap;
 
 import lipnus.com.hmtr.retro.Response.ChattingBasic;
+import lipnus.com.hmtr.retro.Response.DeleteAptitude;
 import lipnus.com.hmtr.retro.Response.GroupExist;
+import lipnus.com.hmtr.retro.Response.ServerInfo;
 import lipnus.com.hmtr.retro.Response.User;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -81,6 +83,28 @@ public class RetroClient {
         });
     }
 
+    //서버정보
+    public void postServerInfo (HashMap<String, Object> parameters, final RetroCallback callback) {
+        apiService.postServerInfo(parameters).enqueue(new Callback<ServerInfo>() {
+            @Override
+            public void onResponse(Call<ServerInfo> call, Response<ServerInfo> response) {
+                if (response.isSuccessful()) {
+                    Log.e("VOVO", "받은내용: " + response.body());
+                    callback.onSuccess(response.code(), response.body());
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ServerInfo> call, Throwable t) {
+                callback.onError(t);
+            }
+        });
+    }
+
+
+    //그룹설정
     public void postGroup (HashMap<String, Object> parameters, final RetroCallback callback) {
         apiService.postGroup(parameters).enqueue(new Callback<GroupExist>() {
             @Override
@@ -100,6 +124,8 @@ public class RetroClient {
         });
     }
 
+
+    //사용자등록
     public void postUser (HashMap<String, Object> parameters, final RetroCallback callback) {
         apiService.postUser(parameters).enqueue(new Callback<User>() {
             @Override
@@ -118,6 +144,7 @@ public class RetroClient {
             }
         });
     }
+
 
     //기본인적사항
     public void postBasic (HashMap<String, Object> parameters, final RetroCallback callback) {
@@ -139,6 +166,7 @@ public class RetroClient {
         });
     }
 
+
     //학습행동유형
     public void postBehavior (HashMap<String, Object> parameters, final RetroCallback callback) {
         apiService.postBehavior(parameters).enqueue(new Callback<ChattingBasic>() {
@@ -158,6 +186,7 @@ public class RetroClient {
             }
         });
     }
+
 
     //학습적성유형
     public void postAptitude (HashMap<String, Object> parameters, final RetroCallback callback) {
@@ -179,6 +208,7 @@ public class RetroClient {
         });
     }
 
+
     //밸런스자가측정
     public void postBalance (HashMap<String, Object> parameters, final RetroCallback callback) {
         apiService.postBalance(parameters).enqueue(new Callback<ChattingBasic>() {
@@ -194,6 +224,27 @@ public class RetroClient {
 
             @Override
             public void onFailure(Call<ChattingBasic> call, Throwable t) {
+                callback.onError(t);
+            }
+        });
+    }
+
+
+    //해당유저의 챕터3 raw_aptitude 삭제
+    public void postDeleteAptitude (HashMap<String, Object> parameters, final RetroCallback callback) {
+        apiService.postDeleteAptitude(parameters).enqueue(new Callback<DeleteAptitude>() {
+            @Override
+            public void onResponse(Call<DeleteAptitude> call, Response<DeleteAptitude> response) {
+                if (response.isSuccessful()) {
+                    Log.e("VOVO", "받은내용: " + response.body());
+                    callback.onSuccess(response.code(), response.body());
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DeleteAptitude> call, Throwable t) {
                 callback.onError(t);
             }
         });

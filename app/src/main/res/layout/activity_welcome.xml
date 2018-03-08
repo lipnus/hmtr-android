@@ -19,6 +19,7 @@
 
 
     <ImageView
+        android:onClick="onClick_welcome_img"
         android:layout_gravity="center"
         android:id="@+id/welcome_charactor_iv"
         android:layout_width="170dp"

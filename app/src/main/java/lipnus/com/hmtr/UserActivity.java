@@ -3,6 +3,7 @@ package lipnus.com.hmtr;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -37,8 +38,6 @@ public class UserActivity extends AppCompatActivity {
     @BindView(R.id.profile_email_et)
     EditText emailEt;
 
-    @BindView(R.id.profile_group_tv)
-    TextView groupTv;
 
     @BindView(R.id.profile_result_tv)
     TextView resultTv;
@@ -49,16 +48,22 @@ public class UserActivity extends AppCompatActivity {
     RetroClient retroClient;
     String LOG = "UUSS";
 
+    SharedPreferences setting;
+    SharedPreferences.Editor editor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
         ButterKnife.bind(this);
 
+        //Prefrence설정(0:읽기,쓰기가능)
+        setting = getSharedPreferences("USERDATA", 0);
+        editor= setting.edit();
+
         //호출할 때 같이 보낸 값 받아옴
         Intent iT = getIntent();
         groupName = iT.getExtras().getString("group_name", "group불러오기 실패");
-        groupTv.setText("#검사그룹: " + groupName);
 
         //툴바 없에기
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -175,7 +180,7 @@ public class UserActivity extends AppCompatActivity {
             builder.show();
         }
         else{
-            setPreferrence();
+            setPreferrence(mUser.userinfo_pk);
             Intent iT = new Intent(getApplicationContext(), WelcomeActivity.class);
             startActivity(iT);
             finish();
@@ -185,7 +190,14 @@ public class UserActivity extends AppCompatActivity {
 
 
     //기본정보를 스마트폰 내부에 저장한다
-    public void setPreferrence(){
+    public void setPreferrence(int userinfo_pk){
+
+        //어플리케이션
+        GlobalApplication.userinfo_pk = userinfo_pk;
+
         //프레퍼런스
+        editor.putInt("userinfo_pk", userinfo_pk);
+        editor.commit();
+
     }
 }

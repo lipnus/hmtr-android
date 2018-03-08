@@ -17,13 +17,16 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.squareup.otto.Subscribe;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import lipnus.com.hmtr.BusProvider;
+import lipnus.com.hmtr.ReportActivity;
+import lipnus.com.hmtr.tool.BusProvider;
 import lipnus.com.hmtr.GlobalApplication;
-import lipnus.com.hmtr.InformationEvent;
+import lipnus.com.hmtr.tool.InformationEvent;
 import lipnus.com.hmtr.R;
 import lipnus.com.hmtr.retro.Response.AnswerBasic;
 import lipnus.com.hmtr.retro.Response.ChattingBasic;
@@ -51,12 +54,14 @@ public class ChatActivity extends AppCompatActivity {
     @BindView(R.id.answer_send_iv)
     ImageView sendIv;
 
+    Boolean lastItemVisibleFlag = false; //마지막 아이템이 보이는가? (바닥에 닿았는가?)
+
     RetroClient retroClient;
 
     SharedPreferences setting;
     SharedPreferences.Editor editor;
 
-    int chatDelayTime = 1;
+    int chatDelayTime = GlobalApplication.delayTime;
 
     //=========================================================
     // onSuccess에서 값을 받은 직후에 여기에 할당
@@ -164,6 +169,8 @@ public class ChatActivity extends AppCompatActivity {
 
 
 
+
+
     public void onClick_chat_send(View v){
 
         if(chatBoxTv.getText().toString().equals("")){
@@ -243,6 +250,9 @@ public class ChatActivity extends AppCompatActivity {
                 ChattingBasic data = (ChattingBasic)receivedData;
                 Log.e(LOG, "Success: " + String.valueOf(code) + ", " + String.valueOf(data.script));
 
+                //전송한 데이터상태를 저장(여기는 새로 값을 받아왔지만 아직 반영은 안되있는 상태)
+                saveSequence();
+
                 nowScriptPk = data.script_pk;
                 nowSequence = data.sequence;
 
@@ -279,6 +289,9 @@ public class ChatActivity extends AppCompatActivity {
             public void onSuccess(int code, Object receivedData) {
                 ChattingBasic data = (ChattingBasic)receivedData;
                 Log.e(LOG, "Success: " + String.valueOf(code) + ", " + String.valueOf(data.script));
+
+                //전송한 데이터상태를 저장(여기는 새로 값을 받아왔지만 아직 반영은 안되있는 상태)
+                saveSequence();
 
                 nowScriptPk = data.script_pk;
                 nowSequence = data.sequence;
@@ -318,6 +331,10 @@ public class ChatActivity extends AppCompatActivity {
 
                 nowScriptPk = data.script_pk;
                 nowSequence = data.sequence;
+
+                //다음번 시퀸스를 저장
+                saveSequence();
+                saveCategory("balance"); //테스트용
 
                 if(! checkCategoryEnd(data.script)){
                     setChat4(data);
@@ -394,18 +411,18 @@ public class ChatActivity extends AppCompatActivity {
         String npcName = GlobalApplication.npcName;
         String imgPath = GlobalApplication.facePath;
 
-        chat_adapter.addItem(npcName, imgPath, script, null, "오후 11:40");
+        chat_adapter.addItem(npcName, imgPath, script, null, getTime() );
         chat_adapter.notifyDataSetChanged(); //리스트 새로고침
         chat_listview.setSelection(chat_adapter.getCount() - 1); //가장 아래쪽으로 스크롤다운
     }
 
     public void addUserScript(String script){
-        chat_adapter.addItem(null, null, null, script, "오후 11:40");
+        chat_adapter.addItem(null, null, null, script, getTime() );
         chat_adapter.notifyDataSetChanged(); //리스트 새로고침
         chat_listview.setSelection(chat_adapter.getCount() - 1); //가장 아래쪽으로 스크롤다운
     }
 
-    public void setSequence(){
+    public void saveSequence(){
 
         //프레퍼런스에 저장(double은 저장안되서 float에..)
         editor.putFloat("sequence", (float)nowSequence );
@@ -414,7 +431,7 @@ public class ChatActivity extends AppCompatActivity {
         GlobalApplication.sequence = nowSequence;
     }
 
-    public void setCategory(String category){
+    public void saveCategory(String category){
 
         //프레퍼런스에 저장
         editor.putString("category", category);
@@ -446,16 +463,16 @@ public class ChatActivity extends AppCompatActivity {
             clearAnswer();
 
             nowSequence = 0;
-            setSequence();
+            saveSequence();
 
             if(GlobalApplication.category.equals("basic")){
                 Toast.makeText(getApplicationContext(), "기본인적사항 완료!", Toast.LENGTH_LONG).show();
-                setCategory("behavior");
+                saveCategory("behavior");
                 setTitle();
             }
             else if(GlobalApplication.category.equals("behavior")){
                 Toast.makeText(getApplicationContext(), "학습행동유형 완료!", Toast.LENGTH_LONG).show();
-                setCategory("aptitude");
+                saveCategory("aptitude");
                 setTitle();
 
                 //챕터3은 다른데서 하기 때문에 이렇게 해준다
@@ -467,9 +484,14 @@ public class ChatActivity extends AppCompatActivity {
             }
             else if(GlobalApplication.category.equals("balance")){
                 Toast.makeText(getApplicationContext(), "밸런스 자가진단 완료!", Toast.LENGTH_LONG).show();
+                saveCategory("report");
+
+                Intent intent = new Intent(getApplicationContext(), ReportActivity.class);
+                startActivity(intent);
                 finish();
-//                return true;
+                return true;
             }
+
 
 
             connectServer(0,0,"none"); //얘는 1~2넘어갈때만 호출될듯
@@ -495,6 +517,34 @@ public class ChatActivity extends AppCompatActivity {
     }
 
 
+
+    public String getTime(){
+
+        String Time;
+
+        // 시스템으로부터 현재시간(ms) 가져오기
+        long now = System.currentTimeMillis();
+
+        // Data 객체에 시간을 저장한다.
+        Date date = new Date(now);
+
+        // 각자 사용할 포맷을 정하고 문자열로 만든다.
+        SimpleDateFormat sdfMin = new SimpleDateFormat("mm");
+        SimpleDateFormat sdfHour = new SimpleDateFormat("HH");
+
+        int hour = Integer.parseInt( sdfHour.format(date) );
+        String minute = sdfMin.format(date);
+
+        if(hour <= 12) {
+            Time = "오전 " + hour + ":" + minute;
+        }else{
+            hour = hour - 12;
+            Time = "오후 " + hour + ":" + minute;
+        }
+
+        return  Time;
+
+    }
 
     public String transAnswer(String answerStr){
 

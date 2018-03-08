@@ -146,4 +146,10 @@ public class WelcomeActivity extends AppCompatActivity {
         scriptIndex++;
         setScreen();
     }
+
+    public void onClick_welcome_img(View v){
+        YoYo.with(Techniques.RubberBand)
+                .duration(800)
+                .playOn(charactorIv);
+    }
 }

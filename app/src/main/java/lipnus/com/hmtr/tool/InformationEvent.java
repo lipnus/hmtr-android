@@ -1,4 +1,4 @@
-package lipnus.com.hmtr;
+package lipnus.com.hmtr.tool;
 
 /**
  * Created by LIPNUS on 2018-02-28.

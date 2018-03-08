@@ -1,4 +1,4 @@
-package lipnus.com.hmtr;
+package lipnus.com.hmtr.tool;
 
 import com.squareup.otto.Bus;
 
