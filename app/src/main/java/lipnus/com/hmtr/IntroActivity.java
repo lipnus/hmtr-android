@@ -43,6 +43,8 @@ public class IntroActivity extends AppCompatActivity {
 
     public void onClick_intro_chat(View v){
 
+        GlobalApplication.category="behavior";
+        GlobalApplication.sequence=0;
         Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
         startActivity(intent);
     }
@@ -50,6 +52,7 @@ public class IntroActivity extends AppCompatActivity {
     public void onClick_intro_chat3(View v){
 
         GlobalApplication.category="aptitude";
+        GlobalApplication.sequence=0;
         Intent intent = new Intent(getApplicationContext(), ChatActivity3.class);
         startActivity(intent);
     }
@@ -59,6 +62,18 @@ public class IntroActivity extends AppCompatActivity {
         GlobalApplication.category="balance";
         GlobalApplication.sequence=1;
         Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+        startActivity(intent);
+    }
+
+    public void onClick_intro_congratulate(View v){
+
+        Intent intent = new Intent(getApplicationContext(), CongratulateActivity.class);
+        startActivity(intent);
+    }
+
+    public void onClick_intro_report(View v){
+
+        Intent intent = new Intent(getApplicationContext(), ReportActivity.class);
         startActivity(intent);
     }
 

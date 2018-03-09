@@ -67,7 +67,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 imgPath = R.drawable.tory_2;
                 break;
             case 3:
-                script= "저와함께 지금부터 시작해볼까요?";
+                script= " 지금부터 저와함께 시작해볼까요?";
                 imgPath = R.drawable.tory_3;
                 break;
             case 4:
@@ -127,18 +127,6 @@ public class WelcomeActivity extends AppCompatActivity {
 
             }
         };
-
-
-
-
-
-
-
-
-
-
-
-
 
     }
 

@@ -6,6 +6,7 @@ import android.util.Log;
 
 import java.util.HashMap;
 
+import lipnus.com.hmtr.retro.Response.CalData;
 import lipnus.com.hmtr.retro.Response.ChattingBasic;
 import lipnus.com.hmtr.retro.Response.DeleteAptitude;
 import lipnus.com.hmtr.retro.Response.GroupExist;
@@ -245,6 +246,27 @@ public class RetroClient {
 
             @Override
             public void onFailure(Call<DeleteAptitude> call, Throwable t) {
+                callback.onError(t);
+            }
+        });
+    }
+
+
+    //검사 완료 후 서버에서 정리된 데이터를 생산하도록 한다
+    public void postCaldata (HashMap<String, Object> parameters, final RetroCallback callback) {
+        apiService.postCalData(parameters).enqueue(new Callback<CalData>() {
+            @Override
+            public void onResponse(Call<CalData> call, Response<CalData> response) {
+                if (response.isSuccessful()) {
+                    Log.e("VOVO", "받은내용: " + response.body());
+                    callback.onSuccess(response.code(), response.body());
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CalData> call, Throwable t) {
                 callback.onError(t);
             }
         });

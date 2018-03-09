@@ -3,6 +3,7 @@ package lipnus.com.hmtr.retro;
 
 import java.util.HashMap;
 
+import lipnus.com.hmtr.retro.Response.CalData;
 import lipnus.com.hmtr.retro.Response.ChattingBasic;
 import lipnus.com.hmtr.retro.Response.DeleteAptitude;
 import lipnus.com.hmtr.retro.Response.GroupExist;
@@ -54,5 +55,9 @@ public interface RetroBaseApiService {
     //해당 유저의 챕터3자료 싸그리 날림
     @POST("/android/delete_aptitude")
     Call<DeleteAptitude> postDeleteAptitude(@Body HashMap<String, Object> parameters);
+
+    //검사완료
+    @POST("/android/caldata")
+    Call<CalData> postCalData(@Body HashMap<String, Object> parameters);
 
 }

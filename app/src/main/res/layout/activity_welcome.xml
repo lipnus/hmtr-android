@@ -2,12 +2,12 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e8e7e7"
     android:padding="30dp"
     android:gravity="center_horizontal">
 
 
     <TextView
+        android:textColor="#909090"
         android:textSize="12dp"
         android:layout_marginBottom="200dp"
         android:layout_gravity="center"
@@ -35,6 +35,6 @@
         android:layout_width="220dp"
         android:layout_height="50dp"
         android:text="♡"
-        android:textColor="#ffffff"/>
+        android:textColor="#ffffff" />
 
 </FrameLayout>

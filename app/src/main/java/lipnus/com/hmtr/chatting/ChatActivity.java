@@ -23,15 +23,15 @@ import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import lipnus.com.hmtr.ReportActivity;
-import lipnus.com.hmtr.tool.BusProvider;
+import lipnus.com.hmtr.CongratulateActivity;
 import lipnus.com.hmtr.GlobalApplication;
-import lipnus.com.hmtr.tool.InformationEvent;
 import lipnus.com.hmtr.R;
 import lipnus.com.hmtr.retro.Response.AnswerBasic;
 import lipnus.com.hmtr.retro.Response.ChattingBasic;
 import lipnus.com.hmtr.retro.RetroCallback;
 import lipnus.com.hmtr.retro.RetroClient;
+import lipnus.com.hmtr.tool.BusProvider;
+import lipnus.com.hmtr.tool.InformationEvent;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -486,7 +486,7 @@ public class ChatActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "밸런스 자가진단 완료!", Toast.LENGTH_LONG).show();
                 saveCategory("report");
 
-                Intent intent = new Intent(getApplicationContext(), ReportActivity.class);
+                Intent intent = new Intent(getApplicationContext(), CongratulateActivity.class);
                 startActivity(intent);
                 finish();
                 return true;
@@ -592,7 +592,7 @@ public class ChatActivity extends AppCompatActivity {
     @Subscribe
     public void FinishLoad(InformationEvent mInfo) {
 
-        if(mInfo.message.length() < 50){
+        if(mInfo.message.length() < 70){
             Toast.makeText(getApplication(), mInfo.message, Toast.LENGTH_LONG).show();
         }else{
             addNpcScript(mInfo.message);

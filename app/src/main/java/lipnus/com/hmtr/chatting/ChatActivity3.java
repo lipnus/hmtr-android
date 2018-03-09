@@ -527,7 +527,7 @@ public class ChatActivity3 extends AppCompatActivity {
     @Subscribe
     public void FinishLoad(InformationEvent mInfo) {
 
-        if(mInfo.message.length() < 50){
+        if(mInfo.message.length() < 70){
             Toast.makeText(getApplication(), mInfo.message, Toast.LENGTH_LONG).show();
         }else{
             addNpcScript(mInfo.message);

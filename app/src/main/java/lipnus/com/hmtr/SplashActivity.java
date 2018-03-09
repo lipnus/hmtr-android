@@ -152,57 +152,61 @@ public class SplashActivity extends AppCompatActivity {
                         }
                     });
             builder.show();
-
         }
 
-        //NPC정보설정
-        GlobalApplication.npcName = data.nickname;
-        GlobalApplication.facePath = data.imgpath;
+        //최신버전인 경우 정상적으로 진행
+        else{
+            //NPC정보설정
+            GlobalApplication.npcName = data.nickname;
+            GlobalApplication.facePath = data.imgpath;
 
-        //연속성 관리
-        GlobalApplication.sequence = setting.getFloat("sequence", 0);
-        GlobalApplication.category = setting.getString("category", "basic");
-        GlobalApplication.userinfo_pk = setting.getInt("userinfo_pk", 0);
+            //연속성 관리
+            GlobalApplication.sequence = setting.getFloat("sequence", 0);
+            GlobalApplication.category = setting.getString("category", "basic");
+            GlobalApplication.userinfo_pk = setting.getInt("userinfo_pk", 0);
 
-        Log.e(LOG, "sequence: " + GlobalApplication.sequence +
-                " / category: " + GlobalApplication.category +
-                " / userinfo_pk: " + GlobalApplication.userinfo_pk);
+            Log.e(LOG, "sequence: " + GlobalApplication.sequence +
+                    " / category: " + GlobalApplication.category +
+                    " / userinfo_pk: " + GlobalApplication.userinfo_pk);
 
-        if(GlobalApplication.userinfo_pk==0){
+            if(GlobalApplication.userinfo_pk==0){
 
-            Intent intent = new Intent(getApplicationContext(), GroupActivity.class);
-            startActivity(intent);
+                Intent intent = new Intent(getApplicationContext(), GroupActivity.class);
+                startActivity(intent);
+            }
+            else if(GlobalApplication.category.equals("basic")){
+
+                Toast.makeText(getApplicationContext(), "이어서 검사를 진행합니다", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+                startActivity(intent);
+            }else if(GlobalApplication.category.equals("behavior")){
+
+                Toast.makeText(getApplicationContext(), "이어서 검사를 진행합니다", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+                startActivity(intent);
+
+            }else if(GlobalApplication.category.equals("aptitude")){
+
+                GlobalApplication.sequence = 0;
+
+                //3에서 멈추면 3의 첫번째부터 다시 시작
+                Toast.makeText(getApplicationContext(), "이어서 검사를 진행합니다", Toast.LENGTH_LONG).show();
+                postDeleteAptitude( GlobalApplication.userinfo_pk );
+
+            }else if(GlobalApplication.category.equals("balance")){
+
+                Toast.makeText(getApplicationContext(), "이어서 검사를 진행합니다", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+                startActivity(intent);
+            }
+            else if(GlobalApplication.category.equals("report")){
+
+                Intent intent = new Intent(getApplicationContext(), ReportActivity.class);
+                startActivity(intent);
+            }
+
+            finish();
         }
-        else if(GlobalApplication.category.equals("basic")){
-
-            Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
-            startActivity(intent);
-        }else if(GlobalApplication.category.equals("behavior")){
-
-            Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
-            startActivity(intent);
-
-        }else if(GlobalApplication.category.equals("aptitude")){
-
-            GlobalApplication.sequence = 0;
-
-            //3에서 멈추면 3의 첫번째부터 다시 시작
-            postDeleteAptitude( GlobalApplication.userinfo_pk );
-
-        }else if(GlobalApplication.category.equals("balance")){
-
-            Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
-            startActivity(intent);
-        }
-        else if(GlobalApplication.category.equals("report")){
-
-            Intent intent = new Intent(getApplicationContext(), ReportActivity.class);
-            startActivity(intent);
-        }
-
-        finish();
-
-
     }
 
 

@@ -8,7 +8,7 @@
 
 
     <Button
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:onClick="onClick_intro_splash"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
@@ -17,39 +17,53 @@
 
 
     <Button
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:onClick="onClick_intro_group"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:text="그룹체크"/>
 
     <Button
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:onClick="onClick_intro_welcome"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:text="설문 도입부"/>
 
     <Button
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:onClick="onClick_intro_chat"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:text="채팅"/>
 
     <Button
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:onClick="onClick_intro_chat3"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:text="채팅3"/>
 
     <Button
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:onClick="onClick_intro_chat4"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:text="채팅4"/>
+
+    <Button
+        android:layout_marginTop="20dp"
+        android:onClick="onClick_intro_congratulate"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="축하"/>
+
+    <Button
+        android:layout_marginTop="20dp"
+        android:onClick="onClick_intro_report"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="보고서"/>
 
 
 </LinearLayout>
