@@ -42,6 +42,7 @@ dependencies {
     compile 'com.daimajia.androidanimations:library:2.3@aar'
     compile 'com.rengwuxian.materialedittext:library:2.1.4'
     compile 'com.github.rey5137:material:1.2.4'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
 
 
 }
