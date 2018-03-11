@@ -278,23 +278,12 @@
 
 
             </LinearLayout>
-            <LinearLayout
-                android:layout_marginTop="6dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-
-
-
-
-            </LinearLayout>
 
 
             <!--체세키돋 레이더그래프-->
             <com.github.mikephil.charting.charts.RadarChart
                 android:layout_marginTop="15dp"
-                android:id="@+id/report_radar_chart"
+                android:id="@+id/report_behavior_radar_chart"
                 android:layout_width="match_parent"
                 android:layout_height="350dp" />
 
@@ -314,27 +303,31 @@
                     android:gravity="right">
 
                     <TextView
-                        android:layout_marginTop="22dp"
+                        android:layout_marginTop="26dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textSize="11dp"
                         android:text="채움형"/>
 
                     <TextView
-                        android:layout_marginTop="22dp"
+                        android:layout_marginTop="26dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textSize="11dp"
                         android:text="세움형"/>
 
                     <TextView
-                        android:layout_marginTop="22dp"
+                        android:layout_marginTop="26dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textSize="11dp"
                         android:text="키움형"/>
 
                     <TextView
-                        android:layout_marginTop="22dp"
+                        android:layout_marginTop="26dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textSize="11dp"
                         android:text="돋움형"/>
                 </LinearLayout>
 
@@ -346,36 +339,414 @@
 
             </LinearLayout>
 
+            <!--체세키도 표-->
+            <LinearLayout
+                android:layout_marginTop="60dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#909090"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="28dp"
+                    android:orientation="horizontal"
+                    android:background="@color/descriptionGray"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:textSize="10dp"
+                        android:text="척도"
+                        />
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textSize="10dp"
+                        android:text="원점수"
+                        />
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textSize="10dp"
+                        android:text="백분위"/>
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="5"
+                        android:textSize="10dp"
+                        android:text="설명"/>
+                </LinearLayout>
+
+                <!--채움-->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#909090"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:textSize="10dp"
+                        android:text="채움형"
+                        />
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textSize="10dp"
+                        android:text="66.7"
+                        />
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textSize="10dp"
+                        android:text="66.7"/>
+
+                    <TextView
+                        android:gravity="left"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="6"
+                        android:textSize="10dp"
+                        android:padding="5dp"
+                        android:text="지시학습, 과제학습의 형태가 익숙한 학생으로 해법주의 코칭의 학습이 적합합니다."/>
+                </LinearLayout>
+
+                <!--세움-->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#909090"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:textSize="10dp"
+                        android:text="세움형"
+                        />
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textSize="10dp"
+                        android:text="66.7"
+                        />
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textSize="10dp"
+                        android:text="66.7"/>
+
+                    <TextView
+                        android:gravity="left"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="6"
+                        android:textSize="10dp"
+                        android:padding="3dp"
+                        android:text="상호학습, 포괄학습의 형태가 익숙한 학생으로 인지적 코칭의 학습이 적합합니다."/>
+                </LinearLayout>
+
+                <!--키움-->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#909090"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:textSize="10dp"
+                        android:text="키움형"
+                        />
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textSize="10dp"
+                        android:text="66.7"
+                        />
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textSize="10dp"
+                        android:text="66.7"/>
+
+                    <TextView
+                        android:gravity="left"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="6"
+                        android:textSize="10dp"
+                        android:padding="3dp"
+                        android:text="유도발전학습, 확산산출학습의 형태가 익숙한 학생으로 행동중심 코칭의 학습이 적합합니다."/>
+                </LinearLayout>
+
+                <!--돋움-->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#909090"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:textSize="10dp"
+                        android:text="돋움형"
+                        />
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textSize="10dp"
+                        android:text="66.7"
+                        />
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textSize="10dp"
+                        android:text="66.7"/>
+
+                    <TextView
+                        android:gravity="left"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="6"
+                        android:textSize="10dp"
+                        android:padding="3dp"
+                        android:text="학습자 프로그램학습, 학습자 주도학습의 형태가 익숙한 학생으로 목표지향 코칭의 학습이 적합합니다.."/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+
+
+            <!--학습행동적성 분석-->
+            <View
+                android:layout_marginTop="100dp"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/reportPurple"/>
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="27dp"
+                    android:background="@drawable/flag"/>
+
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="27dp"
+                    android:textSize="16dp"
+                    android:textColor="@color/reportPurple"
+                    android:text="학습적성유형 분석"/>
+
+            </LinearLayout>
+
+            <!--학습행동유형이란?-->
+            <LinearLayout
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:background="@drawable/purple_circle"/>
+
+                <TextView
+                    android:layout_marginLeft="4dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:textColor="#909090"
+                    android:text="학습행동적성이란?"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="6dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/aptitude_img"/>
+
+                <TextView
+                    android:padding="8dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="4dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="10dp"
+                    android:textColor="#909090"
+                    android:background="@drawable/round_gray_background"
+                    android:text="학습적성검사는 학생의 성적과 학습, 진로, 자기관리, 대인관계와 만족도 측정 척도를 설정하여 전략적으로 분석하는 진단평가입니다. 이 검사의 결과로 학습과 관련하여 보이는 계획성, 독립성, 태도를 분석해 자신에게 가장 적합한 학습적성유형을 파악할 수 있습니다. "/>
+
+            </LinearLayout>
+
+
+
+
+
+
+            <!--밸런스 분석-->
+            <View
+                android:layout_marginTop="100dp"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/reportPurple"/>
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="27dp"
+                    android:background="@drawable/flag"/>
+
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="27dp"
+                    android:textSize="16dp"
+                    android:textColor="@color/reportPurple"
+                    android:text="3MAJOR KEY(학습,진로,진학) 밸런스 분석"/>
+
+            </LinearLayout>
+
+            <!--3MAJOR KEY 밸런스검사란?-->
+            <LinearLayout
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:background="@drawable/purple_circle"/>
+
+                <TextView
+                    android:layout_marginLeft="4dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:textColor="#909090"
+                    android:text="3 MAJOR KEY 밸런스검사란?"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="6dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/balance_img"/>
+
+                <TextView
+                    android:padding="8dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="4dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="10dp"
+                    android:textColor="#909090"
+                    android:background="@drawable/round_gray_background"
+                    android:text=" 3 MAJOR KEY 밸런스검사는 학습, 진로, 진학에 대한 태도, 지식의 정도, 이에 맞는 실천 행동의 일치를 묻는 검사입니다. 학습, 진로, 진학과 관련하여 보이는 계획성, 독립성, 태도 등을 분석해 상황 및 수준을 파악하여 자신의 밸런스 유형을 점검할 수 있습니다. "/>
+            </LinearLayout>
+
+            <!--밸런스 삼각 레이더그래프-->
+            <com.github.mikephil.charting.charts.RadarChart
+                android:layout_marginTop="15dp"
+                android:id="@+id/report_balance_radar_chart"
+                android:layout_width="match_parent"
+                android:layout_height="350dp" />
 
         </LinearLayout>
 
-
-
-
-
-
-
-
-
-
-
-
-
-        <!--&lt;!&ndash;본문&ndash;&gt;-->
-        <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:paddingLeft="10dp"-->
-            <!--android:paddingRight="10dp"-->
-            <!--android:orientation="vertical">-->
-
-            <!--<View-->
-                <!--android:layout_marginTop="80dp"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="1px"-->
-                <!--android:background="@color/reportPurple"/>-->
-
-        <!--</LinearLayout>-->
 
     </LinearLayout>
 </ScrollView>

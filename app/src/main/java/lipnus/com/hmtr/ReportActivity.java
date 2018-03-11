@@ -1,6 +1,5 @@
 package lipnus.com.hmtr;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +11,7 @@ import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.charts.RadarChart;
 import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -35,8 +35,11 @@ public class ReportActivity extends AppCompatActivity {
     ImageView titleIv;
 
 
-    @BindView(R.id.report_radar_chart)
-    RadarChart radarChart;
+    @BindView(R.id.report_behavior_radar_chart)
+    RadarChart radarBehaviorChart;
+
+    @BindView(R.id.report_balance_radar_chart)
+    RadarChart radarBalanceChart;
 
     @BindView(R.id.report_bar_chart)
     HorizontalBarChart barChart;
@@ -54,28 +57,29 @@ public class ReportActivity extends AppCompatActivity {
         this.overridePendingTransition(R.anim.fadein, R.anim.fadeout);
 
         setTitle();
-        setRadarChart();
+        setBehaviorRadarChart();
+        setBalanceRadarChart();
+
         setBarChar();
     }
 
-    public void setRadarChart(){
+    public void setBehaviorRadarChart(){
 
-        radarChart.setBackgroundColor(Color.rgb(60, 65, 82));
-        radarChart.getDescription().setEnabled(false);
+        radarBehaviorChart.getDescription().setEnabled(false);
 
-        radarChart.setWebLineWidth(1f);
-        radarChart.setWebColor(Color.LTGRAY);
-        radarChart.setWebLineWidthInner(1f);
-        radarChart.setWebColorInner(Color.LTGRAY);
-        radarChart.setWebAlpha(100);
-        setData();
+        radarBehaviorChart.setWebLineWidth(1f);
+        radarBehaviorChart.setWebColor( Color.parseColor("#909090")  );
+        radarBehaviorChart.setWebLineWidthInner(1f);
+        radarBehaviorChart.setWebColorInner(Color.parseColor("#909090") );
+        radarBehaviorChart.setWebAlpha(100);
+        setBehaviorRadarData();
 
-        radarChart.animateXY(
+        radarBehaviorChart.animateXY(
                 1400, 1400,
                 Easing.EasingOption.EaseInOutQuad,
                 Easing.EasingOption.EaseInOutQuad);
 
-        XAxis xAxis = radarChart.getXAxis();
+        XAxis xAxis = radarBehaviorChart.getXAxis();
         xAxis.setTextSize(9f);
         xAxis.setYOffset(0f);
         xAxis.setXOffset(0f);
@@ -88,52 +92,49 @@ public class ReportActivity extends AppCompatActivity {
                 return mActivities[(int) value % mActivities.length];
             }
         });
-        xAxis.setTextColor(Color.WHITE);
+        xAxis.setTextColor(Color.parseColor("#000000") );
 
 
 
 
-        YAxis yAxis = radarChart.getYAxis();
+        YAxis yAxis = radarBehaviorChart.getYAxis();
         yAxis.setLabelCount(4, false);
-        yAxis.setTextSize(10f);
+        yAxis.setTextSize(12f);
         yAxis.setAxisMinimum(0f);
         yAxis.setAxisMaximum(100f);
         yAxis.setDrawLabels(false);
 
-        radarChart.getDescription().setEnabled(false);
-        radarChart.setWebLineWidth(1f);
-        radarChart.setWebColor(Color.LTGRAY);
-        radarChart.setWebLineWidthInner(1f);
-        radarChart.setWebColorInner(Color.LTGRAY);
-        radarChart.setWebAlpha(100);
+        Legend l = radarBehaviorChart.getLegend();
+        l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+        l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+        l.setDrawInside(false);
+        l.setXEntrySpace(7f);
+        l.setYEntrySpace(5f);
 
-
-        radarChart.invalidate();
     }
 
-    public void setData() {
+    public void setBehaviorRadarData() {
         int count = 4;
 
-        ArrayList<Integer> result;
-        Intent get_intent = getIntent();
-        result = (ArrayList<Integer>) get_intent.getSerializableExtra("result");
 
         ArrayList<RadarEntry> entries1 = new ArrayList<RadarEntry>();
 
 
-
         // NOTE: The order of the entries when being added to the entries array determines their position around the center of
         // the chart.
+
+        //데이터입력
         for (int i = 0; i < count; i++) {
             entries1.add(new RadarEntry(i*20+10));
         }
 
-        RadarDataSet set1 = new RadarDataSet(entries1, "DAESUNG ACADEMY");
+        RadarDataSet set1 = new RadarDataSet(entries1, "행동유형척도");
         set1.setColor(Color.rgb(103, 110, 129));
-        set1.setFillColor(Color.rgb(103, 110, 129));
+        set1.setFillColor( Color.parseColor("#604a7b") );
         set1.setDrawFilled(true);
         set1.setFillAlpha(180);
-        set1.setLineWidth(2f);
+        set1.setLineWidth(1f);
         set1.setDrawHighlightCircleEnabled(true);
         set1.setDrawHighlightIndicators(false);
 
@@ -143,10 +144,98 @@ public class ReportActivity extends AppCompatActivity {
         RadarData data = new RadarData(sets);
         data.setValueTextSize(8f);
         data.setDrawValues(false);
-        data.setValueTextColor(Color.WHITE);
+        data.setValueTextColor(Color.RED);
 
-        radarChart.setData(data);
-        radarChart.invalidate();
+        radarBehaviorChart.setData(data);
+        radarBehaviorChart.invalidate();
+    }
+
+
+    public void setBalanceRadarChart(){
+
+        radarBalanceChart.getDescription().setEnabled(false);
+
+        radarBalanceChart.setWebLineWidth(1f);
+        radarBalanceChart.setWebColor( Color.parseColor("#909090")  );
+        radarBalanceChart.setWebLineWidthInner(1f);
+        radarBalanceChart.setWebColorInner(Color.parseColor("#909090") );
+        radarBalanceChart.setWebAlpha(100);
+        setBalanceRadarData();
+
+        radarBalanceChart.animateXY(
+                1400, 1400,
+                Easing.EasingOption.EaseInOutQuad,
+                Easing.EasingOption.EaseInOutQuad);
+
+        XAxis xAxis = radarBalanceChart.getXAxis();
+        xAxis.setTextSize(9f);
+        xAxis.setYOffset(0f);
+        xAxis.setXOffset(0f);
+        xAxis.setValueFormatter(new IAxisValueFormatter() {
+
+            private String[] mActivities = new String[]{"학습상황", "진로상황", "진학상황"};
+
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                return mActivities[(int) value % mActivities.length];
+            }
+        });
+        xAxis.setTextColor(Color.parseColor("#000000") );
+
+
+
+
+        YAxis yAxis = radarBalanceChart.getYAxis();
+        yAxis.setLabelCount(3, false);
+        yAxis.setTextSize(12f);
+        yAxis.setAxisMinimum(0f);
+        yAxis.setAxisMaximum(100f);
+        yAxis.setDrawLabels(false);
+
+        Legend l = radarBalanceChart.getLegend();
+        l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+        l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+        l.setDrawInside(false);
+        l.setXEntrySpace(7f);
+        l.setYEntrySpace(5f);
+
+    }
+
+    public void setBalanceRadarData() {
+        int count = 3;
+
+
+        ArrayList<RadarEntry> entries1 = new ArrayList<RadarEntry>();
+
+
+        // NOTE: The order of the entries when being added to the entries array determines their position around the center of
+        // the chart.
+
+        //데이터입력
+        for (int i = 0; i < count; i++) {
+            entries1.add(new RadarEntry(i*20+10));
+        }
+
+        RadarDataSet set1 = new RadarDataSet(entries1, "밸런스진단");
+        set1.setColor(Color.rgb(103, 110, 129));
+        set1.setFillColor( Color.parseColor("#604a7b") );
+        set1.setDrawFilled(true);
+        set1.setFillAlpha(180);
+        set1.setLineWidth(1f);
+        set1.setDrawHighlightCircleEnabled(true);
+        set1.setDrawHighlightIndicators(false);
+
+        ArrayList<IRadarDataSet> sets = new ArrayList<IRadarDataSet>();
+        sets.add(set1);
+
+        RadarData data = new RadarData(sets);
+        data.setValueTextSize(8f);
+        data.setDrawValues(false);
+        data.setValueTextColor(Color.RED);
+
+        radarBalanceChart.setData(data);
+        radarBalanceChart.invalidate();
     }
 
 
@@ -164,12 +253,19 @@ public class ReportActivity extends AppCompatActivity {
         dataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
         dataSet.setColor( Color.parseColor("#604a7b"));
 
+
         BarData data = new BarData(dataSet);
         data.setBarWidth(0.5f); // set custom bar width
 
-
         barChart.setData(data);
         barChart.setDoubleTapToZoomEnabled(false);
+        barChart.getDescription().setEnabled(false);
+
+
+        Legend legend = barChart.getLegend();
+        legend.setEnabled(false);
+
+
 
         //기준열
         XAxis xAxis = barChart.getXAxis();
