@@ -167,13 +167,49 @@
             android:paddingRight="10dp"
             android:orientation="vertical">
 
+            <!--MKBT란?-->
             <View
                 android:layout_marginTop="80dp"
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/reportPurple"/>
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="10dp"
+                    android:layout_height="27dp"
+                    android:background="@drawable/flag"/>
+
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="27dp"
+                    android:textSize="16dp"
+                    android:textColor="@color/reportPurple"
+                    android:text="MKBT란?"/>
+            </LinearLayout>
+            <TextView
+                android:layout_marginTop="6dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="10dp"
+                android:textColor="#909090"
+                android:text="학습-진로-진학 연계’라는 인식 및 교육 방향의 변화에 대비하여 학습에 대한 동기 부여 및 구체적인 목표, 실천과 동시에 진로와 진학이 동시에 중심축을 가질 수 있도록 하는 새로운 교육 로드맵입니다"/>
+
+
 
             <!--학습행동유형 분석-->
+            <View
+                android:layout_marginTop="80dp"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/reportPurple"/>
             <LinearLayout
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
@@ -248,19 +284,68 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <com.github.mikephil.charting.charts.LineChart
-                    android:id="@+id/report_line_chart"
-                    android:layout_width="300dp"
-                    android:layout_height="200dp" />
+
 
 
 
             </LinearLayout>
 
-            <com.github.mikephil.charting.charts.HorizontalBarChart
-                android:id="@+id/report_bar_chart"
-                android:layout_width="300dp"
-                android:layout_height="200dp" />
+
+            <!--체세키돋 레이더그래프-->
+            <com.github.mikephil.charting.charts.RadarChart
+                android:layout_marginTop="15dp"
+                android:id="@+id/report_radar_chart"
+                android:layout_width="match_parent"
+                android:layout_height="350dp" />
+
+            <!--체세키돋 막대그래프 담은 레이아웃-->
+            <LinearLayout
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="8"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="right">
+
+                    <TextView
+                        android:layout_marginTop="22dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="채움형"/>
+
+                    <TextView
+                        android:layout_marginTop="22dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="세움형"/>
+
+                    <TextView
+                        android:layout_marginTop="22dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="키움형"/>
+
+                    <TextView
+                        android:layout_marginTop="22dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="돋움형"/>
+                </LinearLayout>
+
+                <com.github.mikephil.charting.charts.HorizontalBarChart
+                    android:id="@+id/report_bar_chart"
+                    android:layout_width="0dp"
+                    android:layout_weight="7"
+                    android:layout_height="200dp" />
+
+            </LinearLayout>
+
 
         </LinearLayout>
 
