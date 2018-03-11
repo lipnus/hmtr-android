@@ -44,11 +44,12 @@
                     />
 
                 <TextView
+                    android:id="@+id/report_basic_testdate"
                     android:gravity="center"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="3"
-                    android:text="2018-01-25"
+                    android:text=""
                     />
 
                 <TextView
@@ -61,11 +62,12 @@
                     />
 
                 <TextView
+                    android:id="@+id/report_basic_name"
                     android:gravity="center"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="3"
-                    android:text="황선필"
+                    android:text=""
                     />
 
             </LinearLayout>
@@ -85,11 +87,12 @@
                     />
 
                 <TextView
+                    android:id="@+id/report_basic_birth"
                     android:gravity="center"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="3"
-                    android:text="1999-03-22"
+                    android:text=""
                     />
 
                 <TextView
@@ -102,11 +105,12 @@
                     />
 
                 <TextView
+                    android:id="@+id/report_basic_sex"
                     android:gravity="center"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="3"
-                    android:text="남"
+                    android:text=""
                     />
 
             </LinearLayout>
@@ -126,11 +130,12 @@
                     />
 
                 <TextView
+                    android:id="@+id/report_basic_school"
                     android:gravity="center"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="3"
-                    android:text="고려대학교"
+                    android:text=""
                     />
 
                 <TextView
@@ -143,11 +148,12 @@
                     />
 
                 <TextView
+                    android:id="@+id/report_basic_grade"
                     android:gravity="center"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="3"
-                    android:text="4학년"
+                    android:text=""
                     />
 
             </LinearLayout>
@@ -285,7 +291,7 @@
                 android:layout_marginTop="15dp"
                 android:id="@+id/report_behavior_radar_chart"
                 android:layout_width="match_parent"
-                android:layout_height="350dp" />
+                android:layout_height="250dp" />
 
             <!--체세키돋 막대그래프 담은 레이아웃-->
             <LinearLayout
@@ -413,15 +419,17 @@
                         />
 
                     <TextView
+                        android:id="@+id/report_cw_raw"
                         android:gravity="center"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:textSize="10dp"
-                        android:text="66.7"
+                        android:text=""
                         />
 
                     <TextView
+                        android:id="@+id/report_cw_standard"
                         android:gravity="center"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -460,21 +468,23 @@
                         />
 
                     <TextView
+                        android:id="@+id/report_sw_raw"
                         android:gravity="center"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:textSize="10dp"
-                        android:text="66.7"
+                        android:text=""
                         />
 
                     <TextView
+                        android:id="@+id/report_sw_standard"
                         android:gravity="center"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:textSize="10dp"
-                        android:text="66.7"/>
+                        android:text=""/>
 
                     <TextView
                         android:gravity="left"
@@ -507,21 +517,23 @@
                         />
 
                     <TextView
+                        android:id="@+id/report_kw_raw"
                         android:gravity="center"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:textSize="10dp"
-                        android:text="66.7"
+                        android:text=""
                         />
 
                     <TextView
+                        android:id="@+id/report_kw_standard"
                         android:gravity="center"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:textSize="10dp"
-                        android:text="66.7"/>
+                        android:text=""/>
 
                     <TextView
                         android:gravity="left"
@@ -554,21 +566,23 @@
                         />
 
                     <TextView
+                        android:id="@+id/report_dw_raw"
                         android:gravity="center"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:textSize="10dp"
-                        android:text="66.7"
+                        android:text=""
                         />
 
                     <TextView
+                        android:id="@+id/report_dw_standard"
                         android:gravity="center"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:textSize="10dp"
-                        android:text="66.7"/>
+                        android:text=""/>
 
                     <TextView
                         android:gravity="left"
@@ -577,7 +591,7 @@
                         android:layout_weight="6"
                         android:textSize="10dp"
                         android:padding="3dp"
-                        android:text="학습자 프로그램학습, 학습자 주도학습의 형태가 익숙한 학생으로 목표지향 코칭의 학습이 적합합니다.."/>
+                        android:text="학습자 프로그램학습, 학습자 주도학습의 형태가 익숙한 학생으로 목표지향 코칭의 학습이 적합합니다."/>
                 </LinearLayout>
 
 
@@ -586,7 +600,8 @@
 
 
 
-            <!--학습행동적성 분석-->
+
+            <!--학습적성유형 분석-->
             <View
                 android:layout_marginTop="100dp"
                 android:layout_width="match_parent"
@@ -613,7 +628,7 @@
 
             </LinearLayout>
 
-            <!--학습행동유형이란?-->
+            <!--학습적성유형이란?-->
             <LinearLayout
                 android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
@@ -659,6 +674,13 @@
                     android:text="학습적성검사는 학생의 성적과 학습, 진로, 자기관리, 대인관계와 만족도 측정 척도를 설정하여 전략적으로 분석하는 진단평가입니다. 이 검사의 결과로 학습과 관련하여 보이는 계획성, 독립성, 태도를 분석해 자신에게 가장 적합한 학습적성유형을 파악할 수 있습니다. "/>
 
             </LinearLayout>
+
+            <!--학습적성유형 막대그래프-->
+            <com.github.mikephil.charting.charts.HorizontalBarChart
+                android:layout_marginTop="20dp"
+                android:id="@+id/report_aptitude_bar_chart"
+                android:layout_width="match_parent"
+                android:layout_height="250dp" />
 
 
 
@@ -743,7 +765,246 @@
                 android:layout_marginTop="15dp"
                 android:id="@+id/report_balance_radar_chart"
                 android:layout_width="match_parent"
-                android:layout_height="350dp" />
+                android:layout_height="250dp" />
+
+
+            <!--밸런스 결과표-->
+            <LinearLayout
+                android:layout_marginTop="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginBottom="50dp">
+
+                <!--목차-->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#909090"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@color/descriptionGray"
+                    android:weightSum="9">
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:textSize="10dp"
+                        android:text="구분"
+                        />
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:textSize="10dp"
+                        android:text="학습상황"
+                        />
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:textSize="10dp"
+                        android:text="진로상황"/>
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:textSize="10dp"
+                        android:padding="5dp"
+                        android:text="진학상황"/>
+                </LinearLayout>
+
+                <!--원점수-->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#909090"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="9">
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:textSize="10dp"
+                        android:background="#f6f6f7"
+                        android:text="원점수"
+                        />
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:textSize="10dp"
+                        android:text="11"
+                        />
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:textSize="10dp"
+                        android:text="11"/>
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:textSize="10dp"
+                        android:padding="5dp"
+                        android:text="11"/>
+                </LinearLayout>
+
+                <!--표준점수-->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#909090"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="9">
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:background="#f6f6f7"
+                        android:textSize="10dp"
+                        android:text="표준점수"
+                        />
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:textSize="10dp"
+                        android:text="11"
+                        />
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:textSize="10dp"
+                        android:text="11"/>
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:textSize="10dp"
+                        android:padding="5dp"
+                        android:text="11"/>
+                </LinearLayout>
+
+                <!--등급-->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#909090"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="9">
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:background="#f6f6f7"
+                        android:textSize="10dp"
+                        android:text="등급"
+                        />
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:textSize="10dp"
+                        android:text="11"
+                        />
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:textSize="10dp"
+                        android:text="11"/>
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:textSize="10dp"
+                        android:padding="5dp"
+                        android:text="11"/>
+                </LinearLayout>
+
+                <!--합계-->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#909090"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="9">
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="7"
+                        android:background="#f6f6f7"
+                        android:padding="5dp"
+                        android:textSize="10dp"
+                        android:text="합계"
+                        />
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:textSize="10dp"
+                        android:text="11"
+                        />
+
+                </LinearLayout>
+
+
+
+
+            </LinearLayout>
 
         </LinearLayout>
 

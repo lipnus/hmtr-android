@@ -10,6 +10,7 @@ import lipnus.com.hmtr.retro.Response.CalData;
 import lipnus.com.hmtr.retro.Response.ChattingBasic;
 import lipnus.com.hmtr.retro.Response.DeleteAptitude;
 import lipnus.com.hmtr.retro.Response.GroupExist;
+import lipnus.com.hmtr.retro.Response.ReportData;
 import lipnus.com.hmtr.retro.Response.ServerInfo;
 import lipnus.com.hmtr.retro.Response.User;
 import retrofit2.Call;
@@ -267,6 +268,28 @@ public class RetroClient {
 
             @Override
             public void onFailure(Call<CalData> call, Throwable t) {
+                callback.onError(t);
+            }
+        });
+    }
+
+
+
+    //보고서를 받아온다
+    public void postReportData (HashMap<String, Object> parameters, final RetroCallback callback) {
+        apiService.postReportData(parameters).enqueue(new Callback<ReportData>() {
+            @Override
+            public void onResponse(Call<ReportData> call, Response<ReportData> response) {
+                if (response.isSuccessful()) {
+                    Log.e("VOVO", "받은내용: " + response.body());
+                    callback.onSuccess(response.code(), response.body());
+                } else {
+                    callback.onFailure(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ReportData> call, Throwable t) {
                 callback.onError(t);
             }
         });

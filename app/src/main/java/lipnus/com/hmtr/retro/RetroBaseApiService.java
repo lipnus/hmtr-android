@@ -7,6 +7,7 @@ import lipnus.com.hmtr.retro.Response.CalData;
 import lipnus.com.hmtr.retro.Response.ChattingBasic;
 import lipnus.com.hmtr.retro.Response.DeleteAptitude;
 import lipnus.com.hmtr.retro.Response.GroupExist;
+import lipnus.com.hmtr.retro.Response.ReportData;
 import lipnus.com.hmtr.retro.Response.ServerInfo;
 import lipnus.com.hmtr.retro.Response.User;
 import retrofit2.Call;
@@ -49,6 +50,7 @@ public interface RetroBaseApiService {
     Call<ChattingBasic> postAptitude(@Body HashMap<String, Object> parameters);
 
     //밸런스 자가측정
+
     @POST("/android/chat_balance")
     Call<ChattingBasic> postBalance(@Body HashMap<String, Object> parameters);
 
@@ -59,5 +61,9 @@ public interface RetroBaseApiService {
     //검사완료
     @POST("/android/caldata")
     Call<CalData> postCalData(@Body HashMap<String, Object> parameters);
+
+    //보고서
+    @POST("/report")
+    Call<ReportData> postReportData(@Body HashMap<String, Object> parameters);
 
 }
