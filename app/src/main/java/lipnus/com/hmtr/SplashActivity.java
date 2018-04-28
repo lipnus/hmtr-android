@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -37,6 +38,7 @@ public class SplashActivity extends AppCompatActivity {
     @BindView(R.id.splash_logo_iv)
     ImageView logoIv;
 
+    int speedUp;
     String LOG = "SSPP";
 
     @Override
@@ -55,9 +57,11 @@ public class SplashActivity extends AppCompatActivity {
         editor= setting.edit();
 
         Glide.with(getApplicationContext())
-                .load( R.drawable.logo )
+                .load( R.drawable.hmtr_logo )
                 .into( logoIv );
         logoIv.setScaleType(ImageView.ScaleType.FIT_XY);
+
+        speedUp = 0;
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -148,7 +152,7 @@ public class SplashActivity extends AppCompatActivity {
             builder.setPositiveButton("확인",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                        finish();
+                            finish();
                         }
                     });
             builder.show();
@@ -209,7 +213,6 @@ public class SplashActivity extends AppCompatActivity {
         }
     }
 
-
     public int getVersion(){
         int version=0;
         try {
@@ -218,5 +221,17 @@ public class SplashActivity extends AppCompatActivity {
         } catch(PackageManager.NameNotFoundException e) { }
 
         return version;
+    }
+
+    public void onClick_splash_speedUp(View v){
+        speedUp++;
+        Log.e("EEEE", "speedUP");
+
+        if (speedUp > 1){
+            Toast.makeText(getApplicationContext(), "TEST MODE", Toast.LENGTH_LONG).show();
+            GlobalApplication.customDelayTime = 0;
+            GlobalApplication.delayTime = 0;
+        }
+
     }
 }

@@ -17,7 +17,7 @@
             android:layout_gravity="center_vertical"
             android:textSize="13dp"
             android:textColor="#ffffff"
-            android:text="#1 기본정보유형"/>
+            android:text="title"/>
 
     </LinearLayout>
 
@@ -75,6 +75,8 @@
 
 
         <ListView
+            android:scrollbarFadeDuration = "0"
+            android:scrollbarAlwaysDrawVerticalTrack = "true"
             android:dividerHeight="1px"
             android:divider="#a9a9a9"
             android:paddingTop="8dp"

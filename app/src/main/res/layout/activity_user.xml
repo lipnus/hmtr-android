@@ -14,10 +14,10 @@
         android:orientation="vertical">
 
         <!--<TextView-->
-            <!--android:textColor="#7c5bee"-->
-            <!--android:id="@+id/profile_group_tv"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content" />-->
+        <!--android:textColor="#7c5bee"-->
+        <!--android:id="@+id/profile_group_tv"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content" />-->
 
 
         <com.rengwuxian.materialedittext.MaterialEditText
@@ -25,6 +25,7 @@
             app:met_floatingLabel="normal"
             app:met_floatingLabelText="이름"
             android:hint="이름"
+            android:maxLength="5"
             android:singleLine="true"
             android:id="@+id/profile_name_et"
             android:layout_width="match_parent"
@@ -32,57 +33,57 @@
             android:textColor="#333"
             android:textSize="14dp" />
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:layout_marginTop="20dp"
-        app:met_floatingLabel="normal"
-        app:met_floatingLabelText="생년월일"
-        android:hint="생년월일 ex)990322"
-        android:singleLine="true"
-        android:inputType="number"
-        android:maxLength="6"
-        android:id="@+id/profile_birth_et"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#333"
-        android:textSize="14dp" />
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:layout_marginTop="20dp"
+            app:met_floatingLabel="normal"
+            app:met_floatingLabelText="생년월일"
+            android:hint="생년월일 ex)990322"
+            android:singleLine="true"
+            android:inputType="number"
+            android:maxLength="6"
+            android:id="@+id/profile_birth_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#333"
+            android:textSize="14dp" />
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:layout_marginTop="20dp"
-        app:met_floatingLabel="normal"
-        app:met_floatingLabelText="전화번호"
-        android:hint="전화번호  ex)01011112222"
-        android:singleLine="true"
-        android:inputType="number"
-        android:maxLength="11"
-        android:id="@+id/profile_phone_et"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#333"
-        android:textSize="14dp" />
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:layout_marginTop="20dp"
+            app:met_floatingLabel="normal"
+            app:met_floatingLabelText="전화번호"
+            android:hint="연락가능한 전화번호  ex)01011112222"
+            android:singleLine="true"
+            android:inputType="number"
+            android:maxLength="11"
+            android:id="@+id/profile_phone_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#333"
+            android:textSize="14dp" />
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:layout_marginTop="20dp"
-        app:met_floatingLabel="normal"
-        app:met_floatingLabelText="이메일"
-        android:singleLine="true"
-        android:inputType="textEmailAddress"
-        android:hint="이메일"
-        android:id="@+id/profile_email_et"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#333"
-        android:textSize="14dp" />
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:layout_marginTop="20dp"
+            app:met_floatingLabel="normal"
+            app:met_floatingLabelText="이메일"
+            android:singleLine="true"
+            android:inputType="textEmailAddress"
+            android:hint="이메일"
+            android:id="@+id/profile_email_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#333"
+            android:textSize="14dp" />
 
 
-    <com.rey.material.widget.CheckBox
-        android:id="@+id/profile_agree_check"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="40dp"
-        style="@style/Material.Drawable.CheckBox"
-        android:gravity="center_vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="개인정보 수집방침에 동의합니다"/>
+        <com.rey.material.widget.CheckBox
+            android:id="@+id/profile_agree_check"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            style="@style/Material.Drawable.CheckBox"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="개인정보 수집방침에 동의합니다"/>
 
     </LinearLayout>
 
@@ -91,7 +92,6 @@
 
 
     <TextView
-        android:textSize="10dp"
         android:textColor="#f32323"
         android:layout_gravity="bottom|center_horizontal"
         android:layout_marginBottom="100dp"
@@ -104,11 +104,9 @@
         android:textColor="#ffffff"
         android:layout_gravity="bottom"
         android:text="검사 시작하기"
+        android:textSize="18dp"
         android:onClick="onClick_profile_start"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="60dp"/>
-
-
-
 </FrameLayout>

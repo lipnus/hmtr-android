@@ -36,9 +36,14 @@ public class ReportData {
         public int stress_G;
         public int stress_H;
 
-        public int learning_score;
-        public int course_score;
-        public int entrance_score;
+        public double learning_score;
+        public double course_score;
+        public double entrance_score;
+        public int learning_grade;
+        public int course_grade;
+        public int entrance_grade;
+
+        public double total_score_lce;
 
         public String gender;
         public String grade;
@@ -64,6 +69,9 @@ public class ReportData {
         public String type_comment;
         public String pnc_comment;
         public String stress_comment;
+
+        public String behavior_comment;
+
         public String learning_comment;
         public String course_comment;
         public String entrance_comment;

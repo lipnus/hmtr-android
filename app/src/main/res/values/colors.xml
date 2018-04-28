@@ -5,6 +5,10 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="hmtrPurple">#7c5bee</color>
+
+    <color name="weakReportPurple">#9a7ff8</color>
+    <color name="groupPurple">#bba9fd</color>
+
     <color name="reportPurple">#604a7b</color>
     <color name="descriptionGray">#f2f2f2</color>
 </resources>

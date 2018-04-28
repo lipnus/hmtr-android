@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
+    android:id="@+id/report_scroll"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -69,8 +70,8 @@
                     android:layout_weight="3"
                     android:text=""
                     />
-
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="28dp"
@@ -173,9 +174,9 @@
             android:paddingRight="10dp"
             android:orientation="vertical">
 
-            <!--MKBT란?-->
+            <!--EBTI란?-->
             <View
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="100dp"
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/reportPurple"/>
@@ -194,9 +195,9 @@
                     android:layout_marginLeft="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="27dp"
-                    android:textSize="16dp"
+                    android:textSize="18dp"
                     android:textColor="@color/reportPurple"
-                    android:text="MKBT란?"/>
+                    android:text="에듀벨 진단검사(EBTI)란?"/>
             </LinearLayout>
             <TextView
                 android:layout_marginTop="6dp"
@@ -204,15 +205,14 @@
                 android:layout_marginLeft="4dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="10dp"
                 android:textColor="#909090"
-                android:text="학습-진로-진학 연계’라는 인식 및 교육 방향의 변화에 대비하여 학습에 대한 동기 부여 및 구체적인 목표, 실천과 동시에 진로와 진학이 동시에 중심축을 가질 수 있도록 하는 새로운 교육 로드맵입니다"/>
+                android:text="에듀밸 진단검사(EBTI)는 학생들의 자기주도적인 참여도와 실천도를 높일 수 있도록  학교생활에 대한 꼼꼼한 분석을 토대로 맞춤형 솔루션을 제공하여 성공적인 학교생활을 할 수 있도록  도와주는 검사입니다."/>
 
 
 
-            <!--학습행동유형 분석-->
+            <!--학습적응유형 분석-->
             <View
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="160dp"
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/reportPurple"/>
@@ -231,15 +231,15 @@
                     android:layout_marginLeft="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="27dp"
-                    android:textSize="16dp"
+                    android:textSize="18dp"
                     android:textColor="@color/reportPurple"
-                    android:text="학습행동유형 분석"/>
+                    android:text="학습적응유형 분석"/>
 
             </LinearLayout>
 
-            <!--학습행동유형이란?-->
+            <!--학습적응유형이란?-->
             <LinearLayout
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -254,9 +254,9 @@
                     android:layout_marginLeft="4dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="12dp"
                     android:textColor="#909090"
-                    android:text="학습행동유형이란?"/>
+                    android:textSize="16dp"
+                    android:text="학습적응유형 검사란?"/>
 
             </LinearLayout>
             <LinearLayout
@@ -265,11 +265,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_gravity="center_vertical"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="@drawable/behavior_img"/>
+                <!--<ImageView-->
+                    <!--android:layout_gravity="center_vertical"-->
+                    <!--android:layout_width="50dp"-->
+                    <!--android:layout_height="50dp"-->
+                    <!--android:background="@drawable/behavior_img"/>-->
 
                 <TextView
                     android:padding="8dp"
@@ -277,25 +277,22 @@
                     android:layout_marginLeft="4dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="10dp"
                     android:textColor="#909090"
                     android:background="@drawable/round_gray_background"
                     android:text="학습유형검사는 학습에 대한 태도, 학습과 관련된 지식의 정도, 이에 맞는 학습 행동의 일치를 묻는 검사입니다. 이 검사의 결과로 학습과 관련하여 보이는 계획성, 독립성, 태도를 분석해 자신에게 가장 적합한 학습행동유형 및 학습법을 파악할 수 있습니다."/>
-
-
             </LinearLayout>
 
 
             <!--체세키돋 레이더그래프-->
             <com.github.mikephil.charting.charts.RadarChart
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="30dp"
                 android:id="@+id/report_behavior_radar_chart"
                 android:layout_width="match_parent"
                 android:layout_height="250dp" />
 
             <!--체세키돋 막대그래프 담은 레이아웃-->
             <LinearLayout
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:weightSum="8"
@@ -312,28 +309,28 @@
                         android:layout_marginTop="26dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="11dp"
+                        android:textSize="12dp"
                         android:text="채움형"/>
 
                     <TextView
                         android:layout_marginTop="26dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="11dp"
+                        android:textSize="12dp"
                         android:text="세움형"/>
 
                     <TextView
                         android:layout_marginTop="26dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="11dp"
+                        android:textSize="12dp"
                         android:text="키움형"/>
 
                     <TextView
                         android:layout_marginTop="26dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="11dp"
+                        android:textSize="12dp"
                         android:text="돋움형"/>
                 </LinearLayout>
 
@@ -347,7 +344,7 @@
 
             <!--체세키도 표-->
             <LinearLayout
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="50dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -361,14 +358,14 @@
                     android:layout_height="28dp"
                     android:orientation="horizontal"
                     android:background="@color/descriptionGray"
-                    android:weightSum="10">
+                    android:weightSum="9">
 
                     <TextView
                         android:gravity="center"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
-                        android:textSize="10dp"
+                        android:textSize="12dp"
                         android:text="척도"
                         />
 
@@ -377,7 +374,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:textSize="10dp"
+                        android:textSize="12dp"
                         android:text="원점수"
                         />
 
@@ -386,7 +383,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:textSize="10dp"
+                        android:textSize="12dp"
                         android:text="백분위"/>
 
                     <TextView
@@ -394,7 +391,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="5"
-                        android:textSize="10dp"
+                        android:textSize="12dp"
                         android:text="설명"/>
                 </LinearLayout>
 
@@ -407,14 +404,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:weightSum="10">
+                    android:weightSum="9">
 
                     <TextView
                         android:gravity="center"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
-                        android:textSize="10dp"
+                        android:textSize="12dp"
                         android:text="채움형"
                         />
 
@@ -434,15 +431,15 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:textSize="10dp"
+                        android:textSize="12dp"
                         android:text="66.7"/>
 
                     <TextView
                         android:gravity="left"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="6"
-                        android:textSize="10dp"
+                        android:layout_weight="5"
+                        android:textSize="12dp"
                         android:padding="5dp"
                         android:text="지시학습, 과제학습의 형태가 익숙한 학생으로 해법주의 코칭의 학습이 적합합니다."/>
                 </LinearLayout>
@@ -456,14 +453,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:weightSum="10">
+                    android:weightSum="9">
 
                     <TextView
                         android:gravity="center"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
-                        android:textSize="10dp"
+                        android:textSize="12dp"
                         android:text="세움형"
                         />
 
@@ -473,7 +470,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:textSize="10dp"
+                        android:textSize="12dp"
                         android:text=""
                         />
 
@@ -483,15 +480,15 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:textSize="10dp"
+                        android:textSize="12dp"
                         android:text=""/>
 
                     <TextView
                         android:gravity="left"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="6"
-                        android:textSize="10dp"
+                        android:layout_weight="5"
+                        android:textSize="12dp"
                         android:padding="3dp"
                         android:text="상호학습, 포괄학습의 형태가 익숙한 학생으로 인지적 코칭의 학습이 적합합니다."/>
                 </LinearLayout>
@@ -505,14 +502,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:weightSum="10">
+                    android:weightSum="9">
 
                     <TextView
                         android:gravity="center"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
-                        android:textSize="10dp"
+                        android:textSize="12dp"
                         android:text="키움형"
                         />
 
@@ -522,7 +519,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:textSize="10dp"
+                        android:textSize="12dp"
                         android:text=""
                         />
 
@@ -532,15 +529,15 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:textSize="10dp"
+                        android:textSize="12dp"
                         android:text=""/>
 
                     <TextView
                         android:gravity="left"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="6"
-                        android:textSize="10dp"
+                        android:layout_weight="5"
+                        android:textSize="12dp"
                         android:padding="3dp"
                         android:text="유도발전학습, 확산산출학습의 형태가 익숙한 학생으로 행동중심 코칭의 학습이 적합합니다."/>
                 </LinearLayout>
@@ -554,14 +551,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:weightSum="10">
+                    android:weightSum="9">
 
                     <TextView
                         android:gravity="center"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
-                        android:textSize="10dp"
+                        android:textSize="12dp"
                         android:text="돋움형"
                         />
 
@@ -571,7 +568,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:textSize="10dp"
+                        android:textSize="12dp"
                         android:text=""
                         />
 
@@ -581,15 +578,15 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:textSize="10dp"
+                        android:textSize="12dp"
                         android:text=""/>
 
                     <TextView
                         android:gravity="left"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="6"
-                        android:textSize="10dp"
+                        android:layout_weight="5"
+                        android:textSize="12dp"
                         android:padding="3dp"
                         android:text="학습자 프로그램학습, 학습자 주도학습의 형태가 익숙한 학생으로 목표지향 코칭의 학습이 적합합니다."/>
                 </LinearLayout>
@@ -603,7 +600,7 @@
 
             <!--학습적성유형 분석-->
             <View
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="150dp"
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/reportPurple"/>
@@ -622,15 +619,15 @@
                     android:layout_marginLeft="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="27dp"
-                    android:textSize="16dp"
+                    android:textSize="18dp"
                     android:textColor="@color/reportPurple"
-                    android:text="학습적성유형 분석"/>
+                    android:text="학습적용유형 분석"/>
 
             </LinearLayout>
 
             <!--학습적성유형이란?-->
             <LinearLayout
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -645,9 +642,9 @@
                     android:layout_marginLeft="4dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="12dp"
+                    android:textSize="16dp"
                     android:textColor="#909090"
-                    android:text="학습행동적성이란?"/>
+                    android:text="학습적용유형 검사란?"/>
 
             </LinearLayout>
             <LinearLayout
@@ -656,11 +653,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_gravity="center_vertical"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="@drawable/aptitude_img"/>
+                <!--<ImageView-->
+                    <!--android:layout_gravity="center_vertical"-->
+                    <!--android:layout_width="50dp"-->
+                    <!--android:layout_height="50dp"-->
+                    <!--android:background="@drawable/aptitude_img"/>-->
 
                 <TextView
                     android:padding="8dp"
@@ -668,28 +665,38 @@
                     android:layout_marginLeft="4dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="10dp"
                     android:textColor="#909090"
                     android:background="@drawable/round_gray_background"
-                    android:text="학습적성검사는 학생의 성적과 학습, 진로, 자기관리, 대인관계와 만족도 측정 척도를 설정하여 전략적으로 분석하는 진단평가입니다. 이 검사의 결과로 학습과 관련하여 보이는 계획성, 독립성, 태도를 분석해 자신에게 가장 적합한 학습적성유형을 파악할 수 있습니다. "/>
+                    android:text="학습적용유형검사는 학생의 성적과 학습, 진로, 자기관리, 대인관계와 만족도 측정 척도를 설정하여 전략적으로 분석하는 진단평가입니다. 이 검사의 결과로 학습과 관련하여 보이는 계획성, 독립성, 태도를 분석해 자신에게 가장 적합한 학습적용유형을 파악할 수 있습니다. "/>
 
             </LinearLayout>
 
             <!--학습적성유형 막대그래프-->
             <com.github.mikephil.charting.charts.HorizontalBarChart
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="40dp"
                 android:id="@+id/report_aptitude_bar_chart"
                 android:layout_width="match_parent"
                 android:layout_height="250dp" />
 
-
+            <!--그래프 아래의 멘트-->
+            <TextView
+                android:id="@+id/report_behavior_comment_tv"
+                android:layout_marginTop="30dp"
+                android:padding="8dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#909090"
+                android:background="@drawable/round_gray_background"
+                android:text=""/>
 
 
 
 
             <!--밸런스 분석-->
             <View
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="160dp"
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/reportPurple"/>
@@ -708,15 +715,15 @@
                     android:layout_marginLeft="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="27dp"
-                    android:textSize="16dp"
+                    android:textSize="18dp"
                     android:textColor="@color/reportPurple"
-                    android:text="3MAJOR KEY(학습,진로,진학) 밸런스 분석"/>
+                    android:text="학교생활 숙련도 분석"/>
 
             </LinearLayout>
 
             <!--3MAJOR KEY 밸런스검사란?-->
             <LinearLayout
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -731,22 +738,22 @@
                     android:layout_marginLeft="4dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="12dp"
+                    android:textSize="16dp"
                     android:textColor="#909090"
-                    android:text="3 MAJOR KEY 밸런스검사란?"/>
+                    android:text="학교생활 숙련도 검사란?"/>
 
             </LinearLayout>
             <LinearLayout
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_gravity="center_vertical"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="@drawable/balance_img"/>
+                <!--<ImageView-->
+                    <!--android:layout_gravity="center_vertical"-->
+                    <!--android:layout_width="50dp"-->
+                    <!--android:layout_height="50dp"-->
+                    <!--android:background="@drawable/balance_img"/>-->
 
                 <TextView
                     android:padding="8dp"
@@ -754,27 +761,25 @@
                     android:layout_marginLeft="4dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="10dp"
                     android:textColor="#909090"
                     android:background="@drawable/round_gray_background"
-                    android:text=" 3 MAJOR KEY 밸런스검사는 학습, 진로, 진학에 대한 태도, 지식의 정도, 이에 맞는 실천 행동의 일치를 묻는 검사입니다. 학습, 진로, 진학과 관련하여 보이는 계획성, 독립성, 태도 등을 분석해 상황 및 수준을 파악하여 자신의 밸런스 유형을 점검할 수 있습니다. "/>
+                    android:text="학교생활 숙련도 검사는 학습, 진로, 진학에 대한 태도, 지식의 정도, 이에 맞는 실천 행동의 일치를 묻는 검사입니다. 학습, 진로, 진학과 관련하여 보이는 계획성, 독립성, 태도 등을 분석해 상황 및 수준을 파악하여 자신의 밸런스 유형을 점검할 수 있습니다."/>
             </LinearLayout>
 
             <!--밸런스 삼각 레이더그래프-->
             <com.github.mikephil.charting.charts.RadarChart
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="20dp"
                 android:id="@+id/report_balance_radar_chart"
                 android:layout_width="match_parent"
-                android:layout_height="250dp" />
+                android:layout_height="270dp" />
 
 
             <!--밸런스 결과표-->
             <LinearLayout
-                android:layout_marginTop="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:layout_marginBottom="50dp">
+                android:layout_marginBottom="20dp">
 
                 <!--목차-->
                 <View
@@ -840,84 +845,39 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="3"
-                        android:textSize="10dp"
+                        android:textSize="12dp"
                         android:background="#f6f6f7"
                         android:text="원점수"
                         />
 
                     <TextView
+                        android:id="@+id/report_learning_tv"
                         android:gravity="center"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
-                        android:textSize="10dp"
-                        android:text="11"
+                        android:textSize="12dp"
+                        android:text=""
                         />
 
                     <TextView
+                        android:id="@+id/report_course_tv"
                         android:gravity="center"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
-                        android:textSize="10dp"
-                        android:text="11"/>
+                        android:textSize="12dp"
+                        android:text=""/>
 
                     <TextView
+                        android:id="@+id/report_enterance_tv"
                         android:gravity="center"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
-                        android:textSize="10dp"
+                        android:textSize="12dp"
                         android:padding="5dp"
-                        android:text="11"/>
-                </LinearLayout>
-
-                <!--표준점수-->
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="#909090"/>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="9">
-
-                    <TextView
-                        android:gravity="center"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="3"
-                        android:background="#f6f6f7"
-                        android:textSize="10dp"
-                        android:text="표준점수"
-                        />
-
-                    <TextView
-                        android:gravity="center"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2"
-                        android:textSize="10dp"
-                        android:text="11"
-                        />
-
-                    <TextView
-                        android:gravity="center"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2"
-                        android:textSize="10dp"
-                        android:text="11"/>
-
-                    <TextView
-                        android:gravity="center"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:textSize="10dp"
-                        android:padding="5dp"
-                        android:text="11"/>
+                        android:text=""/>
                 </LinearLayout>
 
                 <!--등급-->
@@ -937,35 +897,38 @@
                         android:layout_height="match_parent"
                         android:layout_weight="3"
                         android:background="#f6f6f7"
-                        android:textSize="10dp"
+                        android:textSize="12dp"
                         android:text="등급"
                         />
 
                     <TextView
+                        android:id="@+id/report_learning_grade_tv"
                         android:gravity="center"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
-                        android:textSize="10dp"
-                        android:text="11"
+                        android:textSize="12dp"
+                        android:text=""
                         />
 
                     <TextView
+                        android:id="@+id/report_course_grade_tv"
                         android:gravity="center"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
-                        android:textSize="10dp"
-                        android:text="11"/>
+                        android:textSize="12dp"
+                        android:text=""/>
 
                     <TextView
+                        android:id="@+id/report_enterance_grade_tv"
                         android:gravity="center"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
-                        android:textSize="10dp"
+                        android:textSize="12dp"
                         android:padding="5dp"
-                        android:text="11"/>
+                        android:text=""/>
                 </LinearLayout>
 
                 <!--합계-->
@@ -986,19 +949,18 @@
                         android:layout_weight="7"
                         android:background="#f6f6f7"
                         android:padding="5dp"
-                        android:textSize="10dp"
+                        android:textSize="12dp"
                         android:text="합계"
                         />
-
                     <TextView
+                        android:id="@+id/report_balance_sum_tv"
                         android:gravity="center"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
-                        android:textSize="10dp"
-                        android:text="11"
+                        android:textSize="12dp"
+                        android:text=""
                         />
-
                 </LinearLayout>
 
 
@@ -1006,8 +968,148 @@
 
             </LinearLayout>
 
+
+            <!--결과표 아래의 멘트(학습상황, 진로상황, 진로상황)-->
+            <LinearLayout
+                android:layout_marginTop="60dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:background="@drawable/purple_circle"/>
+
+                <TextView
+                    android:layout_marginLeft="4dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    android:textColor="#909090"
+                    android:text="학습상황"/>
+
+            </LinearLayout>
+            <TextView
+                android:lineSpacingMultiplier="1.1"
+                android:layout_marginTop="5dp"
+                android:id="@+id/report_learning_comment_tv"
+                android:padding="8dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#909090"
+                android:background="@drawable/round_gray_background"
+                android:text=""/>
+
+            <LinearLayout
+
+                android:layout_marginTop="40dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:background="@drawable/purple_circle"/>
+
+                <TextView
+                    android:layout_marginLeft="4dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    android:textColor="#909090"
+                    android:text="진로상황"/>
+            </LinearLayout>
+            <TextView
+                android:lineSpacingMultiplier="1.1"
+                android:layout_marginTop="5dp"
+                android:id="@+id/report_course_comment_tv"
+                android:padding="8dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#909090"
+                android:background="@drawable/round_gray_background"
+                android:text=""/>
+
+            <LinearLayout
+                android:layout_marginTop="40dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:background="@drawable/purple_circle"/>
+
+                <TextView
+                    android:layout_marginLeft="4dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    android:textColor="#909090"
+                    android:text="진학상황"/>
+            </LinearLayout>
+            <TextView
+                android:lineSpacingMultiplier="1.1"
+                android:layout_marginTop="5dp"
+                android:id="@+id/report_entrance_comment_tv"
+                android:padding="8dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#909090"
+                android:background="@drawable/round_gray_background"
+                android:text=""
+                android:layout_marginBottom="70dp"/>
+
+
+            <Button
+                android:layout_marginTop="100dp"
+                android:background="#7c5bee"
+                android:textColor="#ffffff"
+                android:layout_gravity="bottom"
+                android:text="보고서 저장"
+                android:textSize="18dp"
+                android:onClick="onClick_report_save"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+
+            <Button
+                android:layout_marginTop="30dp"
+                android:background="#7c5bee"
+                android:textColor="#ffffff"
+                android:layout_gravity="bottom"
+                android:text="앱 초기화"
+                android:textSize="18dp"
+                android:onClick="onClick_report_delete"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+
+            <!--저작권표시-->
+            <TextView
+                android:layout_marginTop="80dp"
+                android:textColor="@color/reportPurple"
+                android:textSize="12dp"
+                android:text="COPYRIGHT(c) 2013 HUMENTORY ALL RIGHTS RESERVED"
+                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"/>
+
+
+
         </LinearLayout>
-
-
     </LinearLayout>
 </ScrollView>

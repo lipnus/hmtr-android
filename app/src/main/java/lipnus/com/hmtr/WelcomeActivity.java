@@ -7,10 +7,8 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.daimajia.androidanimations.library.Techniques;
@@ -34,8 +32,8 @@ public class WelcomeActivity extends AppCompatActivity {
     @BindView(R.id.welcome_charactor_iv)
     ImageView charactorIv;
 
-    @BindView(R.id.welcome_btn)
-    Button nextBtn;
+    @BindView(R.id.welcome_charactor2_iv)
+    ImageView charactor2Iv;
 
     static Handler mHandler;
 
@@ -51,6 +49,17 @@ public class WelcomeActivity extends AppCompatActivity {
         //액티비티 화면 전환효과
         this.overridePendingTransition(R.anim.fadein, R.anim.fadeout);
 
+        Glide.with(getApplicationContext())
+                .load( R.drawable.tory )
+                .into( charactorIv );
+        charactorIv.setScaleType(ImageView.ScaleType.FIT_XY);
+
+        Glide.with(getApplicationContext())
+                .load( R.drawable.many )
+                .into( charactor2Iv );
+        charactor2Iv.setScaleType(ImageView.ScaleType.FIT_XY);
+
+        scriptIndex=1;
         setScreen();
     }
 
@@ -59,85 +68,73 @@ public class WelcomeActivity extends AppCompatActivity {
 
         switch (scriptIndex){
             case 1:
-                script = "안녕하세요. 저는 토리입니다";
-                imgPath = R.drawable.tory_1;
+                script = "안녕하세요. 저희는 토리와 매니입니다";
                 break;
             case 2:
-                script= "MKBT는 현재 자신의 상황 및 수준을 파악해 균형있는 학습,진로,진학을 계획하여 성공적인 학교생활을 할 수 있도록 도와주는 검사입니다.";
-                imgPath = R.drawable.tory_2;
+                script= "에듀벨 진단검사(EBTI)는 학교생활에 대한 꼼꼼한 분석을 토대로 맞춤형 솔루션을 제공하여 성공적인 학교생활을 할 수 있도록 도와주는 검사입니다.";
                 break;
             case 3:
-                script= " 지금부터 저와함께 시작해볼까요?";
-                imgPath = R.drawable.tory_3;
+                script= " 지금부터 저희와 함께 시작해볼까요?";
                 break;
             case 4:
-                Toast.makeText(getApplicationContext(), "MKBT검사를 시작합니다", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
-                startActivity(intent);
-                finish();
+                //다음으로 이동
                 break;
+
         }
 
-
         YoYo.with(Techniques.FadeOutUp)
-                .duration(600)
+                .duration(500)
                 .playOn(scriptTv);
 
-        YoYo.with(Techniques.FadeOut)
-                .duration(1000)
-                .playOn(charactorIv);
-
-        YoYo.with(Techniques.FadeOut)
-                .duration(600)
-                .playOn(nextBtn);
-
-
-        //1초후 실행
+        //0.5초후 실행
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
 
                 mHandler.sendEmptyMessage(0);	// 실행이 끝난후 알림
             }
-        }, 1000);
+        }, 500);
 
         mHandler = new Handler() {
             public void handleMessage(Message msg) {
-
-                // 실행이 끝난후 실행
-                nextBtn.setVisibility(View.VISIBLE);
-
-                scriptTv.setText( script );
-                Glide.with(getApplicationContext())
-                        .load( imgPath )
-                        .into( charactorIv );
-                charactorIv.setScaleType(ImageView.ScaleType.FIT_XY);
-
-                YoYo.with(Techniques.SlideInUp)
-                        .duration(1300)
-                        .playOn(scriptTv);
-
-                YoYo.with(Techniques.FadeIn)
-                        .duration(600)
-                        .playOn(charactorIv);
-
-                YoYo.with(Techniques.FadeIn)
-                        .duration(1000)
-                        .playOn(nextBtn);
-
+                if(scriptIndex==4){
+                    Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else{
+                    scriptTv.setText( script );
+                    YoYo.with(Techniques.SlideInUp)
+                            .duration(1000)
+                            .playOn(scriptTv);
+                }
             }
         };
 
     }
 
+    //화면을 터치했을 때
     public void onClick_welcome(View v){
         scriptIndex++;
         setScreen();
     }
 
     public void onClick_welcome_img(View v){
+
+        scriptIndex++;
+        setScreen();
+
         YoYo.with(Techniques.RubberBand)
                 .duration(800)
                 .playOn(charactorIv);
+    }
+
+    public void onClick_welcome_img2(View v){
+
+        scriptIndex++;
+        setScreen();
+
+        YoYo.with(Techniques.RubberBand)
+                .duration(800)
+                .playOn(charactor2Iv);
     }
 }

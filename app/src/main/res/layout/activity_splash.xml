@@ -2,14 +2,15 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#7c5bee">
+    android:background="#ffffff">
 
 
     <ImageView
+        android:onClick="onClick_splash_speedUp"
         android:id="@+id/splash_logo_iv"
         android:layout_gravity="center"
-        android:layout_width="180dp"
-        android:layout_height="57dp" />
+        android:layout_width="320dp"
+        android:layout_height="wrap_content" />
 
 
 

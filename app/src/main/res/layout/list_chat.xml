@@ -20,8 +20,8 @@
         <ImageView
             android:id="@+id/chat_npc_profile_iv"
             android:layout_gravity="top"
-            android:layout_width="40dp"
-            android:layout_height="40dp" />
+            android:layout_width="42dp"
+            android:layout_height="42dp" />
 
         <!--이름이랑 내용-->
         <LinearLayout
@@ -36,16 +36,15 @@
                 android:id="@+id/chat_npc_name_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12dp"
                 android:layout_marginBottom="3dp"/>
 
             <TextView
-                android:padding="7dp"
+                android:padding="8dp"
+                android:textSize="14dp"
                 android:id="@+id/chat_npc_script_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/round_white_background"/>
-
         </LinearLayout>
 
         <!--날짜-->
@@ -58,9 +57,7 @@
             android:id="@+id/chat_npc_date_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        </LinearLayout>
-
-
+    </LinearLayout>
 
 
     <!--유저대사-->
@@ -86,11 +83,12 @@
 
         <TextView
             android:background="@drawable/round_white_background"
-            android:paddingTop="7dp"
-            android:paddingBottom="7dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:layout_marginLeft="7dp"
+            android:textSize="14dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingLeft="11dp"
+            android:paddingRight="11dp"
+            android:layout_marginLeft="8dp"
             android:layout_gravity="right"
             android:id="@+id/chat_user_script_tv"
             android:layout_width="wrap_content"
@@ -100,8 +98,3 @@
 
 
 </LinearLayout>
-
-
-
-
-

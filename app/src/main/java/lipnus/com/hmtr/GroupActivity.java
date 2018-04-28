@@ -47,6 +47,7 @@ public class GroupActivity extends AppCompatActivity {
 
         retroClient = RetroClient.getInstance(this).createBaseApi();
 
+        postGroup("000000");
         setEditText();
 
         YoYo.with(Techniques.FadeIn)

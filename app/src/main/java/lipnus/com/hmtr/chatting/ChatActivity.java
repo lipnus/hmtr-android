@@ -12,7 +12,6 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.squareup.otto.Subscribe;
@@ -91,12 +90,10 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
         ButterKnife.bind(this);
 
-
-
         //툴바 없에기
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         sendBtnImg(false);
-        setTitle();
+        setTitle(0);
 
         retroClient = RetroClient.getInstance(this).createBaseApi();
         BusProvider.getInstance().register(this);
@@ -161,8 +158,6 @@ public class ChatActivity extends AppCompatActivity {
 
                 //버튼에 불들어옴
                 sendBtnImg(true);
-
-                Log.d("SBSB", "뭐지: " + mAnswer.information);
             }
         });
     }
@@ -173,27 +168,25 @@ public class ChatActivity extends AppCompatActivity {
 
     public void onClick_chat_send(View v){
 
-        if(chatBoxTv.getText().toString().equals("")){
+        if(chatBoxTv.getText().toString().equals("아래에서 선택해주세요") || chatBoxTv.getText().toString().equals("")){
 
         }else{
-
-            int delay = chatDelayTime;
-
             sendBtnImg(false); //버튼에 불끔
             addUserScript(chatBoxTv.getText().toString());//유저대화
             clearAnswer(); //입력창 초기화
 
+            int delay = chatDelayTime;
 
             //custom답변
             if(!customAnswer.equals("0")) {
+                delay *=2;
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         addNpcScript(customAnswer);
                     }
-                }, 500);
+                }, chatDelayTime);
 
-                delay= chatDelayTime;
             }
 
             //서버로 다음 sciprt요청
@@ -217,7 +210,6 @@ public class ChatActivity extends AppCompatActivity {
     public void connectServer(int scriptPk, double sequence, String answer){
 
         //"aptitude'는 통일성이 너무 깨져서  ChatAcivity3에서 처리.
-
         if(GlobalApplication.category.equals("basic")){
             postBasic(scriptPk, sequence, answer);
         }else if(GlobalApplication.category.equals("behavior")){
@@ -225,8 +217,6 @@ public class ChatActivity extends AppCompatActivity {
         }else if(GlobalApplication.category.equals("balance")) {
             postBalance( nowRootSeq, nowNextSeq, answer);
         }
-
-
     }
 
 
@@ -255,6 +245,8 @@ public class ChatActivity extends AppCompatActivity {
 
                 nowScriptPk = data.script_pk;
                 nowSequence = data.sequence;
+
+                setTitle( (int)nowSequence );
 
                 if(! checkCategoryEnd(data.script)){
                     setChat(data);
@@ -296,6 +288,8 @@ public class ChatActivity extends AppCompatActivity {
                 nowScriptPk = data.script_pk;
                 nowSequence = data.sequence;
 
+                setTitle( (int)nowSequence );
+
                 if(! checkCategoryEnd(data.script)){
                     setChat(data);
                 }
@@ -332,6 +326,8 @@ public class ChatActivity extends AppCompatActivity {
                 nowScriptPk = data.script_pk;
                 nowSequence = data.sequence;
 
+                setTitle( (int)nowSequence );
+
                 //다음번 시퀸스를 저장
                 saveSequence();
                 saveCategory("balance"); //테스트용
@@ -354,16 +350,16 @@ public class ChatActivity extends AppCompatActivity {
     public void setChat(ChattingBasic data){
 
         Log.d("SSQQ", "sequence: " + setting.getFloat("sequence", 0) + " / " + nowSequence );
-
         addNpcScript(data.script);
 
         if(data.type.equals("question")){
+            chatBoxTv.setText("아래에서 선택해주세요");
             for(int i=0; i<data.answer.size(); i++){
                 answer_adapter.addItem(data.answer.get(i).choice_pk, data.answer.get(i).choice, data.answer.get(i).custom, data.answer.get(i).information);
             }
             answer_adapter.notifyDataSetChanged();
         }
-        else if(data.type.equals("script")){ //대사만 있는 경우 1초 뒤 다음 대사 호출
+        else if(data.type.equals("script")){ //대사만 있는 경우 대기탄 후 다음 대사 호출
 
             nowNextSeq++;
 
@@ -372,7 +368,7 @@ public class ChatActivity extends AppCompatActivity {
                 public void run(){
                     connectServer(nowScriptPk, nowSequence, "none");
                 }
-            }, chatDelayTime);
+            }, chatDelayTime*2);
         }
     }
 
@@ -383,6 +379,7 @@ public class ChatActivity extends AppCompatActivity {
         addNpcScript(data.script);
 
         if(data.type.equals("question")){
+            chatBoxTv.setText("아래에서 선택해주세요");
             for(int i=0; i<data.answer.size(); i++){
 
                 AnswerBasic mAnswer = data.answer.get(i);
@@ -391,7 +388,7 @@ public class ChatActivity extends AppCompatActivity {
             }
             answer_adapter.notifyDataSetChanged();
         }
-        else if(data.type.equals("script")){ //대사만 있는 경우 1초 뒤 다음 대사 호출
+        else if(data.type.equals("script")){ //대사만 있는 경우 대기탄 후 다음 대사 호출
 
             nowNextSeq = data.sequence+1;
             nowRootSeq = (int)data.sequence;
@@ -401,7 +398,7 @@ public class ChatActivity extends AppCompatActivity {
                 public void run(){
                     connectServer(nowScriptPk, nowSequence, "none");
                 }
-            }, chatDelayTime);
+            }, chatDelayTime*2);
         }
     }
 
@@ -441,19 +438,26 @@ public class ChatActivity extends AppCompatActivity {
         GlobalApplication.category = category;
     }
 
-    public void setTitle(){
+    public void setTitle(int number){
+
+        int percent = 0;
 
         if(GlobalApplication.category.equals("basic")){
-            titleTv.setText("#1 기본 인적사항");
+
+            percent = (int)(((double)number / 17) * 100);
+            String titleText = "I_기본이력사항 (" + percent + "%)";
+            titleTv.setText(titleText);
         }else if(GlobalApplication.category.equals("behavior")){
-            titleTv.setText("#2 학습행동유형");
+            percent = (int)(((double)number / 69) * 100);
+            String titleText = "II_학습적응유형 검사 (" + percent + "%)";
+            titleTv.setText(titleText);
         }else if(GlobalApplication.category.equals("balance")){
-            titleTv.setText("#4 밸런스 자가진단");
+            percent = (int)(((double)number / 48) * 100);
+            String titleText = "IV_학교생활 숙련도 검사 (" + percent + "%)";
+            titleTv.setText(titleText);
         }
 
     }
-
-
 
     public boolean checkCategoryEnd(String script){
 
@@ -466,14 +470,12 @@ public class ChatActivity extends AppCompatActivity {
             saveSequence();
 
             if(GlobalApplication.category.equals("basic")){
-                Toast.makeText(getApplicationContext(), "기본인적사항 완료!", Toast.LENGTH_LONG).show();
                 saveCategory("behavior");
-                setTitle();
+                setTitle(0);
             }
             else if(GlobalApplication.category.equals("behavior")){
-                Toast.makeText(getApplicationContext(), "학습행동유형 완료!", Toast.LENGTH_LONG).show();
                 saveCategory("aptitude");
-                setTitle();
+                setTitle(0);
 
                 //챕터3은 다른데서 하기 때문에 이렇게 해준다
                 Intent intent = new Intent(getApplicationContext(), ChatActivity3.class);
@@ -483,7 +485,6 @@ public class ChatActivity extends AppCompatActivity {
 
             }
             else if(GlobalApplication.category.equals("balance")){
-                Toast.makeText(getApplicationContext(), "밸런스 자가진단 완료!", Toast.LENGTH_LONG).show();
                 saveCategory("report");
 
                 Intent intent = new Intent(getApplicationContext(), CongratulateActivity.class);
@@ -491,8 +492,6 @@ public class ChatActivity extends AppCompatActivity {
                 finish();
                 return true;
             }
-
-
 
             connectServer(0,0,"none"); //얘는 1~2넘어갈때만 호출될듯
             return true;
@@ -591,19 +590,9 @@ public class ChatActivity extends AppCompatActivity {
 
     @Subscribe
     public void FinishLoad(InformationEvent mInfo) {
+        //추가정보 눌렀을때
+        addNpcScript(mInfo.message);
 
-        if(mInfo.message.length() < 70){
-            Toast.makeText(getApplication(), mInfo.message, Toast.LENGTH_LONG).show();
-        }else{
-            addNpcScript(mInfo.message);
-        }
     }
 
 }
-
-
-
-
-
-
-

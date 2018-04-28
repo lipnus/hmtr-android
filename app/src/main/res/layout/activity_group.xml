@@ -25,7 +25,8 @@
         android:layout_width="200dp"
         android:layout_height="60dp"
         android:orientation="vertical"
-        android:background="#f8e2ff">
+        android:elevation="@dimen/bottom_ellipsis_height"
+        android:background="@drawable/round_group_background">
 
         <EditText
             android:id="@+id/group_et"
@@ -38,7 +39,7 @@
             android:layout_width="130dp"
             android:layout_height="60dp"
             android:textSize="33dp"
-            android:textColor="#9075ea"
+            android:textColor="@color/reportPurple"
             android:background="@null"/>
     </LinearLayout>
 

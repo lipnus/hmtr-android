@@ -65,5 +65,12 @@
         android:layout_height="wrap_content"
         android:text="보고서"/>
 
+    <Button
+        android:layout_marginTop="20dp"
+        android:onClick="onClick_speedUp"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="스피드업"/>
+
 
 </LinearLayout>

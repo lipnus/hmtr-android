@@ -59,7 +59,7 @@ public interface RetroBaseApiService {
     Call<DeleteAptitude> postDeleteAptitude(@Body HashMap<String, Object> parameters);
 
     //검사완료
-    @POST("/android/caldata")
+    @POST("/caldata")
     Call<CalData> postCalData(@Body HashMap<String, Object> parameters);
 
     //보고서

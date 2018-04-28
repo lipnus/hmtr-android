@@ -87,17 +87,26 @@ public class UserActivity extends AppCompatActivity {
 
         String resultStr=null;
 
-        //비어있는지 체크
+        //조건충족 체크
         if(nameEt.getText().toString().equals("")){
             resultStr = "이름을 입력해주세요";
         }else if(birthEt.getText().toString().equals("")){
             resultStr = "생년월일을 입력해주세요";
+        }else if(birthEt.getText().toString().length() != 6){
+            resultStr = "생년월일 6자리를 입력하세요";
+        }else if( Integer.parseInt  (birthEt.getText().toString().substring(2,4) ) > 12 ){
+            resultStr = "생년월일 형식이 올바르지 않습니다(월)";
+        }else if( Integer.parseInt (birthEt.getText().toString().substring(4,6) ) > 31){
+            resultStr = "생년월일 형식이 올바르지 않습니다(일)";
         }else if(phoneEt.getText().toString().equals("")){
             resultStr = "전화번호를 입력해주세요";
+        }else if(phoneEt.getText().toString().length() != 11){
+            resultStr = "전화번호가 올바르지 않습니다";
         }else if(emailEt.getText().toString().equals("")){
             resultStr = "이메일을 입력해주세요";
+        }else if(!emailEt.getText().toString().contains("@")){
+            resultStr = "이메일 형식이 올바르지 않습니다";
         }else{
-
             if(!agreeChk.isChecked()){
                 resultStr = "개인정보 수집방침에 동의해주세요";
             }

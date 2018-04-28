@@ -77,4 +77,9 @@ public class IntroActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onClick_speedUp(View v){
+        GlobalApplication.delayTime = 0;
+        GlobalApplication.customDelayTime = 0;
+    }
+
 }

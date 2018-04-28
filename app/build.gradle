@@ -4,7 +4,7 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "lipnus.com.hmtr"
-        minSdkVersion 23
+        minSdkVersion 22
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -43,6 +43,8 @@ dependencies {
     compile 'com.rengwuxian.materialedittext:library:2.1.4'
     compile 'com.github.rey5137:material:1.2.4'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+    compile 'gun0912.ted:tedpermission:2.0.0'
+
 
 
 }

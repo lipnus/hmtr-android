@@ -88,8 +88,8 @@ public class AnswerListViewAdapter extends BaseAdapter {
         }
 
         //애니매이션
-        YoYo.with(Techniques.FadeInLeft)
-                .duration(800)
+        YoYo.with(Techniques.FadeIn)
+                .duration(100)
                 .playOn(answerLr);
 
 
