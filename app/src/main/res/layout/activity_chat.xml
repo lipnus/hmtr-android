@@ -4,32 +4,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <LinearLayout
+        android:layout_marginTop="4dp"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:padding="10dp"
-        android:background="#7c5bee">
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <TextView
+            android:letterSpacing="0.2"
             android:id="@+id/chat_title_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:textSize="13dp"
-            android:textColor="#ffffff"
+            android:textColor="#684e8c"
             android:text="title"/>
-
     </LinearLayout>
+    <ProgressBar
+        android:id="@+id/chat_progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_centerHorizontal="true"
+        android:progressTint="#684e8c"
+        android:max="100" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#404040"/>
 
     <!--채팅창-->
     <ListView
-        android:background="#8769ed"
+        android:listSelector="@android:color/transparent"
+        android:background="#f6f3fe"
         android:layout_weight="1"
         android:id="@+id/chat_listview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:dividerHeight="0px"
-        android:divider="#a9a9a9" />
+        android:divider="#f6f3fe" />
 
     <!--선-->
     <View
@@ -37,9 +54,9 @@
         android:layout_height="1px"
         android:background="#6d56bc"/>
 
+
     <!--입력창-->
     <LinearLayout
-        android:background="#f6f3fe"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:orientation="vertical">
@@ -52,6 +69,7 @@
             android:paddingLeft="12dp">
 
             <TextView
+                android:textColor="#000000"
                 android:gravity="center_vertical"
                 android:id="@+id/answer_inputchat_tv"
                 android:background="#ffffff"
@@ -71,14 +89,15 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="#909090"/>
+            android:background="#6d56bc"/>
 
 
         <ListView
+            android:background="#ffffff"
             android:scrollbarFadeDuration = "0"
             android:scrollbarAlwaysDrawVerticalTrack = "true"
             android:dividerHeight="1px"
-            android:divider="#a9a9a9"
+            android:divider="#b1b1b1"
             android:paddingTop="8dp"
             android:id="@+id/answer_listview"
             android:layout_width="match_parent"

@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -53,6 +54,9 @@ public class ChatActivity extends AppCompatActivity {
     @BindView(R.id.answer_send_iv)
     ImageView sendIv;
 
+    @BindView(R.id.chat_progressBar)
+    ProgressBar progressBar;
+
     Boolean lastItemVisibleFlag = false; //마지막 아이템이 보이는가? (바닥에 닿았는가?)
 
     RetroClient retroClient;
@@ -90,6 +94,8 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
         ButterKnife.bind(this);
 
+        progressBar.setProgress(50);
+
         //툴바 없에기
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         sendBtnImg(false);
@@ -116,11 +122,6 @@ public class ChatActivity extends AppCompatActivity {
 
         connectServer(0, nowSequence, "none");
     }
-
-
-
-
-
 
     public void initList(){
 
@@ -162,10 +163,6 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
-
-
-
-
     public void onClick_chat_send(View v){
 
         if(chatBoxTv.getText().toString().equals("아래에서 선택해주세요") || chatBoxTv.getText().toString().equals("")){
@@ -205,8 +202,6 @@ public class ChatActivity extends AppCompatActivity {
         }
     }
 
-
-
     public void connectServer(int scriptPk, double sequence, String answer){
 
         //"aptitude'는 통일성이 너무 깨져서  ChatAcivity3에서 처리.
@@ -218,8 +213,6 @@ public class ChatActivity extends AppCompatActivity {
             postBalance( nowRootSeq, nowNextSeq, answer);
         }
     }
-
-
 
     public void postBasic(int script_pk, double sequence, String answer){
         HashMap<String, Object> parameters = new HashMap<>();
@@ -445,15 +438,21 @@ public class ChatActivity extends AppCompatActivity {
         if(GlobalApplication.category.equals("basic")){
 
             percent = (int)(((double)number / 17) * 100);
-            String titleText = "I_기본이력사항 (" + percent + "%)";
+            progressBar.setProgress(percent);
+
+            String titleText = "# I_기본이력사항";
             titleTv.setText(titleText);
         }else if(GlobalApplication.category.equals("behavior")){
             percent = (int)(((double)number / 69) * 100);
-            String titleText = "II_학습적응유형 검사 (" + percent + "%)";
+            progressBar.setProgress(percent);
+
+            String titleText = "# II_학습적응유형 검사";
             titleTv.setText(titleText);
         }else if(GlobalApplication.category.equals("balance")){
             percent = (int)(((double)number / 48) * 100);
-            String titleText = "IV_학교생활 숙련도 검사 (" + percent + "%)";
+            progressBar.setProgress(percent);
+
+            String titleText = "# IV_학교생활 숙련도 검사";
             titleTv.setText(titleText);
         }
 

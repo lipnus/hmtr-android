@@ -6,7 +6,6 @@
     android:onClick="onClick_welcome"
     android:gravity="center_horizontal">
 
-
     <TextView
         android:textSize="18dp"
         android:layout_marginBottom="200dp"
@@ -15,7 +14,8 @@
         android:layout_width="260dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text=""/>
+        android:text=""
+        android:textColor="#000000"/>
 
     <LinearLayout
         android:layout_marginTop="40dp"
@@ -40,20 +40,4 @@
             android:layout_height="wrap_content" />
 
     </LinearLayout>
-
-
-
-    <!--<Button-->
-    <!--android:background="@drawable/round_purple_background"-->
-    <!--android:visibility="invisible"-->
-    <!--android:id="@+id/welcome_btn"-->
-    <!--android:layout_marginTop="230dp"-->
-    <!--android:layout_gravity="center"-->
-    <!--android:onClick="onClick_welcome"-->
-    <!--android:layout_width="220dp"-->
-    <!--android:layout_height="50dp"-->
-    <!--android:text=""-->
-    <!--android:textColor="#ffffff" />-->
-
-
 </FrameLayout>

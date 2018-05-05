@@ -81,8 +81,8 @@ public class CongratulateActivity extends AppCompatActivity {
         charactor2Iv.setScaleType(ImageView.ScaleType.FIT_XY);
 
 
-        YoYo.with(Techniques.SlideInUp)
-                .duration(1300)
+        YoYo.with(Techniques.FadeIn)
+                .duration(1000)
                 .playOn(scriptTv);
 
         YoYo.with(Techniques.Bounce)

@@ -1,6 +1,7 @@
 package lipnus.com.hmtr;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -237,7 +238,7 @@ public class ReportActivity extends AppCompatActivity {
         xAxis.setXOffset(0f);
         xAxis.setValueFormatter(new IAxisValueFormatter() {
 
-            private String[] mActivities = new String[]{"채움형", "세움형", "키움형", "돋움형"};
+            private String[] mActivities = new String[]{"채움형", ". 세움형", "키움형", "돋움형 ."};
 
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
@@ -543,9 +544,9 @@ public class ReportActivity extends AppCompatActivity {
 
 
     private void print(){
-//        ProgressDialog dialog = new ProgressDialog(getApplicationContext());
-//        dialog.setMessage("Saving...");
-//        dialog.show();
+        ProgressDialog dialog = new ProgressDialog(this);
+        dialog.setMessage("Saving...");
+        dialog.show();
 
         Bitmap bitmap = getBitmapFromView(scrollView,scrollView.getChildAt(0).getHeight(),scrollView.getChildAt(0).getWidth());
         try {
@@ -565,14 +566,14 @@ public class ReportActivity extends AppCompatActivity {
             output.flush();
             output.close();
 
-//            dialog.dismiss();
+            dialog.dismiss();
 
             Toast.makeText(getApplication(), "보고서를 갤러리에 저장", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             e.printStackTrace();
             Log
                     .e("EEEE", "에러: " + e);
-//            dialog.dismiss();
+            dialog.dismiss();
             Toast.makeText(getApplication(), "보고서 저장 실패", Toast.LENGTH_SHORT).show();
         }
     }

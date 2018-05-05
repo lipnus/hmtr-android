@@ -68,7 +68,7 @@ public class SplashActivity extends AppCompatActivity {
             public void run(){
                 postServerinfo();
             }
-        }, 800);
+        }, 1700);
 
     }
 
@@ -137,8 +137,6 @@ public class SplashActivity extends AppCompatActivity {
             }
         });
     }
-
-
 
     public void setAppInit(ServerInfo data){
 

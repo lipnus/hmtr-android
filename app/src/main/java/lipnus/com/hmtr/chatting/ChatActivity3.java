@@ -12,6 +12,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,14 +28,14 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import lipnus.com.hmtr.tool.BusProvider;
 import lipnus.com.hmtr.GlobalApplication;
-import lipnus.com.hmtr.tool.InformationEvent;
 import lipnus.com.hmtr.R;
 import lipnus.com.hmtr.retro.Request.MultiChoice;
 import lipnus.com.hmtr.retro.Response.ChattingBasic;
 import lipnus.com.hmtr.retro.RetroCallback;
 import lipnus.com.hmtr.retro.RetroClient;
+import lipnus.com.hmtr.tool.BusProvider;
+import lipnus.com.hmtr.tool.InformationEvent;
 
 public class ChatActivity3 extends AppCompatActivity {
 
@@ -56,6 +57,9 @@ public class ChatActivity3 extends AppCompatActivity {
 
     @BindView(R.id.chat_title_tv)
     TextView titleTv;
+
+    @BindView(R.id.chat_progressBar)
+    ProgressBar progressBar;
 
     RetroClient retroClient;
 
@@ -93,7 +97,7 @@ public class ChatActivity3 extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
         ButterKnife.bind(this);
 
-        titleTv.setText("Ⅲ_학습적용유형 검사 (0%)");
+        titleTv.setText("# Ⅲ_학습적용유형 검사");
 
         //툴바 없에기
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -315,7 +319,9 @@ public class ChatActivity3 extends AppCompatActivity {
                 nowSequence = data.sequence;
 
                 int percent = (int)(((double)nowSequence / 40) * 100);
-                String titleText = "Ⅲ_학습적용유형 검사 (" + percent + "%)";
+                progressBar.setProgress(percent);
+
+                String titleText = "# Ⅲ_학습적용유형 검사";
                 titleTv.setText(titleText);
 
                 chat_send_tocck_lock = false; //send버튼 잠금 풀어줌
@@ -371,7 +377,7 @@ public class ChatActivity3 extends AppCompatActivity {
 
         else{ //복수선택 답변처리
 
-            chatBoxTv.setText("모두 선택해주세요(해당사항 없으면 선택X)");
+            chatBoxTv.setText("모두 선택해주세요 (해당사항 없으면 선택X)");
             Log.e("TTDD", data.sequence + " type: " + data.type );
             Log.e("TTDD", data.sequence + " answer: " + data.answer );
 

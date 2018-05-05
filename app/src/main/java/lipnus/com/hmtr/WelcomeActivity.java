@@ -68,7 +68,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
         switch (scriptIndex){
             case 1:
-                script = "안녕하세요. 저희는 토리와 매니입니다";
+                script = "안녕하세요. \n저희는 토리와 매니입니다";
                 break;
             case 2:
                 script= "에듀벨 진단검사(EBTI)는 학교생활에 대한 꼼꼼한 분석을 토대로 맞춤형 솔루션을 제공하여 성공적인 학교생활을 할 수 있도록 도와주는 검사입니다.";
@@ -82,7 +82,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
         }
 
-        YoYo.with(Techniques.FadeOutUp)
+        YoYo.with(Techniques.FadeOut)
                 .duration(500)
                 .playOn(scriptTv);
 
@@ -103,8 +103,8 @@ public class WelcomeActivity extends AppCompatActivity {
                     finish();
                 }else{
                     scriptTv.setText( script );
-                    YoYo.with(Techniques.SlideInUp)
-                            .duration(1000)
+                    YoYo.with(Techniques.FadeIn)
+                            .duration(500)
                             .playOn(scriptTv);
                 }
             }

@@ -18,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
-        <activity android:name=".SplashActivity">
+        <activity android:name=".IntroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,7 +30,7 @@
         <activity android:name=".chatting.ChatActivity3" />
         <activity android:name=".UserActivity" />
         <activity android:name=".WelcomeActivity" />
-        <!--<activity android:name=".SplashActivity" />-->
+        <activity android:name=".SplashActivity" />
         <activity android:name=".ReportActivity" />
         <activity android:name=".CongratulateActivity"/>
     </application>

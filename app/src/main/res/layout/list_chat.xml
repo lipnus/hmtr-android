@@ -32,13 +32,14 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:textColor="#ffffff"
+                android:textColor="#000000"
                 android:id="@+id/chat_npc_name_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="3dp"/>
 
             <TextView
+                android:textColor="#000000"
                 android:padding="8dp"
                 android:textSize="14dp"
                 android:id="@+id/chat_npc_script_tv"
@@ -76,13 +77,14 @@
         <TextView
             android:textSize="8dp"
             android:layout_gravity="right|bottom"
-            android:textColor="#ffffff"
+            android:textColor="#909090"
             android:id="@+id/chat_user_date_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
-            android:background="@drawable/round_white_background"
+
+            android:background="@drawable/round_chat_purple_background"
             android:textSize="14dp"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
@@ -90,6 +92,7 @@
             android:paddingRight="11dp"
             android:layout_marginLeft="8dp"
             android:layout_gravity="right"
+            android:textColor="#ffffff"
             android:id="@+id/chat_user_script_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
